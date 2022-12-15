@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #121212;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background: #fefefe;
+    }
+}
+
+
+/*hide number input arrows*/
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
