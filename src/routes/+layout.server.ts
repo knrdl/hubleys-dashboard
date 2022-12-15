@@ -4,26 +4,27 @@ import {queryCurrentWeather} from "$lib/server/weather";
 import {queryCalendar} from "$lib/server/calendar";
 import {getUserConfig} from "$lib/server/userconfig";
 import {epoch} from "$lib/datetime";
-import {readFile} from "$lib/server/fs";
-import * as path from "path";
+import {getParticlesConfig} from "$lib/server/particles";
 
 export const load: PageServerLoad = async ({cookies, locals}) => {
 
     const userConfig = await getUserConfig(locals.user.userid)
 
-    let currentWeather = null
-    try {
-        currentWeather = await queryCurrentWeather(locals.user.userid, locals.user.lang)
-    } catch (e) {
-        console.error(e)
-    }
+    let currentWeatherJob = (async () => {
+        try {
+            return await queryCurrentWeather(locals.user.userid, locals.user.lang)
+        } catch (e) {
+            console.error(e)
+            return null
+        }
+    })()
+
     const userBgConfig = userConfig.background_rules.find(rule => {
         if (rule.when) // todo
             return rule
     })?.show
 
-    const particles = userBgConfig.particles ?
-        JSON.parse(await readFile(`particles/${path.basename(userBgConfig.particles, '.json')}.json`)) : null
+    const particlesJob = userBgConfig.particles ? getParticlesConfig(userBgConfig.particles) : null
 
 
     let bgImgUrl = null
@@ -51,11 +52,11 @@ export const load: PageServerLoad = async ({cookies, locals}) => {
                 expiresAt: epoch() + userBgConfig.random_image.duration // todo
             } : null,
             triangles: userBgConfig.background === 'triangles',
-            particles,
+            particles: particlesJob,
             blur: userBgConfig.blur,
             dots: userBgConfig.dots,
         },
-        currentWeather,
+        currentWeather: currentWeatherJob,
         userConfig,
         calendar: queryCalendar(),
         userLang: locals.user.lang,
