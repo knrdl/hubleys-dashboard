@@ -80,12 +80,9 @@ hover:scale-110 transition-transform ease-in-out
             </div>
         {/if}
     {/if}
-    <div {title} class="
-        flex justify-center items-center text-4xl h-12
-        text-stone-200
-    ">
+    <div {title} class="flex justify-center items-center text-4xl h-12 text-stone-200">
         {#if logo}
-            <img src="logos/{logo}" alt={title} class="max-w-full max-h-full"/>
+            <img src="logos/{logo}" alt={title.split(/\s/)[0]} class="max-w-full max-h-full"/>
         {:else if emoji}
             <span>{emoji}</span>
         {:else if url}

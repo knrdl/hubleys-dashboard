@@ -1,5 +1,7 @@
 .idea
-/config
+/dev/userdata
+/dev/config.yml
+/dev/secrets
 
 .DS_Store
 node_modules

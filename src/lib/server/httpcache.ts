@@ -14,7 +14,6 @@ function cleanup() {
         const now = epoch()
         for (const url of urls) {
             if (_lifetimes[url] < now) {
-                console.log('cache cleanup', url)  //todo: rm me
                 delete _cache[url]
                 delete _lifetimes[url]
             }
