@@ -1,4 +1,6 @@
 import {getConfig} from "./sysconfig"
+import path from "path";
+import {existsFile} from "$lib/server/fs";
 
 function isUserAllowed(allowConditions: boolean | string[], user: RequestUserInfo) {
     if (allowConditions === true || allowConditions === false) return allowConditions
@@ -25,7 +27,7 @@ function isUserAllowed(allowConditions: boolean | string[], user: RequestUserInf
     return false
 }
 
-export async function getUserCalendars(user: RequestUserInfo) {
+export async function getUserCalendars(user: RequestUserInfo) { // todo: mv
     const config = await getConfig()
     return config.calendars
         .filter(tile => isUserAllowed(tile.allow, user))
@@ -36,7 +38,7 @@ export async function getUserCalendars(user: RequestUserInfo) {
         }) as Calendar[]
 }
 
-export async function getUserSearchEngines(user: RequestUserInfo) {
+export async function getUserSearchEngines(user: RequestUserInfo) { // todo: mv
     const config = await getConfig()
     return config.search_engines
         .filter(tile => isUserAllowed(tile.allow, user))
@@ -47,11 +49,28 @@ export async function getUserSearchEngines(user: RequestUserInfo) {
         }) as SearchEngine[]
 }
 
-export async function getUserTiles(user: RequestUserInfo) {
+async function logo2url(logo?: string) { // todo: mv
+    if (logo) {
+        if (logo.match(/^https?:\/\/.+/)) {
+            return logo
+        } else {
+            const filename = path.basename(logo)
+            const job1 = existsFile('static/logos/' + filename)
+            const job2 = existsFile('static/fallback-logos/' + filename)
+            if (await job1)
+                return 'logos/' + filename
+            if (await job2)
+                return 'fallback-logos/' + filename
+            console.warn(`Logo file "${logo}" could not be found, ignoring image.`)
+        }
+    }
+}
+
+export async function getUserTiles(user: RequestUserInfo): Promise<Tile[]> { // todo: mv
     const config = await getConfig()
-    return config.tiles
+    return Promise.all(config.tiles
         .filter(tile => isUserAllowed(tile.allow, user))
-        .map(origTile => {
+        .map(async origTile => {
             const tile = {...origTile}
             delete tile.allow
             tile.menu = tile.menu?.filter(menuItem => menuItem.allow === undefined || isUserAllowed(menuItem.allow, user)
@@ -60,8 +79,14 @@ export async function getUserTiles(user: RequestUserInfo) {
                 delete menuItem.allow
                 return menuItem
             }).sort((a, b,) => a.title.localeCompare(b.title))
-            if (!(tile.menu?.length > 0))
+            if (tile.menu?.length > 0)
+                await Promise.all(tile.menu.map(async menuItem => {
+                    menuItem.logo = await logo2url(menuItem.logo)
+                    return menuItem
+                }))
+            else
                 delete tile.menu
+            tile.logo = await logo2url(tile.logo)
             return tile
-        }) as Tile[]
+        }))
 }

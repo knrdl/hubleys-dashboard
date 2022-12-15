@@ -21,30 +21,22 @@
         emoji?: string
     }[] | undefined = undefined  // todo
 
-    let tileMenuCoords = null
+    let selectedCoords = null
 
     function onMoreClick(ev: MouseEvent) {
-        tileMenuCoords = {x: ev.x, y: ev.y}
+        selectedCoords = {x: ev.x, y: ev.y}
     }
-
-    let tileFolderCoords = null
 
     function onTileClick(ev: MouseEvent) {
         if (!url) {
             ev.preventDefault()
-            tileFolderCoords = {x: ev.x, y: ev.y}
+            selectedCoords = {x: ev.x, y: ev.y}
         }
     }
 </script>
 
-<!--todo: remove the duplication tileFolderCoords tileMenuCoords-->
-{#if tileFolderCoords}
-    <TileFolder clickX={tileFolderCoords.x} clickY={tileFolderCoords.y} on:close={()=>tileFolderCoords=null} {menu}
-                folderTitle={title}/>
-{/if}
-
-{#if tileMenuCoords}
-    <TileFolder clickX={tileMenuCoords.x} clickY={tileMenuCoords.y} on:close={()=>tileMenuCoords=null} {menu}
+{#if selectedCoords}
+    <TileFolder clickX={selectedCoords.x} clickY={selectedCoords.y} on:close={()=>selectedCoords=null} {menu}
                 folderTitle={title}/>
 {/if}
 
@@ -82,7 +74,7 @@ hover:scale-110 transition-transform ease-in-out
     {/if}
     <div {title} class="flex justify-center items-center text-4xl h-12 text-stone-200">
         {#if logo}
-            <img src="logos/{logo}" alt={title.split(/\s/)[0]} class="max-w-full max-h-full"/>
+            <img src={logo} alt={title} class="max-w-full max-h-full"/>
         {:else if emoji}
             <span>{emoji}</span>
         {:else if url}
@@ -96,7 +88,7 @@ hover:scale-110 transition-transform ease-in-out
                             <div class:col-span-2={index === menu.length -1 && index%2===0} class="flex justify-center">
                                 <div class="w-6 h-6 flex justify-center items-center">
                                     {#if item.logo}
-                                        <img src="logos/{item.logo}" alt={item.title} class="max-w-full max-h-full"/>
+                                        <img src={item.logo} alt={item.title} class="max-w-full max-h-full"/>
                                     {:else if item.emoji}
                                         <span>{item.emoji}</span>
                                     {:else}
@@ -112,7 +104,7 @@ hover:scale-110 transition-transform ease-in-out
             {/if}
         {/if}
     </div>
-    {#if display !== 'icon-only'}
+    {#if display !== 'icon-only' || (!logo && !emoji)}
         <span class="leading-5 overflow-hidden text-center text-slate-300 mt-1">{title}</span>
     {/if}
 </a>

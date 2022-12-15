@@ -3,7 +3,6 @@
 
     onMount(() => {
         setInterval(updateDisplayTime, 1000)
-        updateDisplayTime() // todo: init serverside?
     })
 
     let displayTime: string = ""
@@ -27,6 +26,8 @@
             day: 'numeric',
         })
     }
+
+    updateDisplayTime()
 </script>
 
 <span title={tooltipTime} style="font-variant-caps: petite-caps">{displayTime}</span>
