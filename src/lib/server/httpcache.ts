@@ -26,14 +26,12 @@ function cleanup() {
 
 export function cache(requestUrl: string, responseData: any = undefined, cacheLifetime: Seconds = 10 * 60) {
     if (responseData !== undefined) {
-        console.log('cache in:', requestUrl)  //todo: rm me
         _cache[requestUrl] = responseData
         _lifetimes[requestUrl] = epoch() + cacheLifetime
         if (intervalHandle === null)
             intervalHandle = setInterval(cleanup, 1000)
         return responseData
     } else {
-        console.log('cache out:', requestUrl) //todo: rm me
         if (_cache.hasOwnProperty(requestUrl))
             return _cache[requestUrl]
         else

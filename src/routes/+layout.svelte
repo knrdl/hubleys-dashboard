@@ -26,7 +26,7 @@
         if (typeof window !== "undefined" && data.background.triangles) {
             (async () => {
                 if (!trianglify)
-                    trianglify = (await import('trianglify/dist/trianglify.bundle')).default
+                    trianglify = (await import('@victorioberra/trianglify-browser/dist/trianglify.bundle')).default
                 const pattern = trianglify({width: window.innerWidth, height: window.innerHeight})
                 pattern.toCanvas(triangleCanvas)
             })()
