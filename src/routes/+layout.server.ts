@@ -46,16 +46,16 @@ export const load: PageServerLoad = async ({cookies, locals}) => {
         bgImgUrl = '' // todo
     }
     return {
-        background: {
+        background: (async () => ({
             image: bgImgUrl ? {
                 url: bgImgUrl,
                 expiresAt: epoch() + userBgConfig.random_image.duration // todo
             } : null,
             triangles: userBgConfig.background === 'triangles',
-            particles: particlesJob,
+            particles: await particlesJob,
             blur: userBgConfig.blur,
             dots: userBgConfig.dots,
-        },
+        }))(),
         currentWeather: currentWeatherJob,
         userConfig,
         calendar: queryCalendar(),

@@ -50,13 +50,13 @@
 <Message text={form?.message} kind="success"/>
 
 <div class="my-3 text-sm font-medium text-center text-gray-500 rounded-lg divide-x divide-gray-200 shadow flex dark:divide-gray-700 dark:text-gray-400 dark:bg-slate-700/80">
-    <button class="p-4 w-full rounded-l-lg"
+    <button class="py-2 px-1 w-full rounded-l-lg"
             class:text-white={data.userConfig.weather.mode === 'zip'}
             class:bg-gray-500={data.userConfig.weather.mode === 'zip'}
             on:click={()=>{data.userConfig.weather.mode = 'zip';errorMsg=''}}>
         from zip code
     </button>
-    <button class="p-4 w-full rounded-r-lg"
+    <button class="py-2 px-1 w-full rounded-r-lg"
             class:text-white={data.userConfig.weather.mode === 'lonlat'}
             class:bg-gray-500={data.userConfig.weather.mode === 'lonlat'}
             on:click={()=>{data.userConfig.weather.mode = 'lonlat';errorMsg=''}}>
