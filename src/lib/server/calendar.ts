@@ -9,9 +9,12 @@ export async function queryCalendar() {
     const url = calendar.source_url
     if (cache(url)) return cache(url)
 
-    const headers = (calendar.username && calendar.password) ?
-        new Headers({'Authorization': `Basic ${btoa(calendar.username + ':' + calendar.password)}`}) :
+    const parsedUrl = new URL(url)
+    const headers = (parsedUrl.username && parsedUrl.password) ?
+        new Headers({'Authorization': `Basic ${btoa(parsedUrl.username + ':' + parsedUrl.password)}`}) :
         new Headers()
+    parsedUrl.username = ''
+    parsedUrl.password = ''
 
     const selectedDates = [-1, 0, 1, 2, 3].map(i => {
         const date = new Date()
@@ -19,7 +22,7 @@ export async function queryCalendar() {
         return date.toISOString().split('T')[0]
     })
 
-    const res = await fetch(url, {headers})
+    const res = await fetch(parsedUrl, {headers})
     if (res.status === 200) {
         const data = await res.text()
         const ical = ICAL.parse(data)

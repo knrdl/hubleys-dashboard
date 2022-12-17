@@ -1,7 +1,7 @@
 import {error, json} from "@sveltejs/kit";
 import {getUserSearchEngines} from "$lib/server/authz";
 
-export async function GET({url, locals, fetch}) {
+export async function GET({url, locals}) {
     const autocompleteUrl = url.searchParams.get('autocomplete_url')
     const searchTerm = url.searchParams.get('query')
     if (!autocompleteUrl || !searchTerm) {

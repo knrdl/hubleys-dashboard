@@ -80,8 +80,6 @@ interface SearchEngine {
 interface Calendar {
     source_url: string
     display_url: string
-    username?: string
-    password?: string
 }
 
 interface Tile {
@@ -100,7 +98,7 @@ interface Sysconfig {
         menu?: Tile[]
     })[]
     search_engines: { title: string, search_url: string, autocomplete_url?: string, allow?: boolean | string[] }[]
-    calendars: { source_url: string, display_url: string, username?: string, password?: string, allow?: boolean | string[] }[]
+    calendars: { source_url: string, display_url: string, allow?: boolean | string[] }[]
     admin_userids: string[]
     unsplash_api_key: string | null
     openweathermap_api_key: string | null
