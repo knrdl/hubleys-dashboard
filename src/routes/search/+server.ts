@@ -23,6 +23,8 @@ export async function GET({url, locals}) {
     const resbody = await response.json()
     if (resbody.suggestions) {
         return json(resbody.suggestions.map(suggestion => suggestion.text))
+    } else if (Array.isArray(resbody) && resbody.length === 2 && resbody[0] === searchTerm) {
+        return resbody[1]
     } else {
         throw error(500, 'search provider response format not implemented')
     }
