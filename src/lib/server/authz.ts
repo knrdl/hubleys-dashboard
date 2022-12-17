@@ -69,26 +69,24 @@ async function logo2url(logo?: string) {
 }
 
 export async function getUserTiles(user: RequestUserInfo): Promise<Tile[]> {
-    const config = await getConfig()
-    return Promise.all(config.tiles
-        .filter(tile => isUserAllowed(tile.allow, user))
-        .map(async origTile => {
-            const tile = {...origTile}
-            delete tile.allow
-            tile.menu = tile.menu?.filter(menuItem => menuItem.allow === undefined || isUserAllowed(menuItem.allow, user)
-            ).map(menuItemOrig => {
-                const menuItem = {...menuItemOrig}
-                delete menuItem.allow
+    const transformTiles = (tiles, level = 0) => tiles?.filter(
+        tile => isUserAllowed(tile.allow, user) || (level > 0 && tile.allow === undefined)
+    ).map(async origTile => {
+        const tile = {...origTile}
+        delete tile.allow
+        if (tile.menu) tile.menu = await Promise.all(transformTiles(tile.menu, level + 1))
+        if (tile.menu?.length > 0)
+            await Promise.all(tile.menu.map(async menuItem => {
+                menuItem.logo = await logo2url(menuItem.logo)
                 return menuItem
-            }).sort((a, b,) => a.title.localeCompare(b.title))
-            if (tile.menu?.length > 0)
-                await Promise.all(tile.menu.map(async menuItem => {
-                    menuItem.logo = await logo2url(menuItem.logo)
-                    return menuItem
-                }))
-            else
-                delete tile.menu
-            tile.logo = await logo2url(tile.logo)
-            return tile
-        }))
+            }))
+        else
+            delete tile.menu
+        tile.logo = await logo2url(tile.logo)
+        return tile
+    })
+
+    const config = await getConfig()
+
+    return Promise.all(transformTiles(config.tiles))
 }

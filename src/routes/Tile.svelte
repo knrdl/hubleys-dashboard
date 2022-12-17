@@ -30,6 +30,7 @@
     function onTileClick(ev: MouseEvent) {
         if (!url) {
             ev.preventDefault()
+            ev.stopPropagation()
             selectedCoords = {x: ev.x, y: ev.y}
         }
     }
@@ -39,7 +40,6 @@
     <TileFolder clickX={selectedCoords.x} clickY={selectedCoords.y} on:close={()=>selectedCoords=null} {menu}
                 folderTitle={title}/>
 {/if}
-
 
 <a href={url || '#'} target="_blank" rel="noopener noreferrer" class="card
 group relative
@@ -51,7 +51,7 @@ hover:scale-110 transition-transform ease-in-out
 " on:click={onTileClick}>
     {#if menu}
         {#if url}
-            <button on:click|preventDefault={onMoreClick}
+            <button on:click|preventDefault|stopPropagation={onMoreClick}
                     class="
                     absolute -top-1 -right-1 w-8 h-8
                     inline-flex justify-center items-center

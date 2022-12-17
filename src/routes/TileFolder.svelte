@@ -32,7 +32,8 @@
 
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} on:keydown={keydown}/>
 
-<div class="fixed top-0 left-0 bottom-0 right-0 z-[1000]" on:click={()=>dispatch('close')} on:keydown={keydown}>
+<div class="fixed top-0 left-0 bottom-0 right-0 z-[1000]" on:click|stopPropagation={()=>dispatch('close')}
+     on:keydown={keydown}>
     <div class="absolute p-3 bg-gray-100/95 border border-gray-200 rounded-lg shadow-xl dark:bg-gray-900/95 dark:border-gray-700"
          bind:clientWidth={dialogWidth} bind:clientHeight={dialogHeight} style="left: {leftPos}px; top: {topPos}px"
          transition:scale={{duration: 200 }}>
