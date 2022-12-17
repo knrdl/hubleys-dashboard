@@ -6,10 +6,14 @@ export async function queryBgImgUrl(searchTerm: string) {
         throw new Error(('unsplash error: no api key given'))
     const search = new URLSearchParams({
         client_id: apiKey,
-        orientation: 'landscape', // todo: mobile phone
+        orientation: 'landscape',
         query: searchTerm
     })
-    const res = await fetch('https://api.unsplash.com/photos/random?' + search.toString())
+    const abortController = new AbortController()
+
+    const timeoutId = setTimeout(() => abortController.abort(), 500)
+    const res = await fetch('https://api.unsplash.com/photos/random?' + search.toString(), {signal: abortController.signal})
+    clearTimeout(timeoutId)
     if (res.status === 200) {
         const data = await res.json()
         return data.urls.full
