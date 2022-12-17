@@ -1,6 +1,6 @@
 import {getConfig} from "./sysconfig"
 import path from "path";
-import {existsFile} from "$lib/server/fs";
+import {isFile} from "$lib/server/fs";
 import {dev} from '$app/environment';
 
 function isUserAllowed(allowConditions: boolean | string[], user: RequestUserInfo) {
@@ -57,8 +57,8 @@ async function logo2url(logo?: string) {
         } else {
             const filename = path.basename(logo)
             const basepath = dev ? 'static' : 'client'
-            const job1 = existsFile(basepath + '/logos/' + filename)
-            const job2 = existsFile(basepath + '/fallback-logos/' + filename)
+            const job1 = isFile(basepath + '/logos/' + filename)
+            const job2 = isFile(basepath + '/fallback-logos/' + filename)
             if (await job1)
                 return 'logos/' + filename
             if (await job2)

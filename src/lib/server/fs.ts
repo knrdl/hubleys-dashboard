@@ -18,9 +18,17 @@ export async function writeFile(filepath: string, text: string) {
     })
 }
 
-export async function existsFile(filepath: string) {
+export async function isFile(filepath: string) {
     try {
         return (await fs.promises.stat(filepath)).isFile()
+    } catch (e) {
+        return false
+    }
+}
+
+export async function isDir(filepath: string) {
+    try {
+        return (await fs.promises.stat(filepath)).isDirectory()
     } catch (e) {
         return false
     }

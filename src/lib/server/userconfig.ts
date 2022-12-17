@@ -1,4 +1,4 @@
-import {existsFile, readFile, writeFile} from "$lib/server/fs"
+import {isFile, readFile, writeFile} from "$lib/server/fs"
 
 const default_config: UserConfig = {
     version: 0,
@@ -39,7 +39,7 @@ function userConfigFilePath(userid: UserId) {
 
 async function readUserConfig(userid: UserId) {
     const filepath = userConfigFilePath(userid)
-    if (await existsFile(filepath)) {
+    if (await isFile(filepath)) {
         return JSON.parse(await readFile(filepath))
     } else {
         return default_config

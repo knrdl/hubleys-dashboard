@@ -19,7 +19,7 @@
         url: string
         logo?: string
         emoji?: string
-    }[] | undefined = undefined  // todo
+    }[] | undefined = undefined  // todo type
 
     let selectedCoords = null
 
