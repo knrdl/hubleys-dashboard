@@ -12,9 +12,9 @@
 
 <main class="flex flex-col grow p-3 w-full max-w-screen-lg">
 
-    {#if data.userConfig?.searchbar.show}
+    {#if data.userConfig?.searchbar.show && data.searchEngines}
         <section class="flex justify-center">
-            <Searchbar engines={data.search_engines}/>
+            <Searchbar engines={data.searchEngines}/>
         </section>
     {/if}
 

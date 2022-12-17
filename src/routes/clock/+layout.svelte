@@ -33,7 +33,6 @@
 
 <Home/>
 
-<!--todo: these css styles also for settings nav-->
 <style>
     ul li a[aria-current='page'] {
         @apply border-blue-600 dark:border-blue-500 text-blue-600 dark:text-blue-500;

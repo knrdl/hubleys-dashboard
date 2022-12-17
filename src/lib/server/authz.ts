@@ -28,7 +28,7 @@ function isUserAllowed(allowConditions: boolean | string[], user: RequestUserInf
     return false
 }
 
-export async function getUserCalendars(user: RequestUserInfo) { // todo: mv
+export async function getUserCalendars(user: RequestUserInfo) {
     const config = await getConfig()
     return config.calendars
         .filter(tile => isUserAllowed(tile.allow, user))
@@ -39,7 +39,7 @@ export async function getUserCalendars(user: RequestUserInfo) { // todo: mv
         }) as Calendar[]
 }
 
-export async function getUserSearchEngines(user: RequestUserInfo) { // todo: mv
+export async function getUserSearchEngines(user: RequestUserInfo) {
     const config = await getConfig()
     return config.search_engines
         .filter(tile => isUserAllowed(tile.allow, user))
@@ -50,7 +50,7 @@ export async function getUserSearchEngines(user: RequestUserInfo) { // todo: mv
         }) as SearchEngine[]
 }
 
-async function logo2url(logo?: string) { // todo: mv
+async function logo2url(logo?: string) {
     if (logo) {
         if (logo.match(/^https?:\/\/.+/)) {
             return logo
@@ -68,7 +68,7 @@ async function logo2url(logo?: string) { // todo: mv
     }
 }
 
-export async function getUserTiles(user: RequestUserInfo): Promise<Tile[]> { // todo: mv
+export async function getUserTiles(user: RequestUserInfo): Promise<Tile[]> {
     const config = await getConfig()
     return Promise.all(config.tiles
         .filter(tile => isUserAllowed(tile.allow, user))

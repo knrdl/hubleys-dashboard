@@ -11,7 +11,7 @@ interface BackgroundRule {
             sat: boolean,
             sun: boolean
         }
-        current_weather?: 'snow' | 'rain' | 'sun' // todo
+        current_weather?: 'Thunderstorm' | 'Drizzle' | 'Rain' | 'Snow' | 'Mist' | 'Smoke' | 'Haze' | 'Dust' | 'Fog' | 'Sand' | 'Ash' | 'Squall' | 'Tornado' | 'Clear' | 'Clouds'
         current_temperature_gt?: number
         current_temperature_lt?: number
     }
@@ -74,6 +74,7 @@ interface Tile {
 interface SearchEngine {
     title: string
     search_url: string
+    autocomplete_url?: string
 }
 
 interface Calendar {

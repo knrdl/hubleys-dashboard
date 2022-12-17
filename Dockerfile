@@ -27,4 +27,7 @@ WORKDIR /app
 
 EXPOSE 3000/tcp
 
+VOLUME /userdata
+VOLUME /app/client/logos
+
 CMD node --unhandled-rejections=strict /app/entrypoint.js
