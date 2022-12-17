@@ -2,7 +2,6 @@
     import {page} from '$app/stores';
     import Fa from 'svelte-fa'
     import {faImage, faCloud, faKey, faUserGear} from '@fortawesome/free-solid-svg-icons'
-    import Home from "$lib/widgets/Home.svelte";
 
     export let data
 </script>
@@ -52,8 +51,6 @@
     </nav>
     <slot/>
 </div>
-
-<Home/>
 
 <style>
     ul li a[aria-current='page'] {

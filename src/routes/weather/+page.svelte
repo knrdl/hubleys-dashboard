@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Home from "$lib/widgets/Home.svelte";
     import Fa from 'svelte-fa'
     import {faBinoculars, faCheckCircle, faSun, faUpLong, faDownLong} from '@fortawesome/free-solid-svg-icons'
 
@@ -20,8 +19,6 @@
 <svelte:head>
     <title>Weather</title>
 </svelte:head>
-
-<Home/>
 
 <div class="rounded-lg my-3 drop-shadow">
     <table class="w-full text-left text-gray-500 dark:text-gray-400 border-b-8 border-gray-100 dark:border-gray-700">

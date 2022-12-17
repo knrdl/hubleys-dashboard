@@ -1,8 +1,7 @@
 <script lang="ts">
     import {page} from '$app/stores';
     import Fa from 'svelte-fa'
-    import {faStopwatch20, faHourglass, faHouse} from '@fortawesome/free-solid-svg-icons'
-    import Home from "$lib/widgets/Home.svelte";
+    import {faStopwatch20, faHourglass} from '@fortawesome/free-solid-svg-icons'
 </script>
 
 <svelte:head>
@@ -30,8 +29,6 @@
     </ul>
     <slot/>
 </nav>
-
-<Home/>
 
 <style>
     ul li a[aria-current='page'] {
