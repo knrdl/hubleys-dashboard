@@ -2,7 +2,7 @@
 
 podman network create hubleys_net
 
-podman run -dit --rm -p8000:8000 --name hubleys_proxy --net hubleys_net -v "$PWD/Caddyfile:/etc/caddy/Caddyfile:ro" docker.io/caddy:alpine
+podman run -dit --rm -p8000:8000 --name hubleys_proxy --net hubleys_net -v "$PWD/Caddyfile.dev:/etc/caddy/Caddyfile:ro" docker.io/caddy:alpine
 
 echo http://localhost:8000/
 

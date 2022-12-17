@@ -1,0 +1,9 @@
+http://localhost:8000 {
+    bind 0.0.0.0
+	reverse_proxy hubleys_app:3000 {
+	    header_up Remote-User "user1"
+	    header_up Remote-Email "user1@example.org"
+	    header_up Remote-Name "User1"
+	    header_up Remote-Groups "admin,group1"
+	}
+}
