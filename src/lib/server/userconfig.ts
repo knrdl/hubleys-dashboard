@@ -32,8 +32,8 @@ type UserId = string
 
 let _cache: Record<UserId, UserConfig> = {}
 
-function userConfigFilePath(userid: UserId) { // todo: slash and dot escaped?
-    const encUserid = Buffer.from(userid).toString('base64')
+function userConfigFilePath(userid: UserId) {
+    const encUserid = encodeURIComponent(userid)
     return '/userdata/' + encUserid + '.json'
 }
 
