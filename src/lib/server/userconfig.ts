@@ -13,7 +13,7 @@ const default_config: UserConfig = {
     clock: {show: true},
     calendar: {show: true},
     searchbar: {show: true},
-    settings: {big_icon: true},
+    dashboard: {show_settings_text: true},
     background_rules: [{
         when: true,
         show: {

@@ -1,25 +1,23 @@
 import type {PageServerLoad} from './$types';
 import {queryBgImgUrl} from "$lib/server/bgimg";
 import {queryCurrentWeather} from "$lib/server/weather";
-import {queryCalendar} from "$lib/server/calendar";
-import {getUserConfig} from "$lib/server/userconfig";
 import {epoch} from "$lib/datetime";
 import {getParticlesConfig} from "$lib/server/particles";
 
 export const load: PageServerLoad = async ({cookies, locals}) => {
 
-    const userConfig = await getUserConfig(locals.user.userid)
-
     let currentWeatherJob = (async () => {
         try {
-            return await queryCurrentWeather(locals.user.userid, locals.user.lang)
+            if (locals.sysConfig.openweathermap_api_key)
+                return await queryCurrentWeather(locals.user.userid, locals.user.lang)
+            else return null
         } catch (e) {
             console.error(e)
             return null
         }
     })()
 
-    const userBgConfig = userConfig.background_rules.find(rule => {
+    const userBgConfig = locals.userConfig.background_rules.find(rule => {
         if (rule.when) // todo
             return rule
     })?.show
@@ -57,8 +55,7 @@ export const load: PageServerLoad = async ({cookies, locals}) => {
             dots: userBgConfig.dots,
         }))(),
         currentWeather: currentWeatherJob,
-        userConfig,
-        calendar: queryCalendar(),
+        userConfig: locals.userConfig,  //todo: use this
         userLang: locals.user.lang,
         isAdmin: locals.user.isAdmin
     };

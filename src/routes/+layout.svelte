@@ -2,7 +2,6 @@
     import "../app.css";
     import Particles from "svelte-particles";
     import Header from "./Header.svelte";
-    import Footer from "./Footer.svelte";
 
     let shouldParticlesAnimationRun = true
 
@@ -68,6 +67,5 @@ dark:from-gray-700 dark:via-zinc-700 dark:to-stone-700
     {/if}
     <Header {data}/>
     <slot/>
-    <Footer/>
 </div>
 

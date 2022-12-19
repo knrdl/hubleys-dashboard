@@ -44,7 +44,7 @@ interface UserConfig {
     clock: { show: boolean }
     calendar: { show: boolean }
     searchbar: { show: boolean }
-    settings: { big_icon: boolean }
+    dashboard: { show_settings_text: boolean }
     background_rules: BackgroundRule[]
 }
 

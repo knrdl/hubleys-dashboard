@@ -11,7 +11,7 @@ export async function queryBgImgUrl(searchTerm: string) {
     })
     const abortController = new AbortController()
 
-    const timeoutId = setTimeout(() => abortController.abort(), 500)
+    const timeoutId = setTimeout(() => abortController.abort(), 1000)
     const res = await fetch('https://api.unsplash.com/photos/random?' + search.toString(), {signal: abortController.signal})
     clearTimeout(timeoutId)
     if (res.status === 200) {

@@ -20,11 +20,15 @@ export async function GET({url, locals}) {
     const response = await fetch(autocompleteUrl + '?' + autoCompUrl.searchParams.toString())
     if (!response.ok)
         throw error(504, 'search provider error: ' + (await response.text()))
-    const resbody = await response.json()
+    const resbody: unknown = await response.json()
     if (resbody.suggestions) {
         return json(resbody.suggestions.map(suggestion => suggestion.text))
     } else if (Array.isArray(resbody) && resbody.length === 2 && resbody[0] === searchTerm) {
-        return resbody[1]
+        return json(resbody[1])
+    } else if (Array.isArray(resbody) && resbody.length > 0 && resbody[0].phrase) {
+        return json(resbody.map(res => res.phrase))
+    } else if (Array.isArray(resbody) && resbody.every(item => typeof item === 'string')) {
+        return json(resbody)
     } else {
         throw error(500, 'search provider response format not implemented')
     }

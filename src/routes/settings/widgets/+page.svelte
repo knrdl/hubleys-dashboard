@@ -32,7 +32,7 @@
             <Toggle bind:checked={data.userConfig.searchbar.show}>Show Searchbar</Toggle>
             <Toggle bind:checked={data.userConfig.weather.show}>Show Weather</Toggle>
             <hr class="border-gray-200 dark:border-gray-700 my-1">
-            <Toggle bind:checked={data.userConfig.settings.big_icon}>Big Settings Icon</Toggle>
+            <Toggle bind:checked={data.userConfig.dashboard.show_settings_text}>Show Settings text on dashboard</Toggle>
         </div>
     </div>
     <div class="flex justify-end">
