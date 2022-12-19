@@ -102,6 +102,8 @@ interface Sysconfig {
     admin_userids: string[]
     unsplash_api_key: string | null
     openweathermap_api_key: string | null
+
+    demo_mode: boolean
 }
 
 

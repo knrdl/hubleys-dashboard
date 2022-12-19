@@ -1,0 +1,25 @@
+search_engines:
+  - title: DuckDuckGo
+    search_url: https://duckduckgo.com/
+    autocomplete_url: https://duckduckgo.com/ac/
+    allow: true
+  - title: Startpage
+    search_url: https://www.startpage.com
+    autocomplete_url: https://www.startpage.com/suggestions?segment=startpage.udog&lui=english
+    allow: true
+
+tiles:
+  - title: Logout
+    url: https://id.example.org
+    logo: authelia.png
+    allow: true
+
+  - title: Admin
+    allow: true
+    menu:
+      - title: PiHole
+        url: https://example.org/pihole/
+        logo: pihole.svg
+      - title: Portainer
+        url: https://example.org/portainer/
+        logo: portainer.svg

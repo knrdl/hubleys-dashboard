@@ -13,21 +13,36 @@ COPY package.json package-lock.json /app/
 
 WORKDIR /app
 
-RUN npm install --omit=dev
+RUN NODE_ENV=production npm install
 
 
 FROM node:18-alpine
 
-COPY --from=build --chown=0:0 /app/build /app
+RUN apk add --no-cache curl
+
+ENV NODE_ENV=production
+
+COPY --from=build --chown=node:node /app/build /app
 COPY --from=deps --chown=0:0 /app/node_modules /app/node_modules
 COPY --chown=0:0 package.json package-lock.json entrypoint.js /app/
 COPY --chown=0:0 particles/ /app/particles/
+COPY --chown=0:0 docs/config.yml /app/demo/config.yml
 
+USER node
 WORKDIR /app
 
 EXPOSE 3000/tcp
 
-VOLUME /userdata
-VOLUME /app/client/logos
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+ CMD [ "curl", "--fail", "--silent", "--output", "/dev/null", "localhost:3000/healthcheck" ]
 
-CMD node --unhandled-rejections=strict /app/entrypoint.js
+VOLUME /data
+
+
+CMD mkdir -p /data/logos && \
+    ln -s /data/logos /app/client/logos && \
+    mkdir -p /data/users/backgrounds && \
+    ln -s /data/users/backgrounds /app/client/backgrounds && \
+    mkdir -p /data/users/config && \
+    touch /data/config.yml && \
+    node --unhandled-rejections=strict /app/entrypoint.js

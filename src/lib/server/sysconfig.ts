@@ -7,10 +7,12 @@ let config: Sysconfig
 
 
 async function loadConfig() {
-    const configFile = readFile('config.yml')
+    const isDemoMode = ['1', 'true', 'yes'].includes((env.DEMO_MODE || '').toLowerCase().trim())
+    const configFile = readFile(isDemoMode ? '/app/demo/config.yml' : '/data/config.yml')
     const config = yaml.load(await configFile)
     return {
         ...config,
+        demo_mode: isDemoMode,
         admin_userids: (env.ADMIN_USERIDS || '').split(/\s*[,;:]\s*/).filter(userid => !!userid),
         unsplash_api_key: env.UNSPLASH_API_KEY || null,
         openweathermap_api_key: env.OPENWEATHERMAP_API_KEY || null,

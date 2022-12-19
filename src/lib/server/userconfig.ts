@@ -34,7 +34,7 @@ let _cache: Record<UserId, UserConfig> = {}
 
 function userConfigFilePath(userid: UserId) {
     const encUserid = encodeURIComponent(userid)
-    return '/userdata/' + encUserid + '.json'
+    return '/data/users/config/' + encUserid + '.json'
 }
 
 async function readUserConfig(userid: UserId) {
