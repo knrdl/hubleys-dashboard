@@ -40,9 +40,9 @@ VOLUME /data
 
 
 CMD mkdir -p /data/logos && \
-    ln -s /data/logos /app/client/logos && \
+    ( [ -L /app/client/logos ] || ln -s /data/logos /app/client/logos ) && \
     mkdir -p /data/users/backgrounds && \
-    ln -s /data/users/backgrounds /app/client/backgrounds && \
+    ( [ -L /app/client/backgrounds ] || ln -s /data/users/backgrounds /app/client/backgrounds ) && \
     mkdir -p /data/users/config && \
-    touch /data/config.yml && \
+    ( [ -f /app/client/backgrounds ] || touch /data/config.yml) && \
     node --unhandled-rejections=strict /app/entrypoint.js
