@@ -24,7 +24,7 @@ function cleanup() {
     }
 }
 
-export function cache(requestUrl: string, responseData: any = undefined, cacheLifetime: Seconds = 10 * 60) {
+export function cache<T>(requestUrl: string, responseData: T = undefined, cacheLifetime: Seconds = 10 * 60): T | undefined {
     if (responseData !== undefined) {
         _cache[requestUrl] = responseData
         _lifetimes[requestUrl] = epoch() + cacheLifetime

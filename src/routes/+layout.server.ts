@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({cookies, locals}) => {
     let currentWeatherJob = (async () => {
         try {
             if (locals.sysConfig.openweathermap_api_key)
-                return await queryCurrentWeather({lang: locals.user.lang, userConfig: locals.userConfig})
+                return await queryCurrentWeather({lang: locals.user.lang, userConfig: locals.userConfig, timeout: 750})
             else return null
         } catch (e) {
             console.error(e)
@@ -55,7 +55,7 @@ export const load: PageServerLoad = async ({cookies, locals}) => {
             dots: userBgConfig.dots,
         }))(),
         currentWeather: currentWeatherJob,
-        userConfig: locals.userConfig,  //todo: use this
+        userConfig: locals.userConfig,
         userLang: locals.user.lang,
         isAdmin: locals.user.isAdmin
     };

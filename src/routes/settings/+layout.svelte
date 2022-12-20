@@ -2,6 +2,7 @@
     import {page} from '$app/stores';
     import Fa from 'svelte-fa'
     import {faImage, faCloud, faKey, faUserGear} from '@fortawesome/free-solid-svg-icons'
+    import {fly} from 'svelte/transition';
 
     export let data
 </script>
@@ -10,7 +11,8 @@
     <title>Settings</title>
 </svelte:head>
 
-<div class="border-b border-gray-200 dark:border-gray-700 p-6 pt-2 my-3 max-w-3xl bg-slate-100 dark:bg-gray-800 rounded-lg shadow-md z-10">
+<div class="border-b border-gray-200 dark:border-gray-700 p-6 pt-2 my-3 max-w-3xl bg-slate-100 dark:bg-gray-800 rounded-lg shadow-md z-10"
+     in:fly={{y:-20}}>
     <nav class="mb-6">
         <ul class="flex flex-wrap items-center justify-center text-sm font-medium text-center text-gray-500 dark:text-gray-400">
             <li class="mx-1">

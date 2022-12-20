@@ -1,6 +1,7 @@
 <script lang="ts">
     import Fa from 'svelte-fa'
     import {faBinoculars, faCheckCircle, faSun, faUpLong, faDownLong} from '@fortawesome/free-solid-svg-icons'
+    import {fly} from 'svelte/transition';
 
     export let data
 
@@ -20,7 +21,7 @@
     <title>Weather</title>
 </svelte:head>
 
-<div class="rounded-lg my-3 drop-shadow">
+<div class="rounded-lg my-3 drop-shadow p-1 bg-slate-300/90 dark:bg-slate-900/90" in:fly={{y:-20}}>
     <table class="w-full text-left text-gray-500 dark:text-gray-400 border-b-8 border-gray-100 dark:border-gray-700">
         <thead class="text-xs text-gray-700 uppercase bg-gray-400 dark:bg-black/90 dark:text-gray-400 sticky top-0">
         <tr>

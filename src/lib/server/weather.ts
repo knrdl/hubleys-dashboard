@@ -1,6 +1,7 @@
 import {getConfig} from "./sysconfig";
 import {cache} from "$lib/server/httpcache";
 import {getUserConfig} from "$lib/server/userconfig";
+import {fetchTimeout} from "$lib/server/fetch";
 
 async function buildSearchParams({lang, userConfig}: { lang: string, userConfig: UserConfig }) {
     const apiKey = (await getConfig()).openweathermap_api_key
@@ -45,14 +46,15 @@ export async function queryWeatherForecast({lang, userConfig}: { lang: string, u
     }
 }
 
-export async function queryCurrentWeather({lang, userConfig}: { lang: string, userConfig: UserConfig }) {
+export async function queryCurrentWeather(
+    {lang, userConfig, timeout}: { lang: string, userConfig: UserConfig, timeout?: number }) {
     const search = await buildSearchParams({lang, userConfig})
     const url = 'https://api.openweathermap.org/data/2.5/weather?' + search
-    if (cache(url)) return cache(url)
-    const res = await fetch(url)
+    if (cache<CurrentWeather>(url)) return cache(url)
+    const res = await fetchTimeout(url, {timeout})
     if (res.status === 200) {
         const data = await res.json()
-        return cache(url, {
+        return cache<CurrentWeather>(url, {
             wind_kmh: Math.round(data.wind.speed * 3.6),
             weather_type: data.weather[0].main,
             weather_text: data.weather[0].description,

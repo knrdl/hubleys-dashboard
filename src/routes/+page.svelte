@@ -2,6 +2,7 @@
     import Tile from "./Tile.svelte";
     import Searchbar from "./search/Widget.svelte";
     import CalendarWidget from "./calendar/Widget.svelte";
+    import {fly} from 'svelte/transition';
 
     export let data: PageData
 </script>
@@ -29,7 +30,7 @@
     {/if}
 
     <section class="flex grow justify-center items-end">
-        <div class="flex flex-wrap justify-center">
+        <div class="flex flex-wrap justify-center" in:fly={{y:20}}>
             {#each data.tiles as tile}
                 <Tile {...tile}></Tile>
             {/each}

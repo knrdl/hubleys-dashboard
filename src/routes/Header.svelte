@@ -8,7 +8,7 @@
     export let data
 </script>
 
-<header class="flex justify-between w-screen items-start max-[380px]:flex-col max-[380px]:gap-1">
+<header class="flex justify-between w-screen items-start overflow-hidden max-[380px]:flex-col max-[380px]:gap-1">
     {#if data.userConfig?.weather.show}
         {#if data.currentWeather}
             <a class="pl-2 pt-1 pr-3 pb-1 rounded-br-md"

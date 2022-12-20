@@ -2,13 +2,15 @@
     import {page} from '$app/stores';
     import Fa from 'svelte-fa'
     import {faStopwatch20, faHourglass} from '@fortawesome/free-solid-svg-icons'
+    import {fly} from 'svelte/transition';
 </script>
 
 <svelte:head>
     <title>Clock</title>
 </svelte:head>
 
-<nav class="border-b border-gray-200 dark:border-gray-700 p-6 pt-2 max-w-xl bg-slate-100 dark:bg-gray-800 rounded-lg shadow-md z-10">
+<nav class="border-b border-gray-200 dark:border-gray-700 p-6 pt-2 max-w-xl bg-slate-100 dark:bg-gray-800 rounded-lg shadow-md z-10"
+     in:fly={{y:-20}}>
     <ul class="flex flex-wrap items-center justify-center text-sm font-medium text-center text-gray-500 dark:text-gray-400">
         <li class="mx-1">
             <a href="./stopwatch"
