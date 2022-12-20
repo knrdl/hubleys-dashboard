@@ -1,14 +1,14 @@
 <script lang="ts">
-    import ClockWidget from "$lib/widgets/Clock.svelte";
-    import WeatherWidget from "$lib/widgets/Weather.svelte";
+    import ClockWidget from "./clock/Widget.svelte";
+    import WeatherWidget from "./weather/Widget.svelte";
     import {page} from '$app/stores';
     import Fa from "svelte-fa";
-    import {faCog, faHome, faHouse, faWrench} from "@fortawesome/free-solid-svg-icons";
+    import {faCog, faHome, faWrench} from "@fortawesome/free-solid-svg-icons";
 
     export let data
 </script>
 
-<header class="flex justify-between w-screen top-0 items-start max-[380px]:flex-col max-[380px]:gap-1">
+<header class="flex justify-between w-screen items-start max-[380px]:flex-col max-[380px]:gap-1">
     {#if data.userConfig?.weather.show}
         {#if data.currentWeather}
             <a class="pl-2 pt-1 pr-3 pb-1 rounded-br-md"

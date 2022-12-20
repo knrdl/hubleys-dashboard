@@ -1,7 +1,7 @@
 <script lang="ts">
     import Tile from "./Tile.svelte";
-    import Searchbar from "$lib/widgets/Searchbar.svelte";
-    import CalendarWidget from "$lib/widgets/Calendar.svelte";
+    import Searchbar from "./search/Widget.svelte";
+    import CalendarWidget from "./calendar/Widget.svelte";
 
     export let data: PageData
 </script>
