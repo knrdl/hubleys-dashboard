@@ -69,7 +69,7 @@ hover:scale-110 transition-transform ease-in-out
     {/if}
     <div {title} class="flex justify-center items-center text-4xl h-12 text-stone-200">
         {#if logo}
-            <img src={logo} alt={title} class="max-w-full max-h-full"/>
+            <img src={logo} alt={emoji || title} class="max-w-full max-h-full overflow-hidden"/>
         {:else if emoji}
             <span>{emoji}</span>
         {:else if url}
@@ -83,7 +83,8 @@ hover:scale-110 transition-transform ease-in-out
                             <div class:col-span-2={index === menu.length -1 && index%2===0} class="flex justify-center">
                                 <div class="w-6 h-6 flex justify-center items-center">
                                     {#if item.logo}
-                                        <img src={item.logo} alt={item.title} class="max-w-full max-h-full"/>
+                                        <img src={item.logo} alt={item.emoji || item.title}
+                                             class="max-w-full max-h-full overflow-hidden"/>
                                     {:else if item.emoji}
                                         <span>{item.emoji}</span>
                                     {:else}
@@ -107,10 +108,11 @@ hover:scale-110 transition-transform ease-in-out
 <style>
     :root {
         --height: 90px;
+        --width: calc(var(--height) * 1.618);
     }
 
     .card {
-        width: calc(var(--height) * 1.618);
+        width: var(--width);
         height: var(--height);
     }
 </style>

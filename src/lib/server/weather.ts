@@ -1,6 +1,5 @@
 import {getConfig} from "./sysconfig";
 import {cache} from "$lib/server/httpcache";
-import {getUserConfig} from "$lib/server/userconfig";
 import {fetchTimeout} from "$lib/server/fetch";
 
 async function buildSearchParams({lang, userConfig}: { lang: string, userConfig: UserConfig }) {
@@ -15,7 +14,7 @@ async function buildSearchParams({lang, userConfig}: { lang: string, userConfig:
         search.set('lon', `${conf.lon}`)
         search.set('lat', `${conf.lat}`)
     } else {
-        throw new Error(('weather for user not configured'))
+        throw new Error('weather for user not configured')
     }
     return search.toString()
 }

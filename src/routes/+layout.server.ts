@@ -9,11 +9,17 @@ export const load: PageServerLoad = async ({cookies, locals}) => {
     let currentWeatherJob = (async () => {
         try {
             if (locals.sysConfig.openweathermap_api_key)
-                return await queryCurrentWeather({lang: locals.user.lang, userConfig: locals.userConfig, timeout: 750})
-            else return null
+                return await queryCurrentWeather({
+                    lang: locals.user.lang,
+                    userConfig: locals.userConfig,
+                    timeout: locals.sysConfig.server_request_min_timeout
+                })
+            else return 'NOT_ENABLED'
         } catch (e) {
-            console.error(e)
-            return null
+            if (e.message === 'weather for user not configured')
+                return 'NOT_CONFIGURED'
+            else
+                return null
         }
     })()
 
