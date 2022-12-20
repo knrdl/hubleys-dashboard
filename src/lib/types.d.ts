@@ -11,7 +11,7 @@ interface BackgroundRule {
             sat: boolean,
             sun: boolean
         }
-        current_weather?: 'Thunderstorm' | 'Drizzle' | 'Rain' | 'Snow' | 'Mist' | 'Smoke' | 'Haze' | 'Dust' | 'Fog' | 'Sand' | 'Ash' | 'Squall' | 'Tornado' | 'Clear' | 'Clouds'
+        current_weather?: WeatherConditions
         current_temperature_gt?: number
         current_temperature_lt?: number
     }
@@ -51,16 +51,10 @@ interface UserConfig {
 interface RequestUserInfo {
     userid: string
     email: string | null
+    username: string | null
     groups: string[]
     isAdmin: boolean
     lang: string
-}
-
-interface TileMenuItem {
-    title: string
-    url: string
-    logo?: string
-    emoji?: string
 }
 
 interface Tile {
@@ -68,7 +62,8 @@ interface Tile {
     url?: string
     logo?: string
     emoji?: string
-    menu?: TileMenuItem[]
+    display?: 'icon-only'
+    menu?: Tile[]
 }
 
 interface SearchEngine {
@@ -79,32 +74,20 @@ interface SearchEngine {
 
 interface Calendar {
     source_url: string
-    display_url: string
+    display_url?: string
 }
 
-interface Tile {
-    title: string
-    url: string
-    emoji?: string
-    logo?: string
-    allow?: boolean | string[]
-
-    display?: 'icon-only'
-}
+type SysconfigAllow = boolean | string[]
 
 interface Sysconfig {
     tiles: (Tile & {
-        url?: string
-        menu?: Tile[]
+        allow: SysconfigAllow
     })[]
-    search_engines: { title: string, search_url: string, autocomplete_url?: string, allow?: boolean | string[] }[]
-    calendars: { source_url: string, display_url: string, allow?: boolean | string[] }[]
+    search_engines: (SearchEngine & { allow: SysconfigAllow })[]
+    calendars: (Calendar & { allow: SysconfigAllow })[]
     admin_userids: string[]
     unsplash_api_key: string | null
     openweathermap_api_key: string | null
 
     demo_mode: boolean
 }
-
-
-// todo: better names for types

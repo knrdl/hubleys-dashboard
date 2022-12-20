@@ -12,7 +12,7 @@ export async function handle({event, resolve}) {
             groups: ['example-group1'],
             isAdmin: true,
             lang: (event.request.headers.get('accept-language') || 'en').split(/[,;]/)[0]
-        }
+        } as RequestUserInfo
         event.locals.sysConfig = config
         event.locals.userConfig = await getUserConfig(event.locals.user.userid)
         return resolve(event)
@@ -26,7 +26,7 @@ export async function handle({event, resolve}) {
                 groups: (event.request.headers.get('Remote-Groups') || '').split(/\s*,\s*/).filter(group => !!group),
                 isAdmin: config.admin_userids.includes(userid),
                 lang: (event.request.headers.get('accept-language') || 'en').split(/[,;]/)[0]
-            }
+            } as RequestUserInfo
             event.locals.sysConfig = config
             event.locals.userConfig = await getUserConfig(event.locals.user.userid)
             return resolve(event)

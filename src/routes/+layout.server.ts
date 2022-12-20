@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({cookies, locals}) => {
     let currentWeatherJob = (async () => {
         try {
             if (locals.sysConfig.openweathermap_api_key)
-                return await queryCurrentWeather(locals.user.userid, locals.user.lang)
+                return await queryCurrentWeather({lang: locals.user.lang, userConfig: locals.userConfig})
             else return null
         } catch (e) {
             console.error(e)

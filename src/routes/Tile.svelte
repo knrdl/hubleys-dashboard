@@ -9,17 +9,12 @@
     } from '@fortawesome/free-solid-svg-icons'
     import TileFolder from "./TileFolder.svelte";
 
-    export let title: string
-    export let emoji: string | undefined = undefined
-    export let logo: string | undefined = undefined
-    export let url: string | undefined = undefined
-    export let display: undefined | 'icon-only' = undefined // todo type
-    export let menu: {
-        title: string
-        url: string
-        logo?: string
-        emoji?: string
-    }[] | undefined = undefined  // todo type
+    export let title: Tile["title"]
+    export let emoji: Tile["emoji"] = undefined
+    export let logo: Tile["logo"] = undefined
+    export let url: Tile["url"] = undefined
+    export let display: Tile["display"] = undefined
+    export let menu: Tile["menu"] = undefined
 
     let selectedCoords = null
 
