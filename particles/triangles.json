@@ -1,10 +1,9 @@
 {
-  "fpsLimit": 60,
-  "retina_detect": true,
+  "detectRetina": true,
   "interactivity": {
-    "detectOn": "canvas",
+    "detectsOn": "canvas",
     "events": {
-      "onhover": {
+      "onHover": {
         "enable": true,
         "mode": "repulse",
         "parallax": {
@@ -13,7 +12,7 @@
           "smooth": 100
         }
       },
-      "onclick": {
+      "onClick": {
         "enable": true,
         "mode": "pause"
       },

@@ -33,7 +33,7 @@
         </a>
     {:else}
         <a href="/"
-           class="py-1 px-2 rounded-b-md flex items-center gap-1">
+           class="pt-1 pb-2 px-2 rounded-b-md flex items-center gap-1">
             <Fa icon={faHome}/>
             {#if data.userConfig?.dashboard.show_settings_text}
                 Home
@@ -50,6 +50,6 @@
 
 <style>
     a {
-        @apply select-none bg-slate-900/80 hover:bg-slate-900 text-slate-100 hover:text-blue-400 hover:scale-105 max-[380px]:w-full;
+        @apply select-none bg-slate-900/80 hover:bg-slate-900 text-slate-100 hover:text-blue-400 hover:scale-105 max-[380px]:w-full z-[10];
     }
 </style>

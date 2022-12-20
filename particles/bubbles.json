@@ -1,5 +1,4 @@
 {
-  "fpsLimit": 60,
   "emitters": {
     "direction": "top",
     "size": {
@@ -20,7 +19,7 @@
       "value": 0,
       "density": {
         "enable": true,
-        "value_area": 800
+        "valueArea": 800
       }
     },
     "color": {
@@ -56,18 +55,18 @@
     }
   },
   "interactivity": {
-    "detect_on": "canvas",
+    "detectsOn": "canvas",
     "events": {
-      "onhover": {
+      "onHover": {
         "enable": true,
         "mode": "repulse"
       },
-      "onclick": {
+      "onClick": {
         "enable": true,
         "mode": "pause"
       },
       "resize": true
     }
   },
-  "retina_detect": true
+  "detectRetina": true
 }

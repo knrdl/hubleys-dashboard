@@ -3,20 +3,9 @@
     import Particles from "svelte-particles";
     import Header from "./Header.svelte";
 
-    let shouldParticlesAnimationRun = true
-
     let particlesInit = async (main) => {
         const loadFull = (await import('tsparticles')).loadFull
         await loadFull(main);
-        document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState !== 'hidden') {
-                if (shouldParticlesAnimationRun)
-                    main.domItem(0).play()
-            } else {
-                shouldParticlesAnimationRun = main.domItem(0).getAnimationStatus()
-                main.domItem(0).pause()
-            }
-        })
     }
 
     let triangleCanvas: HTMLCanvasElement
@@ -63,9 +52,11 @@ dark:from-gray-700 dark:via-zinc-700 dark:to-stone-700
         </div>
     {/if}
     {#if data.background.particles}
-        <Particles options={data.background.particles} particlesInit={particlesInit}/>
+        <Particles particlesInit={particlesInit}
+                   options={{pauseOnBlur: true,fpsLimit:30, ...data.background.particles}}/>
     {/if}
     <Header {data}/>
     <slot/>
 </div>
+
 

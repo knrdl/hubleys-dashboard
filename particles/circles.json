@@ -1,8 +1,7 @@
 {
-  "fpsLimit": 60,
   "detectRetina": true,
   "interactivity": {
-    "detect_on": "canvas",
+    "detectsOn": "canvas",
     "events": {
       "onHover": {
         "enable": true,
