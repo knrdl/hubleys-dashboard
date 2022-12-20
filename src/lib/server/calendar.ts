@@ -1,14 +1,9 @@
 import ICAL from 'ical.js'
 import {cache} from "$lib/server/httpcache";
-import {getConfig} from "$lib/server/sysconfig";
+import {getUserCalendars} from "$lib/server/authz"
+import {fetchTimeout} from "$lib/server/fetch";
 
-export async function queryCalendar() {
-
-    const config = await getConfig()
-    const calendar = config.calendars[0] // todo
-    const url = calendar.source_url
-    if (cache(url)) return cache(url)
-
+async function calFetch(url: string, timeout?: number) {
     const parsedUrl = new URL(url)
     const headers = (parsedUrl.username && parsedUrl.password) ?
         new Headers({'Authorization': `Basic ${btoa(parsedUrl.username + ':' + parsedUrl.password)}`}) :
@@ -16,33 +11,83 @@ export async function queryCalendar() {
     parsedUrl.username = ''
     parsedUrl.password = ''
 
-    const selectedDates = [-1, 0, 1, 2, 3].map(i => {
-        const date = new Date()
-        date.setDate(date.getDate() + i)
-        return date.toISOString().split('T')[0]
-    })
-
-    const res = await fetch(parsedUrl, {headers})
-    if (res.status === 200) {
-        const data = await res.text()
-        const ical = ICAL.parse(data)
-        const events = ical[2]
-        const entries = events.filter(itm => itm[0] === 'vevent').map(itm => {
+    const res = await fetchTimeout(parsedUrl, {headers, redirect: 'follow', timeout})
+    const txt = await res.text()
+    if (res.ok) {
+        const ical = ICAL.parse(txt)
+        const entries = ical[2]
+        return entries.filter(itm => itm[0] === 'vevent').map(itm => {
             const dtstart = itm[1].find(key => key[0] === 'dtstart')
             const dtend = itm[1].find(key => key[0] === 'dtend')
-            const dtstamp = itm[1].find(key => key[0] === 'dtstamp')
             const summary = itm[1].find(key => key[0] === 'summary')
+            const location = itm[1].find(key => key[0] === 'location')
+            const description = itm[1].find(key => key[0] === 'description')
             return {
-                dtstart: dtstart ? dtstart[3] : dtstamp[3],
+                dtstart: dtstart ? dtstart[3] : null,
                 dtend: dtend ? dtend[3] : null,
                 summary: summary ? summary[3] : '',
+                location: location ? location[3] : '',
+                description: description ? description[3] : '',
             }
-        }).filter(itm => (
-            selectedDates.some(day => itm.dtstart.startsWith(day)) ||
-            selectedDates.some(day => itm.dtend?.startsWith(day))
-        )).sort((a, b) => a.dtstart > b.dtstart ? 1 : -1)
-        return cache(url, {entries, display_url: calendar.display_url})  // todo: multiple display_urls for multiple calendars
+        })
     } else {
-        throw new Error('weather error: ' + (await res.text()))
+        throw new Error('Calendar error: ' + txt)
     }
+}
+
+export async function queryCalendar({user, timeout}: { user: RequestUserInfo, timeout?: number }) {
+
+    const calendars = await getUserCalendars(user)
+
+    if (calendars) {
+        const calData = await Promise.allSettled(calendars.map(async cal => {
+            if (cache(cal.source_url)) return cache(cal.source_url)
+            else return cache(cal.source_url, {
+                entries: await calFetch(cal.source_url, timeout),
+                display_url: cal.display_url
+            })
+        }))
+
+        const dateJump = (dayDiff: number) => {
+            const date = new Date()
+            date.setDate(date.getDate() + dayDiff)
+            return date.toISOString().split('T')[0]
+        }
+
+        const filterDateFrom = dateJump(-1)  // include yesterday because of timezone shifts
+        const filterDateTo = dateJump(31)
+
+        const results: CalendarEntry[] = []
+        let errors = false
+
+        for (const {status, value} of calData) {
+            if (status === 'fulfilled') {
+                const {entries, display_url} = value
+                for (const entry of entries) {
+                    const dtStartDate = entry.dtstart?.split('T')[0]
+                    const dtEndDate = entry.dtend?.split('T')[0]
+
+                    const containsStart = dtStartDate && dtStartDate >= filterDateFrom && dtStartDate <= filterDateTo
+                    const containsEnd = dtEndDate && dtEndDate >= filterDateFrom && dtEndDate <= filterDateTo
+                    const containsWhole = dtStartDate && dtEndDate && dtStartDate <= filterDateFrom && dtEndDate >= filterDateTo
+
+                    if (containsStart || containsEnd || containsWhole) {
+                        results.push({...entry, url: display_url})
+                    }
+                }
+            } else {
+                errors = true
+                console.error(`Error loading calendar (${status}): ${value}`)
+            }
+        }
+        return {
+            entries: results.sort((a, b) =>
+                a.dtstart?.localeCompare(b.dtstart) || a.dtend?.localeCompare(b.dtend) || a.summary?.localeCompare(b.summary)
+            ),
+            errors
+        }
+    } else {
+        return null
+    }
+
 }

@@ -20,11 +20,11 @@
         </section>
     {/if}
 
-    {#if data.userConfig?.calendar.show && data.calendar}
-        <section class="flex justify-center">
+    {#if data.userConfig?.calendar.show}
+        <section class="flex justify-center mt-3">
             <a href="/calendar"
-               class="pl-3 pt-1 pr-2 pb-1 select-none bg-slate-900/80 hover:bg-slate-900 text-slate-100 rounded-bl-md">
-                <CalendarWidget calendar={data.calendar}/>
+               class="pl-3 pt-1 pr-2 pb-1 select-none bg-slate-900/80 hover:bg-slate-900 text-slate-100 rounded-md z-[10]">
+                <CalendarWidget calendarEvents={data.calendarEvents} userLang={data.userLang}/>
             </a>
         </section>
     {/if}

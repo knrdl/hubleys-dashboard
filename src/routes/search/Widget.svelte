@@ -29,7 +29,7 @@
 
 <form method="get" target="_blank" rel="noopener noreferrer" action={selectedEngine.search_url}
       on:submit|preventDefault={e=>{e.target.submit();query='' }}>
-    <div class="flex relative">
+    <div class="flex relative z-[10]">
 
         {#if engines?.length > 1}
             <select bind:value={selectedEngine}

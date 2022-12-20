@@ -5,8 +5,8 @@
     export let weather: CurrentWeather
 
     $: { // this could be handled in onMount but then config changes would not be applied as live reload
-        if (!weather)
-            fetch('/weather/current').then(res => res.json()).then(data => {
+        if (typeof window !== "undefined" && !weather)
+            window.fetch('/weather/current').then(res => res.json()).then(data => {
                 weather = data
             })
     }
