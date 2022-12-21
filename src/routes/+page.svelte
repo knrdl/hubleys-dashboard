@@ -14,7 +14,7 @@
 
 <main class="flex flex-col grow p-3 w-full max-w-screen-lg">
 
-    {#if data.userConfig?.searchbar.show && data.searchEngines}
+    {#if data.userConfig?.searchbar.show && data.searchEngines?.length > 0}
         <section class="flex justify-center">
             <Searchbar engines={data.searchEngines}/>
         </section>
@@ -23,7 +23,7 @@
     {#if data.userConfig?.calendar.show && data.calendarEvents !== null}
         <section class="flex justify-center mt-3">
             <a href="/calendar"
-               class="pl-3 pt-1 pr-2 pb-1 select-none bg-gray-100/70 hover:bg-gray-200 hover:bg-slate-900 text-gray-900 dark:text-gray-100 dark:bg-gray-700/75 dark:hover:bg-gray-700 rounded-md z-[10]">
+               class="group pl-3 pt-1 pr-2 pb-1 select-none bg-gray-100/70 hover:bg-gray-200 hover:bg-slate-900 text-gray-900 dark:text-gray-100 dark:bg-gray-700/75 dark:hover:bg-gray-700 rounded-md z-[10]">
                 <CalendarWidget calendarEvents={data.calendarEvents} userLang={data.userLang}/>
             </a>
         </section>
@@ -37,3 +37,4 @@
         </div>
     </section>
 </main>
+

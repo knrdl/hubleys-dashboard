@@ -41,11 +41,8 @@ export async function queryCalendar({user, timeout}: { user: RequestUserInfo, ti
 
     if (calendars?.length > 0) {
         const calData = await Promise.allSettled(calendars.map(async cal => {
-            if (cache(cal.source_url)) return cache(cal.source_url)
-            else return cache(cal.source_url, {
-                entries: await calFetch(cal.source_url, timeout),
-                display_url: cal.display_url
-            })
+            if (cache(cal.url)) return cache(cal.url)
+            else return cache(cal.url, await calFetch(cal.url, timeout))
         }))
 
         const dateJump = (dayDiff: number) => {
@@ -62,8 +59,7 @@ export async function queryCalendar({user, timeout}: { user: RequestUserInfo, ti
 
         for (const {status, value} of calData) {
             if (status === 'fulfilled') {
-                const {entries, display_url} = value
-                for (const entry of entries) {
+                for (const entry of value) {
                     const dtStartDate = entry.dtstart?.split('T')[0]
                     const dtEndDate = entry.dtend?.split('T')[0]
 
@@ -72,7 +68,7 @@ export async function queryCalendar({user, timeout}: { user: RequestUserInfo, ti
                     const containsWhole = dtStartDate && dtEndDate && dtStartDate <= filterDateFrom && dtEndDate >= filterDateTo
 
                     if (containsStart || containsEnd || containsWhole) {
-                        results.push({...entry, url: display_url})
+                        results.push(entry)
                     }
                 }
             } else {

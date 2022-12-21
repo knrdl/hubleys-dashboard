@@ -75,8 +75,7 @@ interface SearchEngine {
 }
 
 interface Calendar {
-    source_url: string
-    display_url?: string
+    url: string
 }
 
 type SysconfigAllow = boolean | string[]

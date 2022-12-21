@@ -47,7 +47,7 @@
     </div>
 {/if}
 {#if calendarEvents?.entries?.length > 0}
-    <ol class="relative border-l border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500">
+    <ol class="relative border-l border-gray-200 dark:border-gray-700 group-hover:border-gray-300 dark:group-hover:border-gray-500">
         {#each calendarEvents?.entries as entry, idx}
             {#if idx < 5}
                 {@const containsToday = isTodayContained(entry)}
