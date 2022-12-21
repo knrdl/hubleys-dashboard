@@ -10,5 +10,12 @@
 </head>
 <body data-sveltekit-prefetch>
 <div style="display: contents">%sveltekit.body%</div>
+<script>
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark')
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+</script>
 </body>
 </html>

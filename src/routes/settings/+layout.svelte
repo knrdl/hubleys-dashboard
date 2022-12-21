@@ -1,7 +1,7 @@
 <script lang="ts">
     import {page} from '$app/stores';
     import Fa from 'svelte-fa'
-    import {faImage, faCloud, faKey, faUserGear} from '@fortawesome/free-solid-svg-icons'
+    import {faImage, faCloud, faKey, faUserGear, faSliders} from '@fortawesome/free-solid-svg-icons'
     import {fly} from 'svelte/transition';
 
     export let data
@@ -37,6 +37,14 @@
                    aria-current={$page.url.pathname.endsWith('weather') ? 'page' : undefined}>
                     <Fa icon={faCloud} size="lg"/>
                     <span>Weather</span>
+                </a>
+            </li>
+            <li class="mx-1">
+                <a href="./system"
+                   class="inline-flex p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+                   aria-current={$page.url.pathname.endsWith('system') ? 'page' : undefined}>
+                    <Fa icon={faSliders} size="lg"/>
+                    <span>System</span>
                 </a>
             </li>
             {#if data.isAdmin}

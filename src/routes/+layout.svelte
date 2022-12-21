@@ -3,6 +3,8 @@
     import Particles from "svelte-particles";
     import Header from "./Header.svelte";
 
+    export let data
+
     let particlesInit = async (main) => {
         const loadFull = (await import('tsparticles')).loadFull
         await loadFull(main);
@@ -19,9 +21,15 @@
                 pattern.toCanvas(triangleCanvas)
             })()
         }
-    }
 
-    export let data;
+        if (typeof document !== "undefined") {
+            if (data.userConfig.theme === 'dark' || (data.userConfig.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark')
+            } else {
+                document.documentElement.classList.remove('dark')
+            }
+        }
+    }
 </script>
 
 <div class="

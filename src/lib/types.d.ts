@@ -33,6 +33,8 @@ interface BackgroundRule {
 
 interface UserConfig {
     version: number
+    theme: 'system' | 'light' | 'dark'
+    language: string | null
     weather: {
         zip_code: string | null,
         country_code: string | null,

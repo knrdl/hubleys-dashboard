@@ -2,6 +2,8 @@ import {isFile, readFile, writeFile} from "$lib/server/fs"
 
 const default_config: UserConfig = {
     version: 0,
+    theme: 'system',
+    language: null,
     weather: {
         lon: null,
         lat: null,
