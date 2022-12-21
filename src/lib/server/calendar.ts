@@ -39,7 +39,7 @@ export async function queryCalendar({user, timeout}: { user: RequestUserInfo, ti
 
     const calendars = await getUserCalendars(user)
 
-    if (calendars) {
+    if (calendars?.length > 0) {
         const calData = await Promise.allSettled(calendars.map(async cal => {
             if (cache(cal.source_url)) return cache(cal.source_url)
             else return cache(cal.source_url, {
@@ -89,5 +89,4 @@ export async function queryCalendar({user, timeout}: { user: RequestUserInfo, ti
     } else {
         return null
     }
-
 }

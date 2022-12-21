@@ -41,7 +41,7 @@
 </script>
 
 {#if calendarEvents?.errors}
-    <div class="flex items-center gap-1 mb-1 text-red-500">
+    <div class="flex items-center gap-1 mb-1 text-orange-500">
         <Fa icon={faExclamationTriangle}/>
         <span>Some calendars missing</span>
     </div>

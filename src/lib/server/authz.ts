@@ -30,7 +30,7 @@ function isUserAllowed(allowConditions: boolean | string[], user: RequestUserInf
 
 export async function getUserCalendars(user: RequestUserInfo) {
     const config = await getConfig()
-    return config.calendars
+    return (config.calendars || [])
         .filter(tile => isUserAllowed(tile.allow, user))
         .map(origTile => {
             const tile = {...origTile}
@@ -41,7 +41,7 @@ export async function getUserCalendars(user: RequestUserInfo) {
 
 export async function getUserSearchEngines(user: RequestUserInfo) {
     const config = await getConfig()
-    return config.search_engines
+    return (config.search_engines || [])
         .filter(tile => isUserAllowed(tile.allow, user))
         .map(origTile => {
             const tile = {...origTile}
@@ -88,5 +88,8 @@ export async function getUserTiles(user: RequestUserInfo): Promise<Tile[]> {
 
     const config = await getConfig()
 
-    return Promise.all(transformTiles(config.tiles))
+    if (config.tiles)
+        return Promise.all(transformTiles(config.tiles))
+    else
+        return []
 }
