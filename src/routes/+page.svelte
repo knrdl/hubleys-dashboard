@@ -23,7 +23,7 @@
     {#if data.userConfig?.calendar.show}
         <section class="flex justify-center mt-3">
             <a href="/calendar"
-               class="pl-3 pt-1 pr-2 pb-1 select-none bg-slate-900/80 hover:bg-slate-900 text-slate-100 rounded-md z-[10]">
+               class="pl-3 pt-1 pr-2 pb-1 select-none bg-gray-100/70 hover:bg-gray-200 hover:bg-slate-900 text-gray-900 dark:text-gray-100 dark:bg-gray-700/75 dark:hover:bg-gray-700 rounded-md z-[10]">
                 <CalendarWidget calendarEvents={data.calendarEvents} userLang={data.userLang}/>
             </a>
         </section>

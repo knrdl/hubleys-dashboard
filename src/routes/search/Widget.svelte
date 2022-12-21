@@ -29,11 +29,11 @@
 
 <form method="get" target="_blank" rel="noopener noreferrer" action={selectedEngine.search_url}
       on:submit|preventDefault={e=>{e.target.submit();query='' }}>
-    <div class="flex relative z-[10]">
+    <div class="flex relative z-[10] group">
 
         {#if engines?.length > 1}
             <select bind:value={selectedEngine}
-                    class="cursor-pointer pl-2 text-sm font-medium text-center text-gray-700 bg-gray-100/70 border border-gray-300 rounded-l-lg hover:bg-gray-200 border-r-0 focus:ring-2 focus:outline-none focus:ring-gray-100 dark:bg-gray-700/80 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600">
+                    class="cursor-pointer pl-2 text-sm font-medium text-center text-gray-700 bg-gray-100/70 border border-gray-300 rounded-l-lg group-hover:bg-gray-200 border-r-0 focus:ring-2 focus:outline-none focus:ring-gray-100 dark:bg-gray-700/80 dark:group-hover:bg-gray-700 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600">
                 {#each engines as engine}
                     <option value={engine}>{engine.title}</option>
                 {/each}
@@ -49,10 +49,10 @@
                    list="searchboxAutocomplete"
                    bind:value={query} on:input={handleInput} class:rounded-l-lg={engines?.length === 1}
                    class:border-l-0={engines?.length > 1}
-                   class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-100/70 hover:bg-gray-200 rounded-r-lg border border-gray-300 dark:bg-gray-700/75 dark:hover:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-2 focus:outline-none focus:ring-gray-100 dark:focus:ring-gray-700"
+                   class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-100/70 group-hover:bg-gray-200 rounded-r-lg rounded-l-none border border-gray-300 dark:bg-gray-700/75 dark:group-hover:bg-gray-700 dark:border-gray-600 placeholder-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-2 focus:outline-none focus:ring-gray-100 dark:focus:ring-gray-700"
             >
             <button type="submit"
-                    class="absolute top-0 right-0 h-full w-10 flex justify-center items-center text-sm font-medium text-gray-900 dark:text-gray-100 bg-gray-100/70 rounded-r-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-gray-100 dark:dark:bg-gray-700/75 dark:hover:bg-gray-700 dark:focus:ring-blue-800">
+                    class="absolute top-0 right-0 h-full w-10 flex justify-center items-center text-sm font-medium text-gray-900 dark:text-gray-100 bg-gray-100/10 rounded-r-lg border border-gray-300 dark:border-gray-600 group-hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-gray-100 dark:bg-gray-700/75 dark:group-hover:bg-gray-700 dark:focus:ring-blue-800">
                 <Fa icon={faSearch}/>
             </button>
         </div>
