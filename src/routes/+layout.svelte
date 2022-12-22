@@ -10,6 +10,14 @@
         await loadFull(main);
     }
 
+    function handleTheme() {
+        if (data.userConfig.theme === 'dark' || (data.userConfig.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            window.document.documentElement.classList.add('dark')
+        } else {
+            window.document.documentElement.classList.remove('dark')
+        }
+    }
+
     let triangleCanvas: HTMLCanvasElement
     let trianglify
     $: { // this could be handled in onMount but then config changes would not be applied as live reload
@@ -22,12 +30,9 @@
             })()
         }
 
-        if (typeof document !== "undefined") {
-            if (data.userConfig.theme === 'dark' || (data.userConfig.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark')
-            } else {
-                document.documentElement.classList.remove('dark')
-            }
+        if (typeof window !== "undefined") {
+            handleTheme()
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => handleTheme())
         }
     }
 </script>
