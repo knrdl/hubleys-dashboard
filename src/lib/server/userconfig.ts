@@ -16,16 +16,14 @@ const default_config: UserConfig = {
     calendar: {show: true},
     searchbar: {show: true},
     dashboard: {show_settings_text: true},
-    background_rules: [{
-        when: [],
-        show: {
-            static_image: {format: 'url', value: ''},
-            random_image: {provider: 'unsplash', unsplash_query: '', subreddits: '', duration: 0},
-            background: 'triangles',
-            blur: 'dark',
-            dots: true,
-            particles: false
-        }
+    backgrounds: [{
+        static_image: {source: 'upload', web_url: '', upload_url: ''},
+        random_image: {provider: 'unsplash', unsplash_query: '', subreddits: '', duration: 0},
+        background: 'triangles',
+        blur: 'dark',
+        dots: true,
+        particles: false,
+        selected: true
     }]
 }
 

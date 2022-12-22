@@ -16,19 +16,19 @@
     <nav class="mb-6">
         <ul class="flex flex-wrap items-center justify-center text-sm font-medium text-center text-gray-500 dark:text-gray-400">
             <li class="mx-1">
-                <a href="./widgets"
-                   class="inline-flex p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
-                   aria-current={$page.url.pathname.endsWith('widgets') ? 'page' : undefined}>
-                    <Fa icon={faUserGear} size="lg"/>
-                    <span>Widgets</span>
-                </a>
-            </li>
-            <li class="mx-1">
                 <a href="./background"
                    class="inline-flex p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                    aria-current={$page.url.pathname.endsWith('background') ? 'page' : undefined}>
                     <Fa icon={faImage} size="lg"/>
                     <span>Background</span>
+                </a>
+            </li>
+            <li class="mx-1">
+                <a href="./widgets"
+                   class="inline-flex p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+                   aria-current={$page.url.pathname.endsWith('widgets') ? 'page' : undefined}>
+                    <Fa icon={faUserGear} size="lg"/>
+                    <span>Widgets</span>
                 </a>
             </li>
             <li class="mx-1">

@@ -24,7 +24,7 @@
         {/if}
     {/if}
     {#if $page.url.pathname === '/' }
-        <a href="/settings/widgets"
+        <a href="/settings/background"
            class="py-1 px-2 rounded-b-md flex items-center gap-1">
             <Fa icon={faCog}/>
             {#if data.userConfig?.dashboard.show_settings_text}

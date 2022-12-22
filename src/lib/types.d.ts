@@ -1,3 +1,22 @@
+interface BackgroundConfig {
+    static_image: {
+        source: 'upload' | 'web'
+        upload_url: string
+        web_url: string
+    }
+    random_image: {
+        provider: 'unsplash' | 'reddit',
+        unsplash_query: '',
+        subreddits: '',
+        duration: 0
+    }
+    background: 'triangles' | 'static' | 'random'
+    blur: false | 'dark' | 'light'
+    dots: boolean
+    particles: false | string
+    selected: boolean
+}
+
 interface UserConfig {
     version: number
     theme: 'system' | 'light' | 'dark'
@@ -14,7 +33,7 @@ interface UserConfig {
     calendar: { show: boolean }
     searchbar: { show: boolean }
     dashboard: { show_settings_text: boolean }
-    background_rules: BackgroundRule[]
+    backgrounds: BackgroundConfig[]
 }
 
 interface RequestUserInfo {

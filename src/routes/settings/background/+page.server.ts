@@ -13,5 +13,8 @@ export const actions: Actions = {
     "reload-random-background-image": async ({request, locals, cookies}) => {
         cookies.delete('bgimg', {path: '/'})
     },
-    save: saveUserConfig
+    save: async ({locals, request, cookies}) => {
+        await saveUserConfig({locals, request})
+        cookies.delete('bgimg', {path: '/'})
+    }
 };

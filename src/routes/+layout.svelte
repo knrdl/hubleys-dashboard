@@ -2,27 +2,8 @@
     import "../app.css";
     import Particles from "svelte-particles";
     import Header from "./Header.svelte";
-    import {onMount} from "svelte";
 
     export let data
-
-    // const STORAGE_KEY = 'hubleys-background'
-
-    // async function loadNewBackgroundConfig() {
-    //     const now = new Date()
-    //     const params = new URLSearchParams()
-    //     params.set('weekday', now.getDay().toString())
-    //     params.set('hour', now.getHours().toString())
-    //     if (data.background.image) {
-    //         params.set('bgImgUrl', data.background.image.url)
-    //         params.set('bgImgExpiresAt', now.getHours().toString())
-    //     }
-    //     const res = await fetch('/background?' + params.toString())
-    //     if (res.ok) {
-    //         data.background = await res.json()
-    //         localStorage.setItem(STORAGE_KEY, JSON.stringify(data.background)) // cache new config for restore on reload
-    //     }
-    // }
 
     let particlesInit = async (main) => {
         const loadFull = (await import('tsparticles')).loadFull
@@ -37,24 +18,17 @@
         }
     }
 
-    onMount(() => {
-        // console.log('onmount')
-        // if (data.background === null) {  // restore last background config from local cache
-        //     const val = localStorage.getItem(STORAGE_KEY)
-        //     if (val) data.background = JSON.parse(val)
-        // }
-        // console.log(data.userConfig.background_rules)
-    })
-
     let triangleCanvas: HTMLCanvasElement
     let trianglify
     $: { // this could be handled in onMount but then config changes would not be applied as live reload
         if (typeof window !== "undefined") {
-            // if (data.background === null) {  // restore last background config from local cache
-            //     const val = localStorage.getItem(STORAGE_KEY)
-            //     if (val) data.background = JSON.parse(val)
-            //     loadNewBackgroundConfig()
-            // }
+            if (data.background?.image?.error) {
+                // credentials include to accept cookie set on the server
+                const res = fetch('/background', {credentials: 'include'}).then(async res => {
+                    if (res.ok)
+                        data.background.image = (await res.json()).image
+                })
+            }
 
             if (data.background?.triangles) {
                 (async () => {
@@ -65,11 +39,6 @@
                 })()
             }
 
-            handleTheme()
-            window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => handleTheme())
-        }
-
-        if (typeof window !== "undefined") {
             handleTheme()
             window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => handleTheme())
         }
@@ -84,11 +53,8 @@ from-slate-200 via-blue-100 to-sky-100
 dark:from-gray-700 dark:via-zinc-700 dark:to-stone-700
 ">
     {#if data.background?.image?.url}
-        <div class="fixed top-0 left-0 right-0 bottom-0 z-[-90]"
-        >
-            <div style='background-image: url("{data.background.image.url}")'
-                 class="sliding-background w-full h-full bg-cover bg-center bg-fixed"></div>
-        </div>
+        <div class="fixed top-0 left-0 right-0 bottom-0 z-[-90] bg-cover bg-center bg-fixed"
+             style='background-image: url("{data.background.image.url}")'></div>
     {/if}
     {#if data.background?.triangles}
         <canvas class="fixed top-0 left-0 right-0 bottom-0 z-[-80] w-screen h-screen"
