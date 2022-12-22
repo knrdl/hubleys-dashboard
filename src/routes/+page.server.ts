@@ -7,7 +7,7 @@ export const load: PageServerLoad = ({locals}) => {
         calendarEvents: queryCalendar({
             user: locals.user,
             timeout: locals.sysConfig.server_request_min_timeout
-        }),
+        }), // loaded from here or /calendar/entries on timeout
         searchEngines: getUserSearchEngines(locals.user)
     }
 }

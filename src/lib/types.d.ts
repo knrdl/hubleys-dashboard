@@ -1,36 +1,3 @@
-interface BackgroundRule {
-    when: true | {
-        hour_gt?: number
-        hour_lt?: number,
-        weekday_in?: {
-            mon: boolean,
-            tue: boolean,
-            wed: boolean,
-            thu: boolean,
-            fri: boolean,
-            sat: boolean,
-            sun: boolean
-        }
-        current_weather?: WeatherConditions
-        current_temperature_gt?: number
-        current_temperature_lt?: number
-    }
-    show: {
-        static_image: {
-            format: 'id' | 'url'
-            value: string
-        }
-        random_image: {
-            query: string
-            duration: number
-        }
-        background: 'triangles' | 'static' | 'random'
-        blur: false | 'dark' | 'light'
-        dots: boolean
-        particles: false | string
-    }
-}
-
 interface UserConfig {
     version: number
     theme: 'system' | 'light' | 'dark'

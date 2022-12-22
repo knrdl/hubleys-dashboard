@@ -17,15 +17,14 @@ const default_config: UserConfig = {
     searchbar: {show: true},
     dashboard: {show_settings_text: true},
     background_rules: [{
-        when: true,
+        when: [],
         show: {
             static_image: {format: 'url', value: ''},
-            random_image: {query: '', duration: 0},
+            random_image: {provider: 'unsplash', unsplash_query: '', subreddits: '', duration: 0},
             background: 'triangles',
             blur: 'dark',
             dots: true,
             particles: false
-
         }
     }]
 }
