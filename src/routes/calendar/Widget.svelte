@@ -10,20 +10,28 @@
     const todayDate = getTodayDate()
     const tomorrowDate = getTomorrowDate()
 
-    function fmtDate(date: string, relative: boolean = true) {
+    function fmtDate(date: string, {relative, startDate}: { relative?: boolean, startDate?: string } = {
+        relative: true, startDate: null
+    }) {
         const d = date.split('T')[0]
         if (relative && d === yesterdayDate) return 'yesterday'
         if (relative && d === todayDate) return 'today'
         if (relative && d === tomorrowDate) return 'tomorrow'
-        if (date.includes('T'))
-            return new Date(d).toLocaleDateString(userLang, {
-                weekday: 'short',
-                day: '2-digit',
-                month: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit'
-            })
-        else
+        if (date.includes('T')) {
+            if (startDate && d === startDate.split('T')[0]) // event starts and ends at same day
+                return new Date(date).toLocaleTimeString(userLang, {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+            else
+                return new Date(date).toLocaleDateString(userLang, {
+                    weekday: 'short',
+                    day: '2-digit',
+                    month: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+        } else
             return new Date(d).toLocaleDateString(userLang, {
                 weekday: 'short',
                 day: '2-digit',
@@ -55,10 +63,10 @@
                     <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-500 dark:bg-gray-700"
                          class:bg-blue-500={containsToday} class:dark:bg-blue-500={containsToday}></div>
                     <time class="mb-1 text-sm font-normal leading-none text-gray-500 dark:text-gray-500"
-                          title="from: {fmtDate(entry.dtstart, false)}, to: {fmtDate(entry.dtend, false)}">
+                          title="from: {fmtDate(entry.dtstart, {relative: false})}, to: {fmtDate(entry.dtend, {relative: false})}">
                         {fmtDate(entry.dtstart)}
                         {#if !isSingleDayEvent(entry)}
-                            - {fmtDate(entry.dtend)}
+                            - {fmtDate(entry.dtend, {startDate: entry.dtstart})}
                         {/if}
                     </time>
                     <span class="text-base font-normal text-gray-600 dark:text-gray-400">{entry.summary || entry.description}</span>
