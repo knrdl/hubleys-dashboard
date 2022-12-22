@@ -111,11 +111,9 @@ export function setBgImgCookie(cookies, bgImg: null | { url: string, expiresAt?:
         const expires = new Date(1970, 0, 1, 0, 0)
         if (bgImg.expiresAt) {
             expires.setSeconds(bgImg.expiresAt)
-            console.log('right path!')
         } else if (bgImg.expiresAt === null) {
             expires.setFullYear(9999)
         }
-        console.log({expires}, bgImg)
         cookies.set('bgimg', bgImg.url, {path: '/', expires})
     }
 }

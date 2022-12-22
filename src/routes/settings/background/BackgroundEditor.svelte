@@ -51,7 +51,7 @@
                 <label>
                     <span>from</span>
                     <select bind:value={config.static_image.source}>
-                        <option value="upload">Upload</option>
+                        <!--                        <option value="upload">Upload</option> TODO-->
                         <option value="web">Web</option>
                     </select>
                 </label>

@@ -73,7 +73,7 @@ export async function queryCalendar({user, timeout}: { user: RequestUserInfo, ti
                 }
             } else {
                 errors = true
-                console.error(`Error loading calendar (${status}): ${value}`)
+                console.error(`Error loading calendar: ${value}`)
             }
         }
         return {
