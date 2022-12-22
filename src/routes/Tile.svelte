@@ -106,12 +106,9 @@ hover:scale-110 transition-transform ease-in-out
 </a>
 
 <style>
-    :root {
+    .card {
         --height: 90px;
         --width: calc(var(--height) * 1.618);
-    }
-
-    .card {
         width: var(--width);
         height: var(--height);
     }
