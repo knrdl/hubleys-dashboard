@@ -8,7 +8,7 @@ So you run a bunch of self-hosted services for multiple users but are tired of h
 - all dashboard contents are predefined by the admin
 - dashboard features:
     - link tiles, organized by folders
-    - search engines
+    - search engines with autocomplete
     - upcoming calendar events
 - customizable & dynamic backgrounds
 - current weather & forecast
@@ -17,10 +17,12 @@ So you run a bunch of self-hosted services for multiple users but are tired of h
 ## Quick Demo
 
 ```shell
-docker run -it --rm -e DEMO_MODE=1 -p3000:3000 ghcr.io/knrdl/hubleys-dashboard
+docker run -it --rm -e DEMO_MODE=1 -e ORIGIN=http://localhost:3000 -p3000:3000 ghcr.io/knrdl/hubleys-dashboard:edge
 ```
 
-TODO: Screenshot
+> Weather and unsplash backgrounds won't work in demo.
+
+![Screenshot](./docs/screenshot.png)
 
 ## Setup
 

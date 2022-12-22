@@ -8,14 +8,20 @@ search_engines:
     autocomplete_url: https://www.startpage.com/suggestions?segment=startpage.udog&lui=english
     allow: true
 
+
+#calendars:
+#  - url: https://onlinekalender.info/feiertage/deutschland/berlin.ics
+#    allow: true
+
+
 tiles:
   - title: Logout
-    url: https://id.example.org
-    logo: authelia.png
-    allow: true
+    url: https://example.org/logout/
+    logo: authelia.png # a tile can have a `logo` (image) and an `emoji` (text). Logos have precedence. At least a `logo` or an `emoji` should be present for a tile
+    allow: true  # show to everybody
 
   - title: Admin
-    allow: true
+    allow: [ user:demo1, group:example-group1, email:demo1@example.org ]  # user must fulfill at least on condition to see tile
     menu:
       - title: PiHole
         url: https://example.org/pihole/
@@ -23,3 +29,54 @@ tiles:
       - title: Portainer
         url: https://example.org/portainer/
         logo: portainer.svg
+      - title: Speedtest
+        url: https://example.org/speedtest/
+        logo: librespeed.png
+
+  - title: Hidden
+    url: https://example.org
+    emoji: Secret
+    allow: false  # always hidden
+
+  - title: Animals
+    allow: true
+    menu: # tiles can have nested menus
+      - title: Cats
+        allow: [ group:example-group1 ]  # access to menu items can also be restricted
+        menu:
+          - title: Cat1
+            emoji: 🐈
+            url: https://http.cat/
+          - title: Cat2
+            emoji: 🐈
+            url: https://http.cat/
+      - title: Dogs
+        menu:
+          - title: Dog1
+            emoji: 🐶
+            url: https://httpstatusdogs.com/
+          - title: Dog2
+            emoji: 🐶
+            url: https://httpstatusdogs.com/
+
+  - title: Grafana
+    logo: grafana.svg
+    url: https://grafana.com/
+    allow: true
+    menu:
+      - title: Dashboard 1
+        emoji: 📈
+        url: https://example.org/dashboard1/
+      - title: Dashboard 2
+        emoji: 📉
+        url: https://example.org/dashboard2/
+      - title: Dashboard 3
+        emoji: 📊
+        url: https://example.org/dashboard3/
+      - title: Dashboard 4
+        emoji: 💹
+        url: https://example.org/dashboard4/
+
+  - title: Sverdle
+    url: /sverdle/
+    allow: true
