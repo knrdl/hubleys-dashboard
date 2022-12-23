@@ -34,7 +34,7 @@ WORKDIR /app
 EXPOSE 3000/tcp
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
- CMD [ "curl", "--fail", "--silent", "--output", "/dev/null", "localhost:3000/healthcheck" ]
+ CMD [ "curl", "--fail", "--silent", "--output", "/dev/null", "--header", "Remote-User: healthcheck", "localhost:3000/healthcheck" ]
 
 VOLUME /data
 
