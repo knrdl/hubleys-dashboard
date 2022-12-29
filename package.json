@@ -43,7 +43,7 @@
     "ical.js": "^1.5.0",
     "js-yaml": "^4.1.0",
     "svelte-particles": "^2.7.1",
-    "tsparticles": "^2.5.3"
+    "tsparticles": "^2.7.1"
   },
   "type": "module"
 }
