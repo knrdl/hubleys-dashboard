@@ -1,4 +1,4 @@
-http://localhost:8000 {
+http://:8000 {
     bind 0.0.0.0
 	reverse_proxy hubleys_app:5173 {
 	    header_up Remote-User "user1"

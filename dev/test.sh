@@ -11,5 +11,5 @@ echo http://localhost:8001/
 mkdir -p ./userdata
 podman run -it --rm --name hubleys_test_app --net hubleys_test_net --env-file ./secrets hubleys-test
 
-podman stop hubleys_proxy
+podman stop hubleys_test_proxy
 podman network rm hubleys_test_net
