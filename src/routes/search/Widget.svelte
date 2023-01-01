@@ -49,7 +49,7 @@
                    list="searchboxAutocomplete"
                    bind:value={query} on:input={handleInput} class:rounded-l-lg={engines?.length === 1}
                    class:border-l-0={engines?.length > 1}
-                   class="block p-2.5 w-full text-sm text-gray-900 bg-gray-100/70 group-hover:bg-gray-200 rounded-r-lg  border border-gray-300 dark:bg-gray-700/75 dark:group-hover:bg-gray-700 dark:border-gray-600 placeholder-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-2 focus:outline-none focus:ring-gray-100 dark:focus:ring-gray-700"
+                   class="block p-2.5 w-full text-sm text-gray-900 bg-gray-100/70 group-hover:bg-gray-200 rounded-none rounded-r-lg  border border-gray-300 dark:bg-gray-700/75 dark:group-hover:bg-gray-700 dark:border-gray-600 placeholder-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-2 focus:outline-none focus:ring-gray-100 dark:focus:ring-gray-700"
             >
             <button type="submit"
                     class="absolute top-0 right-0 h-full w-10 flex justify-center items-center text-sm font-medium text-gray-900 dark:text-gray-100 bg-gray-100/10 rounded-r-lg border border-gray-300 dark:border-gray-600 group-hover:bg-gray-200 focus:ring-2 focus:outline-none focus:ring-gray-100 dark:bg-gray-700/75 dark:group-hover:bg-gray-700 dark:focus:ring-blue-800">
@@ -59,3 +59,8 @@
     </div>
 </form>
 
+<style>
+    input[type="search"] {
+        -webkit-appearance: none;
+    }
+</style>
