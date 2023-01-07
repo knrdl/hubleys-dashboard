@@ -45,7 +45,7 @@
     </button>
     <input type="number" bind:value {disabled} use:validator={value}
            class="
-            text-center w-10
+            text-center w-10 rounded-none
             bg-gray-100 dark:bg-gray-700
             border border-gray-300 dark:border-gray-600
             text-gray-900 dark:text-gray-400 text-lg
