@@ -5,7 +5,7 @@
 
     import Fa from "svelte-fa";
     import {faPlay, faPause, faStop} from '@fortawesome/free-solid-svg-icons'
-    import {onDestroy} from "svelte";
+    import {onDestroy, onMount} from "svelte";
 
 
     let remaining: number | null = null
@@ -17,7 +17,13 @@
     $: isRunning = !!intervalHandler
     $: value = (hh * 60 * 60 + mm * 60 + ss) * 1000
 
+    onMount(() => {
+        const lastValue = localStorage.getItem('hubleys:clock:timer-value')
+        if (lastValue) [hh, mm, ss] = JSON.parse(lastValue)
+    })
+
     function startTimer() {
+        localStorage.setItem('hubleys:clock:timer-value', JSON.stringify([hh, mm, ss]))
         total = remaining = value
         intervalHandler = setInterval(() => {
             if (!isPaused)
@@ -45,6 +51,7 @@
     let isAlarmOn: boolean = false
 
     function startAlarm() {
+        audio.volume = .5
         audio.play()
         isAlarmOn = true
     }
