@@ -4,7 +4,7 @@ search_engines:
     autocomplete_url: https://duckduckgo.com/ac/
     allow: true
   - title: Startpage
-    search_url: https://www.startpage.com
+    search_url: https://www.startpage.com/sp/search
     autocomplete_url: https://www.startpage.com/suggestions?segment=startpage.udog&lui=english
     allow: true
 
