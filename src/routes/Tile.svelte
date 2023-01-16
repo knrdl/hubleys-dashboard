@@ -84,7 +84,7 @@ hover:scale-110 transition-transform ease-in-out
                                 <div class="w-6 h-6 flex justify-center items-center">
                                     {#if item.logo}
                                         <img src={item.logo} alt={item.emoji || item.title}
-                                             class="max-w-full max-h-full overflow-hidden"/>
+                                             class="max-w-full max-h-full"/>
                                     {:else if item.emoji}
                                         <span>{item.emoji}</span>
                                     {:else}
