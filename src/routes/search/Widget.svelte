@@ -4,6 +4,7 @@
         faSearch
     } from '@fortawesome/free-solid-svg-icons'
     import debounce from 'lodash.debounce'
+    import {tick} from "svelte";
 
     export let engines
 
@@ -28,7 +29,7 @@
 </script>
 
 <form method="get" target="_blank" rel="noopener noreferrer" action={selectedEngine.search_url}
-      on:submit|preventDefault={e=>{e.target.submit();query='' }}>
+      on:submit|preventDefault={e=>{e.target.submit();tick.then(()=>query='') }}>
     <div class="flex relative z-[10] group">
 
         {#if engines?.length > 1}
