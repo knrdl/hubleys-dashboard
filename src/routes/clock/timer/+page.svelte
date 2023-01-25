@@ -67,7 +67,9 @@
        src="data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEA0AAABAAgAZGF0YU{Array(1000).join('123')}">
 </audio>
 
-<ClockFace text={formatTime(remaining)} {isRunning} {fraction} mode="countdown"/>
+<div class:blink={!isRunning && isAlarmOn}>
+    <ClockFace text={formatTime(remaining)} {isRunning} {fraction} mode="countdown"/>
+</div>
 
 {#if isRunning || isAlarmOn}
     <div class="flex justify-center items-center text-slate-800 dark:text-slate-100">
@@ -105,3 +107,21 @@
         </button>
     </div>
 {/if}
+
+<style>
+    .blink {
+        animation: blink .75s step-start infinite;
+    }
+
+    @keyframes blink {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+</style>
