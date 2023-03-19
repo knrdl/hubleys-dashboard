@@ -1,10 +1,10 @@
-import {getConfig} from "./sysconfig";
-import {fetchTimeout} from "$lib/fetch";
+import { getConfig } from "./sysconfig";
+import { fetchTimeout } from "$lib/fetch";
 import path from "path";
-import {cache} from "$lib/server/httpcache";
-import {chooseRandom} from "$lib/random";
-import {getParticlesConfig} from "$lib/server/particles";
-import {epoch} from "$lib/datetime";
+import { cache } from "$lib/server/httpcache";
+import { chooseRandom } from "$lib/random";
+import { getParticlesConfig } from "$lib/server/particles";
+import { epoch } from "$lib/datetime";
 
 export async function queryBgImgUrlReddit(subreddits: string, timeout?: number) {
     const fetchPosts = async (subreddits: string[]) => {
@@ -21,7 +21,7 @@ export async function queryBgImgUrlReddit(subreddits: string, timeout?: number) 
         ).filter(post => {
             const src = post.data.preview?.images[0].source
             if (src) {
-                const {width, height} = src
+                const { width, height } = src
                 return height > 800 && width > 1000 && width / height > 1.1
             } else return false
         }).map(post => post.data.url))
@@ -40,7 +40,7 @@ export async function queryBgImgUrlUnsplash(searchTerm: string, timeout?: number
         orientation: 'landscape',
         query: searchTerm
     })
-    const res = await fetchTimeout('https://api.unsplash.com/photos/random?' + search.toString(), {timeout})
+    const res = await fetchTimeout('https://api.unsplash.com/photos/random?' + search.toString(), { timeout })
     if (res.status === 200) {
         const data = await res.json()
         return data.urls.full
@@ -50,7 +50,7 @@ export async function queryBgImgUrlUnsplash(searchTerm: string, timeout?: number
 }
 
 export async function generateCurrentBgConfig(
-    {currentBgImgUrl, userConfig, timeout}: { currentBgImgUrl?: string, userConfig: UserConfig, timeout?: number }) {
+    { currentBgImgUrl, userConfig, timeout }: { currentBgImgUrl?: string, userConfig: UserConfig, timeout?: number }) {
     const bgCfg: BackgroundConfig = userConfig.backgrounds.find(bgCfg => bgCfg.selected)
     const particlesJob = bgCfg.particles ? getParticlesConfig(bgCfg.particles) : null
 
@@ -71,7 +71,7 @@ export async function generateCurrentBgConfig(
             }
         } else if (bgCfg.background === 'static') {
             if (bgCfg.static_image.source === 'upload')
-                bgImgUrlJob = bgCfg.static_image.upload_url
+                bgImgUrlJob = '/background/' + bgCfg.static_image.upload_url
             else if (bgCfg.static_image.source === 'web')
                 bgImgUrlJob = bgCfg.static_image.web_url
             else
@@ -88,12 +88,12 @@ export async function generateCurrentBgConfig(
                     }
                 } catch (e) {
                     console.error('Fetch random bg image error:', e)
-                    return {error: true}
+                    return { error: true }
                 }
             else return null
         })()
     } else {
-        bgImg = {url: currentBgImgUrl}
+        bgImg = { url: currentBgImgUrl }
     }
 
 
@@ -114,6 +114,6 @@ export function setBgImgCookie(cookies, bgImg: null | { url: string, expiresAt?:
         } else if (bgImg.expiresAt === null) {
             expires.setFullYear(9999)
         }
-        cookies.set('bgimg', bgImg.url, {path: '/', expires})
+        cookies.set('bgimg', bgImg.url, { path: '/', expires })
     }
 }

@@ -1,6 +1,12 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { faClone, faSquare, faSquareCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+	import {
+		faClone,
+		faSquare,
+		faSquareCheck,
+		faTrashCan,
+		faUpload
+	} from '@fortawesome/free-solid-svg-icons';
 	import { createEventDispatcher } from 'svelte';
 	import { fade } from 'svelte/transition';
 
@@ -8,6 +14,8 @@
 
 	export let data;
 	export let config: BackgroundConfig;
+
+	let staticUploadImgMode: 'keep' | 'new' = 'keep';
 
 	const RandomImageChangeDurations = [
 		{ title: 'Never', value: 0 },
@@ -99,13 +107,26 @@
 				</label>
 			{:else if config.background === 'static'}
 				{#if config.static_image.source === 'upload'}
-					<label>
-						<input type="file" />
-					</label>
+					{config.static_image.upload_img?.length}
+					{#if config.static_image.upload_url && staticUploadImgMode === 'keep'}
+						<button class="icon-button" on:click={() => (staticUploadImgMode = 'new')}>
+							<Fa icon={faUpload} />
+							<span>Upload new background image</span>
+						</button>
+					{:else}
+						<label>
+							<input type="file" bind:files={config.static_image.upload_img} accept="image/*" />
+						</label>
+					{/if}
 				{/if}
 				{#if config.static_image.source === 'web'}
 					<label class="flex">
-						<input type="url" class="grow" placeholder="please enter image url" bind:value={config.static_image.web_url} />
+						<input
+							type="url"
+							class="grow"
+							placeholder="please enter image url"
+							bind:value={config.static_image.web_url}
+						/>
 					</label>
 				{/if}
 			{/if}
@@ -177,12 +198,12 @@
 		@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-1 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white;
 	}
 
-	div .icon-button {
+	.icon-button {
 		@apply flex flex-col justify-center gap-1 w-full;
 		@apply text-white bg-blue-700/80 hover:bg-blue-800 font-medium rounded-lg text-sm p-1 text-center inline-flex items-center mr-2 dark:bg-blue-600/80 dark:hover:bg-blue-700;
 	}
 
-	div .icon-button[disabled] {
+	.icon-button[disabled] {
 		@apply bg-gray-700 hover:bg-gray-700;
 	}
 </style>

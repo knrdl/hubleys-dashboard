@@ -13,6 +13,16 @@
 
 	async function handleSubmit(event) {
 		const body = new FormData();
+		data.userConfig.backgrounds.forEach((elem, idx) => {
+			if (
+				elem.static_image?.upload_img instanceof FileList &&
+				elem.static_image?.upload_img?.length > 0
+			) {
+				body.append('bgImg' + idx, elem.static_image?.upload_img[0]);
+				elem.static_image.upload_url = null;
+				delete elem.static_image.upload_img;
+			}
+		});
 		body.set('userConfig', JSON.stringify(data.userConfig));
 
 		const response = await fetch(this.action, { method: 'POST', body });

@@ -1,4 +1,4 @@
-import {isFile, readFile, writeFile} from "$lib/server/fs"
+import { isFile, readFile, writeFile } from "$lib/server/fs"
 
 const default_config: UserConfig = {
     version: 0,
@@ -12,13 +12,13 @@ const default_config: UserConfig = {
         mode: 'zip',
         show: true
     },
-    clock: {show: true},
-    calendar: {show: true},
-    searchbar: {show: true},
-    dashboard: {show_settings_text: true},
+    clock: { show: true },
+    calendar: { show: true },
+    searchbar: { show: true },
+    dashboard: { show_settings_text: true },
     backgrounds: [{
-        static_image: {source: 'upload', web_url: '', upload_url: ''},
-        random_image: {provider: 'unsplash', unsplash_query: '', subreddits: '', duration: 0},
+        static_image: { source: 'upload', web_url: '', upload_url: '' },
+        random_image: { provider: 'unsplash', unsplash_query: '', subreddits: '', duration: 0 },
         background: 'triangles',
         blur: 'dark',
         dots: true,
@@ -66,4 +66,8 @@ export async function reloadAllUsersConfig() {
 
 export async function reloadUserConfig(userid: UserId) {
     _cache[userid] = await readUserConfig(userid)
+}
+
+export function userBackgroundImgFilePath(userid: UserId, imgId: string) {
+    return '/data/users/backgrounds/' + encodeURIComponent(userid + '-' + imgId)
 }

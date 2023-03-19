@@ -11,9 +11,27 @@ export async function readFile(filepath: string) {
 
 export async function writeFile(filepath: string, text: string) {
     return new Promise<void>((resolve, reject) => {
-        fs.writeFile(filepath, text, {encoding: 'utf8'}, (err) => {
+        fs.writeFile(filepath, text, { encoding: 'utf8' }, (err) => {
             if (err) reject(err)
             else resolve()
+        })
+    })
+}
+
+export async function writeBinaryFile(filepath: string, data: any) {
+    return new Promise<void>((resolve, reject) => {
+        fs.writeFile(filepath, data, (err) => {
+            if (err) reject(err)
+            else resolve()
+        })
+    })
+}
+
+export async function readBinaryFile(filepath: string) {
+    return new Promise<Buffer>((resolve, reject) => {
+        fs.readFile(filepath, (err, file) => {
+            if (err) reject(err)
+            else resolve(file)
         })
     })
 }
@@ -36,9 +54,18 @@ export async function isDir(filepath: string) {
 
 export async function listFilesInFolder(filepath: string) {
     return new Promise<string[]>((resolve, reject) => {
-        fs.readdir(filepath, {withFileTypes: true}, (err, dirents) => {
+        fs.readdir(filepath, { withFileTypes: true }, (err, dirents) => {
             if (err) reject(err)
             else resolve(dirents.filter(dirent => dirent.isFile()).map(dirent => dirent.name))
+        })
+    })
+}
+
+export async function deleteFile(filepath: string) {
+    return new Promise<void>((resolve, reject) => {
+        fs.unlink(filepath, err => {
+            if (err) reject(err)
+            else resolve()
         })
     })
 }

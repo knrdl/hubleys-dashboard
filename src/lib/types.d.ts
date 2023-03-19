@@ -3,6 +3,7 @@ interface BackgroundConfig {
         source: 'upload' | 'web'
         upload_url: string
         web_url: string
+        upload_img?: FileList
     }
     random_image: {
         provider: 'unsplash' | 'reddit',
