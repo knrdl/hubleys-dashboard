@@ -41,7 +41,7 @@ services:
       UNSPLASH_API_KEY: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  # get a free api key (Access Key): https://unsplash.com/oauth/applications
       ADMIN_USERIDS: user1, user2
     volumes:
-      - ./data:/data
+      - ./data:/data  # run `chown -R 1000:1000 ./data` on the host to fix folder permissions
     networks:
       - proxy  # must be reachable by the reverse proxy
     mem_limit: 100m
