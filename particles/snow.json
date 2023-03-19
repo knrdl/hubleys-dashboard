@@ -1,8 +1,66 @@
 {
-  "detectRetina": true,
+  "emitters": {
+    "direction": "bottom",
+    "size": {
+      "width": 100,
+      "height": 0
+    },
+    "position": {
+      "x": 50,
+      "y": 100
+    },
+    "rate": {
+      "delay": 0.1,
+      "quantity": 2
+    }
+  },
+  "particles": {
+    "number": {
+      "value": 0,
+      "density": {
+        "enable": true,
+        "valueArea": 800
+      }
+    },
+    "color": {
+      "value": "#ffffff"
+    },
+    "shape": {
+      "type": "circle"
+    },
+    "opacity": {
+      "value": {
+        "min": 0,
+        "max": 0.5
+      }
+    },
+    "size": {
+      "value": 20,
+      "random": false,
+      "anim": {
+        "enable": true,
+        "speed": 5,
+        "size_min": 5,
+        "sync": true,
+        "startValue": "min",
+        "destroy": "max"
+      }
+    },
+    "move": {
+      "enable": true,
+      "speed": 5,
+      "direction": "none",
+      "random": false,
+      "straight": false
+    }
+  },
   "interactivity": {
     "detectsOn": "canvas",
     "events": {
+      "onHover": {
+        "enable": true,
+        "mode": "repulse"
+      },
       "onClick": {
         "enable": true,
         "mode": "pause"
@@ -10,37 +68,5 @@
       "resize": true
     }
   },
-  "particles": {
-    "color": {
-      "value": "#fff"
-    },
-    "shape": {
-      "type": "circle"
-    },
-    "opacity": {
-      "value": {
-        "min": 0.1,
-        "max": 0.5
-      }
-    },
-    "size": {
-      "value": {
-        "min": 1,
-        "max": 10
-      }
-    },
-    "move": {
-      "enable": true,
-      "direction": "bottom",
-      "straight": true
-    },
-    "wobble": {
-      "enable": true,
-      "distance": 5,
-      "speed": {
-        "min": -1,
-        "max": 1
-      }
-    }
-  }
+  "detectRetina": true
 }
