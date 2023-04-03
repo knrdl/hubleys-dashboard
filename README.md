@@ -111,5 +111,4 @@ location / {
 }
 ```
 
-As auth provider [Authelia](https://www.authelia.com/) can be used.
-
+Both above examples are using [Authelia](https://www.authelia.com/) as the auth provider.
