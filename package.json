@@ -22,7 +22,7 @@
     "@typescript-eslint/parser": "^5.57.0",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "lodash.debounce": "^4.0.8",
     "lodash.clonedeep": "^4.5.0",
