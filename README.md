@@ -24,9 +24,9 @@ docker run -it --rm -e DEMO_MODE=1 -e ORIGIN=http://localhost:3000 -p3000:3000 g
 
 ![Screenshot](./docs/screenshot.png)
 
-## Setup
+# Setup
 
-### 1. Setup Docker Compose
+## 1. Setup Docker Compose
 
 ```yaml
 version: '2.4'
@@ -91,3 +91,11 @@ hubleys.example.org {
 
 As auth provider [Authelia](https://www.authelia.com/) can be used.
 
+## 4. I need more icons
+
+Please have a look here (thanks @FieldofClay):
+* https://github.com/walkxcode/dashboard-icons
+* https://simpleicons.org/
+* https://github.com/Templarian/MaterialDesign
+
+You can download additional icons into the `/data/logos` folder or just reference them via url in the `config.yml`
