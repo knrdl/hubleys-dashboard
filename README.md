@@ -67,7 +67,7 @@ Edit the contents of `/data/config.yml`. The demo example can be found [here](./
 Hubleys uses forward auth (also known as webproxy auth) to get all relevant user info via http header:
 
 - **Remote-User**: unique userID, must be present
-- **Remote-Groups**: comma seperated group memberships
+- **Remote-Groups**: comma separated group memberships
 - **Remote-Name**: optional display name
 - **Remote-Email**: optional email addr
 
@@ -93,9 +93,10 @@ As auth provider [Authelia](https://www.authelia.com/) can be used.
 
 ## 4. I need more icons
 
-Please have a look here (thanks @FieldofClay):
+Please have a look here:
 * https://github.com/walkxcode/dashboard-icons
 * https://simpleicons.org/
 * https://github.com/Templarian/MaterialDesign
+* https://simpleicons.org/
 
-You can download additional icons into the `/data/logos` folder or just reference them via url in the `config.yml`
+You can download additional icons into the `/data/logos` folder or just reference the image via it's url in the `config.yml`
