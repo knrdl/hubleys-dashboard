@@ -60,7 +60,8 @@ tiles:
             url: https://httpstatusdogs.com/
 
   - title: Grafana
-    logo: grafana.svg
+    # logo can be a local file or point to a web image, see README.md section "I need more icons"
+    logo: grafana.svg  # or: https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/grafana.png
     url: https://grafana.com/
     allow: true
     menu:
