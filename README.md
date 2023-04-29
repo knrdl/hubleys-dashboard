@@ -73,7 +73,7 @@ Hubleys uses forward auth (also known as webproxy auth) to get all relevant user
 
 See also: [Authelia docs](https://www.authelia.com/integration/trusted-header-sso/introduction/#response-headers)
 
-Using [Caddy](https://caddyserver.com/) as reverse proxy a config may look like below:
+### 3.1 [Caddy](https://caddyserver.com/) example configuration
 
 ```
 hubleys.example.org {
@@ -88,8 +88,30 @@ hubleys.example.org {
 	reverse_proxy hubleys:3000
 }
 ```
+### 3.2 [nginx](https://nginx.org) example configuration
 
-As auth provider [Authelia](https://www.authelia.com/) can be used.
+```
+location /authelia {
+  internal;
+  proxy_pass_request_body off;
+  proxy_pass http://authelia:9091/api/verify;
+  proxy_set_header Content-Length "";
+  proxy_set_header X-Forwarded-Proto $scheme;
+  proxy_set_header X-Original-URL $scheme://$http_host$request_uri;
+}
+
+location / {
+  proxy_pass            http://hubleys:3000/;
+  auth_request          /authelia;
+  auth_request_set      $target_url $scheme://$http_host$request_uri;
+  proxy_set_header      Upgrade $http_upgrade;
+  proxy_set_header      Connection $connection_upgrade;
+  proxy_set_header      Remote-User $upstream_http_remote_user;
+  proxy_set_header      Remote-Groups $upstream_http_remote_groups;
+}
+```
+
+Both above examples are using [Authelia](https://www.authelia.com/) as the auth provider.
 
 ## 4. I need more icons
 
@@ -100,3 +122,4 @@ Please have a look here:
 * https://simpleicons.org/
 
 You can download additional icons into the `/data/logos` folder or just reference the image via it's url in the `config.yml`
+
