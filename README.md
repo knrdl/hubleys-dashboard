@@ -93,9 +93,12 @@ hubleys.example.org {
 ```
 location /authelia {
   internal;
-  proxy_pass_request_body off;
   proxy_pass http://authelia:9091/api/verify;
+  proxy_redirect off;
+  proxy_pass_request_body off;
   proxy_set_header Content-Length "";
+  # this must also be set in order to avoid status code 413 response
+  client_max_body_size 0;
   proxy_set_header X-Forwarded-Proto $scheme;
   proxy_set_header X-Original-URL $scheme://$http_host$request_uri;
 }
@@ -108,6 +111,8 @@ location / {
   proxy_set_header      Connection $connection_upgrade;
   proxy_set_header      Remote-User $upstream_http_remote_user;
   proxy_set_header      Remote-Groups $upstream_http_remote_groups;
+  proxy_set_header      Remote-Name $upstream_http_remote_name;
+  proxy_set_header      Remote-Email $upstream_http_remote_email;
 }
 ```
 
