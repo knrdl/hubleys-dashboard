@@ -18,7 +18,7 @@
     "@types/cookie": "^0.5.1",
     "@types/js-yaml": "^4.0.5",
     "@types/node": "^20.3.1",
-    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
     "@typescript-eslint/parser": "^5.59.8",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.43.0",
