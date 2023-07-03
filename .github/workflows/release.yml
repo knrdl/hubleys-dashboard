@@ -1,0 +1,30 @@
+name: Releases
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - id: imagetag
+        run: |
+          echo "DOCKER_IMAGE_TAG=$(echo ${{github.ref_name}} | cut -dv -f2)" >> $GITHUB_ENV
+      - name: Create Release
+        id: create_release
+        if: github.event_name != 'pull_request'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          body: |
+            Docker images:
+            - ${{ github.repository }}:${{ env.DOCKER_IMAGE_TAG }}
+            - ghcr.io/${{ github.repository }}:${{ env.DOCKER_IMAGE_TAG }}
