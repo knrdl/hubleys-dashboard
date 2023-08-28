@@ -15,7 +15,7 @@
     "@sveltejs/kit": "^1.22.6",
     "@types/cookie": "^0.5.1",
     "@types/js-yaml": "^4.0.5",
-    "@types/node": "^20.5.1",
+    "@types/node": "^20.5.7",
     "autoprefixer": "^10.4.15",
     "lodash.debounce": "^4.0.8",
     "lodash.clonedeep": "^4.5.0",
