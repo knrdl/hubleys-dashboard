@@ -14,7 +14,7 @@
     "@sveltejs/adapter-node": "^1.2.4",
     "@sveltejs/kit": "^1.24.1",
     "@types/cookie": "^0.5.2",
-    "@types/js-yaml": "^4.0.5",
+    "@types/js-yaml": "^4.0.6",
     "@types/node": "^20.6.0",
     "autoprefixer": "^10.4.15",
     "lodash.debounce": "^4.0.8",
