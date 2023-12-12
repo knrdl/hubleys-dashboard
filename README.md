@@ -122,7 +122,6 @@ Both above examples are using [Authelia](https://www.authelia.com/) as the auth 
 
 Please have a look here:
 * https://github.com/walkxcode/dashboard-icons
-* https://simpleicons.org/
 * https://github.com/Templarian/MaterialDesign
 * https://simpleicons.org/
 
