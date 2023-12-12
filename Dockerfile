@@ -1,4 +1,4 @@
-FROM node:20.10-alpine3.19 as build
+FROM node:21.4-alpine3.19 as build
 
 COPY . /app/
 
@@ -7,7 +7,7 @@ WORKDIR /app
 RUN npm install && npm run build
 
 
-FROM node:20.10-alpine3.19 as deps
+FROM node:21.4-alpine3.19 as deps
 
 COPY package.json package-lock.json /app/
 
@@ -16,7 +16,7 @@ WORKDIR /app
 RUN NODE_ENV=production npm install
 
 
-FROM node:20.10-alpine3.19
+FROM node:21.4-alpine3.19
 
 RUN apk add --no-cache curl
 
