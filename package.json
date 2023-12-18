@@ -12,7 +12,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@sveltejs/adapter-node": "^1.2.4",
-    "@sveltejs/kit": "^1.29.1",
+    "@sveltejs/kit": "^2.0.2",
     "@types/cookie": "^0.6.0",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.10.5",
