@@ -1,5 +1,5 @@
-import {redirect} from "@sveltejs/kit";
+import { redirect } from '@sveltejs/kit'
 
-export async function GET({url}) {
-    throw redirect(307, '/settings/background')
+export async function GET() {
+  redirect(307, '/settings/background')
 }

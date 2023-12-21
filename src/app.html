@@ -1,21 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <link rel="icon" href="%sveltekit.assets%/favicon.png"/>
-    <meta name="viewport" content="width=device-width"/>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%sveltekit.assets%/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Hubleys</title>
-    <meta name="description" content="Brave New Dashboard"/>
+    <meta name="description" content="Brave New Dashboard" />
     %sveltekit.head%
-</head>
-<body data-sveltekit-prefetch>
-<div style="display: contents">%sveltekit.body%</div>
-<script>
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  </head>
+
+  <body data-sveltekit-prefetch>
+    <div style="display: contents">%sveltekit.body%</div>
+    <script>
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.documentElement.classList.add('dark')
-    } else {
+      } else {
         document.documentElement.classList.remove('dark')
-    }
-</script>
-</body>
+      }
+    </script>
+  </body>
 </html>
