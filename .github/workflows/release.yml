@@ -25,6 +25,4 @@ jobs:
           draft: false
           prerelease: false
           body: |
-            Docker images:
-            - ${{ github.repository }}:${{ env.DOCKER_IMAGE_TAG }}
-            - ghcr.io/${{ github.repository }}:${{ env.DOCKER_IMAGE_TAG }}
+            Docker image: ghcr.io/${{ github.repository }}:${{ env.DOCKER_IMAGE_TAG }}
