@@ -3,7 +3,11 @@
 declare global {
   namespace App {
     // interface Error {}
-    // interface Locals {}
+    interface Locals {
+      user: RequestUserInfo
+      sysConfig: Sysconfig
+      userConfig: UserConfig
+    }
     // interface PageData {}
     // interface PageState {}
     // interface Platform {}

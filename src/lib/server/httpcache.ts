@@ -1,45 +1,49 @@
-import {epoch} from "$lib/datetime";
+import { epoch } from '$lib/datetime'
 
 type CacheUrl = string
 type Seconds = number
 
-let _cache: Record<CacheUrl, any> = {}
-let _lifetimes: Record<CacheUrl, number> = {}
+let _cache: Record<CacheUrl, unknown> = {}
+let _lifetimes: Record<CacheUrl, Seconds> = {}
 
-let intervalHandle = null
+let intervalHandle: number | null = null
 
 function cleanup() {
-    const urls = Object.keys(_lifetimes)
-    if (urls.length > 0) {
-        const now = epoch()
-        for (const url of urls) {
-            if (_lifetimes[url] < now) {
-                delete _cache[url]
-                delete _lifetimes[url]
-            }
-        }
-    } else {
-        clearInterval(intervalHandle)
-        intervalHandle = null
+  const urls = Object.keys(_lifetimes)
+  if (urls.length > 0) {
+    const now = epoch()
+    for (const url of urls) {
+      if (_lifetimes[url] < now) {
+        delete _cache[url]
+        delete _lifetimes[url]
+      }
     }
+  } else {
+    if (intervalHandle !== null) clearInterval(intervalHandle)
+    intervalHandle = null
+  }
 }
 
-export function cache<T>(requestUrl: string, responseData: T = undefined, cacheLifetime: Seconds = 10 * 60): T | undefined {
-    if (responseData !== undefined) {
-        _cache[requestUrl] = responseData
-        _lifetimes[requestUrl] = epoch() + cacheLifetime
-        if (intervalHandle === null)
-            intervalHandle = setInterval(cleanup, 1000)
-        return responseData
-    } else {
-        if (_cache.hasOwnProperty(requestUrl))
-            return _cache[requestUrl]
-        else
-            return undefined
-    }
-}
+export default {
+  get<T>(requestUrl: string): T {
+    if (this.has(requestUrl)) return _cache[requestUrl] as T
+    else throw new Error(`cache item "${requestUrl}" not found`)
+  },
 
-export function clearCache() {
+  has(requestUrl: string) {
+    return _cache.hasOwnProperty(requestUrl)
+  },
+
+  set<T>(requestUrl: string, responseData: T, cacheLifetime: Seconds = 10 * 60) {
+    //todo: cache lifetime from env var
+    _cache[requestUrl] = responseData
+    _lifetimes[requestUrl] = epoch() + cacheLifetime
+    if (intervalHandle === null) intervalHandle = setInterval(cleanup, 1000) as any
+    return responseData
+  },
+
+  clear() {
     _cache = {}
     _lifetimes = {}
+  }
 }

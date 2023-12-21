@@ -1,8 +1,8 @@
 import { getConfig } from '$lib/server/sysconfig'
-import { error } from '@sveltejs/kit'
+import { error, type RequestEvent } from '@sveltejs/kit'
 import { getUserConfig } from '$lib/server/userconfig'
 
-function getConfiguredUserLang(event) {
+function getConfiguredUserLang(event: RequestEvent) {
   if (event.locals.userConfig.language === null) return (event.request.headers.get('accept-language') || 'en').split(/[,;]/)[0]
   else return event.locals.userConfig.language
 }
@@ -19,12 +19,12 @@ export async function handle({ event, resolve }) {
       groups: ['example-group1'],
       isAdmin: true,
       lang: getConfiguredUserLang(event)
-    } as RequestUserInfo
+    }
     event.locals.sysConfig = config
     return resolve(event)
   } else {
     const userid = event.request.headers.get('Remote-User')
-    if (userid?.length > 0) {
+    if (userid && userid.length > 0) {
       event.locals.userConfig = await getUserConfig(userid)
       event.locals.user = {
         userid,

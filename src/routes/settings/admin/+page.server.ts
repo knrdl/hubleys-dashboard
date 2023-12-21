@@ -1,8 +1,8 @@
-import type { Actions } from './$types'
+import type { Actions, PageServerLoad } from './$types'
 import { reloadSystemConfig } from '$lib/server/sysconfig'
 import { error } from '@sveltejs/kit'
 import { reloadAllUsersConfig } from '$lib/server/userconfig'
-import { clearCache } from '$lib/server/httpcache'
+import cache from '$lib/server/httpcache'
 
 export const load: PageServerLoad = async ({ locals }) => {
   return {
@@ -29,7 +29,7 @@ export const actions: Actions = {
   },
   'clear-http-cache': async ({ locals }) => {
     if (locals.user.isAdmin) {
-      await clearCache()
+      await cache.clear()
       return { message: 'Cleared HTTP Cache' }
     } else {
       error(403, 'user is not admin')

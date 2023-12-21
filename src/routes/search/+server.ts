@@ -19,9 +19,9 @@ export async function GET({ url, locals }) {
 
   const response = await fetch(autocompleteUrl + '?' + autoCompUrl.searchParams.toString())
   if (!response.ok) error(504, 'search provider error: ' + (await response.text()))
-  const resbody: unknown = await response.json()
+  const resbody: any = (await response.json()) as unknown
   if (resbody.suggestions) {
-    return json(resbody.suggestions.map(suggestion => suggestion.text))
+    return json(resbody.suggestions.map((suggestion: { text: string }) => suggestion.text))
   } else if (Array.isArray(resbody) && resbody.length === 2 && resbody[0] === searchTerm) {
     return json(resbody[1])
   } else if (Array.isArray(resbody) && resbody.length > 0 && resbody[0].phrase) {

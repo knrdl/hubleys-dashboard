@@ -1,5 +1,5 @@
-import {json, type RequestHandler} from '@sveltejs/kit'
+import { json, type RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = () => {
-    return json('ok')
+  return json('ok')
 }

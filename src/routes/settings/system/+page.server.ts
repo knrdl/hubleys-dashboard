@@ -1,6 +1,6 @@
-import type {Actions} from "@sveltejs/kit";
-import {saveUserConfig} from "../utils";
+import type { Actions } from '@sveltejs/kit'
+import { saveUserConfig } from '../utils'
 
 export const actions: Actions = {
-    save: saveUserConfig
-};
+  save: saveUserConfig
+}
