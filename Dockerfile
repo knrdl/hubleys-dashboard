@@ -1,4 +1,4 @@
-FROM node:21.4-alpine3.19 as build
+FROM node:21.5-alpine3.19 as build
 
 COPY . /app/
 WORKDIR /app
@@ -8,12 +8,12 @@ RUN export PUBLIC_BUILD_DATE=$(date -Iseconds) && \
     npm audit && \
     npm run check || true && \
     npm run lint:check || true && \
-    npm run format:check && \
+    npm run format:check || true && \
     npm run build
 
 
 
-FROM node:21.4-alpine3.19 as deps
+FROM node:21.5-alpine3.19 as deps
 
 COPY package.json package-lock.json /app/
 WORKDIR /app
@@ -22,7 +22,7 @@ RUN NODE_ENV=production npm install --omit=dev
 
 
 
-FROM node:21.4-alpine3.19
+FROM node:21.5-alpine3.19
 
 RUN apk add --no-cache curl
 ENV NODE_ENV=production

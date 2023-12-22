@@ -2,3 +2,4 @@
 .svelte-kit
 node_modules
 dev
+data
