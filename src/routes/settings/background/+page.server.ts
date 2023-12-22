@@ -1,10 +1,10 @@
 import type { Actions, PageServerLoad } from './$types'
-import { getParticlesList } from '$lib/server/particles'
 import { saveUserConfig } from '../utils'
+import { getParticlesList } from '$lib/particles'
 
 export const load: PageServerLoad = async () => {
   return {
-    particleList: await getParticlesList()
+    particleList: getParticlesList()
   }
 }
 

@@ -1,5 +1,6 @@
 import { getSysConfig } from '$lib/server/sysconfig'
 import { error, type RequestEvent } from '@sveltejs/kit'
+import { getUserConfig, initDefaultConfig } from '$lib/server/userconfig'
 import fs from 'fs'
 import { isFile } from '$lib/server/fs'
 
@@ -60,6 +61,7 @@ async function onServerStartup() {
     })()
   ])
 
+  await initDefaultConfig()
 
   console.log('up and running')
 }

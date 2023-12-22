@@ -1,6 +1,6 @@
-import { isFile, readFile, writeFile } from '$lib/server/fs'
+import { isFile, readJsonFile, writeFile, writeJsonFile } from '$lib/server/fs'
 
-const default_config: UserConfig = {
+let defaultConfig: UserConfig = {
   version: 0,
   theme: 'system',
   language: null,
@@ -41,9 +41,9 @@ function userConfigFilePath(userid: UserId) {
 async function readUserConfig(userid: UserId) {
   const filepath = userConfigFilePath(userid)
   if (await isFile(filepath)) {
-    return JSON.parse(await readFile(filepath))
+    return await readJsonFile(filepath)
   } else {
-    return default_config
+    return defaultConfig
   }
 }
 
@@ -72,4 +72,10 @@ export async function reloadUserConfig(userid: UserId) {
 
 export function userBackgroundImgFilePath(userid: UserId, imgId: string) {
   return '/data/users/backgrounds/' + encodeURIComponent(userid + '-' + imgId)
+}
+
+export async function initDefaultConfig() {
+  const path = '/data/users/default-config.json'
+  if (await isFile(path)) defaultConfig = await readJsonFile(path)
+  else await writeJsonFile(path, defaultConfig)
 }

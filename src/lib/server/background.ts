@@ -3,7 +3,7 @@ import { fetchTimeout } from '$lib/fetch'
 import path from 'path'
 import cache from '$lib/server/httpcache'
 import { chooseRandom } from '$lib/random'
-import { getParticlesConfig } from '$lib/server/particles'
+import { getParticles } from '$lib/particles'
 import { epoch } from '$lib/datetime'
 import type { Cookies } from '@sveltejs/kit'
 

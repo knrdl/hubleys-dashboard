@@ -1,12 +1,15 @@
 import fs from 'fs'
 
 export async function readFile(filepath: string) {
-  return new Promise<string>((resolve, reject) => {
-    fs.readFile(filepath, 'utf8', (err, file) => {
-      if (err) reject(err)
-      else resolve(file)
-    })
-  })
+  return fs.promises.readFile(filepath, { encoding: 'utf8' })
+}
+
+export async function readJsonFile<T>(filepath: string) {
+  return JSON.parse(await fs.promises.readFile(filepath, { encoding: 'utf8' })) as T
+}
+
+export async function writeJsonFile(filepath: string, data: unknown) {
+  return await fs.promises.writeFile(filepath, JSON.stringify(data, null, 4), { encoding: 'utf8' })
 }
 
 export async function writeFile(filepath: string, text: string) {
@@ -50,15 +53,6 @@ export async function isDir(filepath: string) {
   } catch (e) {
     return false
   }
-}
-
-export async function listFilesInFolder(filepath: string) {
-  return new Promise<string[]>((resolve, reject) => {
-    fs.readdir(filepath, { withFileTypes: true }, (err, dirents) => {
-      if (err) reject(err)
-      else resolve(dirents.filter(dirent => dirent.isFile()).map(dirent => dirent.name))
-    })
-  })
 }
 
 export async function deleteFile(filepath: string) {
