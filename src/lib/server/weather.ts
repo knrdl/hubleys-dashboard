@@ -1,9 +1,9 @@
-import { getConfig } from './sysconfig'
+import { getSysConfig } from './sysconfig'
 import cache from '$lib/server/httpcache'
 import { fetchTimeout } from '$lib/fetch'
 
 async function buildSearchParams({ lang, userConfig }: { lang: string; userConfig: UserConfig }) {
-  const apiKey = (await getConfig()).openweathermap_api_key
+  const apiKey = (await getSysConfig()).openweathermap_api_key
   if (!apiKey) throw new Error('weather error: no api key given')
   const conf = userConfig.weather
   const search = new URLSearchParams({ appid: apiKey, lang, units: 'metric' })

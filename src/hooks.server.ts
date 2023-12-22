@@ -1,15 +1,21 @@
-import { getConfig } from '$lib/server/sysconfig'
+import { getSysConfig } from '$lib/server/sysconfig'
 import { error, type RequestEvent } from '@sveltejs/kit'
-import { getUserConfig } from '$lib/server/userconfig'
+import fs from 'fs'
+import { isFile } from '$lib/server/fs'
 
-function getConfiguredUserLang(event: RequestEvent) {
-  if (event.locals.userConfig.language === null) return (event.request.headers.get('accept-language') || 'en').split(/[,;]/)[0]
-  else return event.locals.userConfig.language
+function getConfiguredUserLang(ev: RequestEvent) {
+  if (ev.locals.userConfig.language === null) return (ev.request.headers.get('accept-language') || 'en').split(/[,;]/)[0]
+  else return ev.locals.userConfig.language
+}
+
+function sanatizeHeader(ev: RequestEvent, header: string) {
+  const val = ev.request.headers.get(header) || ''
+  return val.split('\n', 1).shift()?.trim() || ''
 }
 
 export async function handle({ event, resolve }) {
-  const config = await getConfig()
-  if (config.demo_mode) {
+  const sysConfig = await getSysConfig()
+  if (sysConfig.demo_mode) {
     const userid = 'demo1'
     event.locals.userConfig = await getUserConfig(userid)
     event.locals.user = {
@@ -20,21 +26,23 @@ export async function handle({ event, resolve }) {
       isAdmin: true,
       lang: getConfiguredUserLang(event)
     }
-    event.locals.sysConfig = config
+    event.locals.sysConfig = sysConfig
     return resolve(event)
   } else {
-    const userid = event.request.headers.get('Remote-User')
-    if (userid && userid.length > 0) {
+    const userid = sanatizeHeader(event, sysConfig.userHttpHeaders.userid)
+    if (userid.length > 0) {
       event.locals.userConfig = await getUserConfig(userid)
       event.locals.user = {
         userid,
-        email: event.request.headers.get('Remote-Email') || null,
-        username: event.request.headers.get('Remote-Name') || null,
-        groups: (event.request.headers.get('Remote-Groups') || '').split(/\s*,\s*/).filter(group => !!group),
-        isAdmin: config.admin_userids.includes(userid),
+        email: sanatizeHeader(event, sysConfig.userHttpHeaders.email) || null,
+        username: sanatizeHeader(event, sysConfig.userHttpHeaders.username) || null,
+        groups: sanatizeHeader(event, sysConfig.userHttpHeaders.groups)
+          .split(/\s*,\s*/)
+          .filter(group => !!group),
+        isAdmin: sysConfig.admin_userids.includes(userid),
         lang: getConfiguredUserLang(event)
       } as RequestUserInfo
-      event.locals.sysConfig = config
+      event.locals.sysConfig = sysConfig
       return resolve(event)
     } else {
       error(500, 'forward auth not configured')

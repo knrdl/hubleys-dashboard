@@ -25,7 +25,6 @@ RUN NODE_ENV=production npm install --omit=dev
 FROM node:21.4-alpine3.19
 
 RUN apk add --no-cache curl
-
 ENV NODE_ENV=production
 
 COPY --from=build --chown=node:node /app/build /app
@@ -39,9 +38,14 @@ WORKDIR /app
 EXPOSE 3000/tcp
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
- CMD [ "curl", "--fail", "--silent", "--output", "/dev/null", "--header", "Remote-User: healthcheck", "localhost:3000/healthcheck" ]
+    CMD [ "curl", "--fail", "--silent", "--output", "/dev/null", "--header", "$HTTP_HEADER_USERID: healthcheck", "localhost:3000/healthcheck" ]
 
 VOLUME /data
 
 CMD ["node", "--unhandled-rejections=strict", "/app/entrypoint.js"]
+
+ENV HTTP_HEADER_USERID="Remote-User"
+ENV HTTP_HEADER_USERNAME="Remote-Name"
+ENV HTTP_HEADER_EMAIL="Remote-Email"
+ENV HTTP_HEADER_GROUPS="Remote-Groups"
 

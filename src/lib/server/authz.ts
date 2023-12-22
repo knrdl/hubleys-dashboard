@@ -1,4 +1,4 @@
-import { getConfig } from './sysconfig'
+import { getSysConfig } from './sysconfig'
 import path from 'path'
 import { isFile } from '$lib/server/fs'
 import { dev } from '$app/environment'
@@ -30,7 +30,7 @@ function isUserAllowed(allowConditions: boolean | string[] | undefined, user: Re
 }
 
 export async function getUserCalendars(user: RequestUserInfo) {
-  const config = await getConfig()
+  const config = await getSysConfig()
   return (config.calendars || [])
     .filter(tile => isUserAllowed(tile.allow, user))
     .map(origTile => {
@@ -41,7 +41,7 @@ export async function getUserCalendars(user: RequestUserInfo) {
 }
 
 export async function getUserSearchEngines(user: RequestUserInfo) {
-  const config = await getConfig()
+  const config = await getSysConfig()
   return (config.search_engines || [])
     .filter(tile => isUserAllowed(tile.allow, user))
     .map(origTile => {
@@ -87,7 +87,7 @@ export async function getUserTiles(user: RequestUserInfo): Promise<Tile[]> {
         return tile
       })
 
-  const config = await getConfig()
+  const config = await getSysConfig()
 
   if (config.tiles) return Promise.all(transformTiles(config.tiles))
   else return []

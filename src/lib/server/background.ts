@@ -1,4 +1,4 @@
-import { getConfig } from './sysconfig'
+import { getSysConfig } from './sysconfig'
 import { fetchTimeout } from '$lib/fetch'
 import path from 'path'
 import cache from '$lib/server/httpcache'
@@ -38,7 +38,7 @@ export async function queryBgImgUrlReddit(subreddits: string, timeout?: number) 
 }
 
 export async function queryBgImgUrlUnsplash(searchTerm: string, timeout?: number) {
-  const apiKey = (await getConfig()).unsplash_api_key
+  const apiKey = (await getSysConfig()).unsplash_api_key
   if (!apiKey) throw new Error('unsplash error: no api key given')
   const search = new URLSearchParams({
     client_id: apiKey,
@@ -64,7 +64,7 @@ export async function generateCurrentBgConfig({
   timeout?: number
 }) {
   const bgCfg: BackgroundConfig = userConfig.backgrounds.find(bgCfg => bgCfg.selected) as BackgroundConfig
-  const particlesJob = bgCfg.particles ? getParticlesConfig(bgCfg.particles) : null
+  const particlesJob = bgCfg.particles ? getParticles(bgCfg.particles) : null
 
   let bgImg = null
   if (!currentBgImgUrl) {
