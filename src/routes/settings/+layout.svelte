@@ -3,6 +3,7 @@
   import Fa from 'svelte-fa'
   import { faImage, faCloud, faKey, faUserGear, faSliders } from '@fortawesome/free-solid-svg-icons'
   import { fly } from 'svelte/transition'
+  import { t } from '$lib/translations'
 
   export let data
 </script>
@@ -21,7 +22,7 @@
           aria-current={$page.url.pathname.endsWith('background') ? 'page' : undefined}
         >
           <Fa icon={faImage} size="lg" />
-          <span>Background</span>
+          <span>{$t('settings.nav.background')}</span>
         </a>
       </li>
       <li class="mx-1">
@@ -41,7 +42,7 @@
           aria-current={$page.url.pathname.endsWith('weather') ? 'page' : undefined}
         >
           <Fa icon={faCloud} size="lg" />
-          <span>Weather</span>
+          <span>{$t('settings.nav.weather')}</span>
         </a>
       </li>
       <li class="mx-1">

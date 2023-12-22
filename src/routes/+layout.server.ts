@@ -1,8 +1,9 @@
-import type { PageServerLoad } from './$types'
+import type { LayoutServerLoad } from './$types'
 import { queryCurrentWeather } from '$lib/server/weather'
 import { generateCurrentBgConfig, setBgImgCookie } from '$lib/server/background'
+import { loadTranslations } from '$lib/translations'
 
-export const load: PageServerLoad = async ({ cookies, locals }) => {
+export const load: LayoutServerLoad = async ({ url, cookies, locals }) => {
   const currentWeatherJob = (async () => {
     try {
       if (locals.sysConfig.openweathermap_api_key)
@@ -24,6 +25,9 @@ export const load: PageServerLoad = async ({ cookies, locals }) => {
     timeout: locals.sysConfig.server_request_timeout
   })
   setBgImgCookie(cookies, background.image)
+
+  const { pathname } = url
+  await loadTranslations(locals.user.lang, pathname)
 
   return {
     background, // loaded from here or /background on timeout

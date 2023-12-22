@@ -5,6 +5,7 @@
   import Fa from 'svelte-fa'
   import { faCog, faHome, faWrench } from '@fortawesome/free-solid-svg-icons'
   import type { PageData } from './$types'
+  import { t } from '$lib/translations'
 
   export let data: PageData
 </script>
@@ -26,14 +27,14 @@
     <a href="/settings/background" class="flex items-center gap-1 rounded-b-md px-2 py-1">
       <Fa icon={faCog} />
       {#if data.userConfig?.dashboard.show_settings_text}
-        Settings
+        {$t('common.nav.settings')}
       {/if}
     </a>
   {:else}
     <a href="/" class="flex items-center gap-1 rounded-b-md px-2 pb-2 pt-1">
       <Fa icon={faHome} />
       {#if data.userConfig?.dashboard.show_settings_text}
-        Home
+        {$t('common.nav.home')}
       {/if}
     </a>
   {/if}

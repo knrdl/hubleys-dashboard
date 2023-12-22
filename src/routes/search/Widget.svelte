@@ -3,6 +3,7 @@
   import { faSearch } from '@fortawesome/free-solid-svg-icons'
   import debounce from 'lodash.debounce'
   import { tick } from 'svelte'
+  import { t } from '$lib/translations'
 
   export let engines: SearchEngine[]
 
@@ -59,7 +60,7 @@
       <input
         type="search"
         name="q"
-        placeholder={engines?.length > 1 ? 'Search' : engines[0].title}
+        placeholder={engines?.length > 1 ? $t('dashboard.search.placeholder') : engines[0].title}
         required
         list="searchboxAutocomplete"
         bind:value={query}
