@@ -116,14 +116,94 @@ location / {
 }
 ```
 
-Both above examples are using [Authelia](https://www.authelia.com/) as the auth provider.
+### 3.3 [traefik](https://traefik.io/traefik/) example configuration
+
+Multiple ways to accomplish this. One would be to use a file provider to pass required headers. Example using forward auth through Authentik.
+```
+    auth:
+      forwardAuth:
+        address: http://authentik-server:9000/outpost.goauthentik.io/auth/traefik #your idp
+        trustForwardHeader: true
+        authResponseHeaders:
+          - X-authentik-username #The X-authentik headers are for authentik forward auth. They're not relevant here, but I left them in so nobody accidentally breaks their stuff following this example
+          - X-authentik-groups
+          - X-authentik-email
+          - X-authentik-name
+          - X-authentik-uid
+          - X-authentik-jwt
+          - X-authentik-meta-jwks
+          - X-authentik-meta-outpost
+          - X-authentik-meta-provider
+          - X-authentik-meta-app
+          - X-authentik-meta-version
+          - Remote-User
+          - Remote-Groups
+          - Remote-Name
+          - Remote-Email
+```
+
+### 3.4 [Authentik](https://goauthentik.io/) example configuration
+
+Authentik doesn't pass the headers needed by this project for forwardAuth. You can get around this by having authentik pass custom headers. On your navigation pane, choose Customisation > Property Mappings and create a new scope mapping for each header.
+```
+return {
+    "ak_proxy": {
+        "user_attributes": {
+            "additionalHeaders": {
+                "Remote-Email": request.user.email
+            }
+        }
+    }
+}
+```
+```
+group_names = [group.name.strip() for group in user.ak_groups.all()] #strip newlines and start and end white space from all returned groups
+cs_group_names = ','.join(group_names) #squish together as a comma separated list for dashboard consumption
+
+return {
+    "ak_proxy": {
+        "user_attributes": {
+            "additionalHeaders": {
+                "Remote-Groups": cs_group_names
+            }
+        }
+    }
+}
+```
+```
+return {
+    "ak_proxy": {
+        "user_attributes": {
+            "additionalHeaders": {
+                "Remote-Name": request.user.name
+            }
+        }
+    }
+}
+```
+```
+return {
+    "ak_proxy": {
+        "user_attributes": {
+            "additionalHeaders": {
+                "Remote-User": request.user.uid
+            }
+        }
+    }
+}
+```
+
+Examples 3.1 and 3.2 are using [Authelia](https://www.authelia.com/) as the auth provider.
+Examples 3.3 and 3.4 are using [Authentik](https://goauthentik.io/) as the auth provider.
 
 ## 4. I need more icons
 
 Please have a look here:
+* https://github.com/loganmarchione/homelab-svg-assets
 * https://github.com/walkxcode/dashboard-icons
 * https://github.com/Templarian/MaterialDesign
 * https://simpleicons.org/
 
 You can download additional icons into the `/data/logos` folder or just reference the image via it's url in the `config.yml`
+You may need to restart the application to have the icons load correctly
 
