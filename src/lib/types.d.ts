@@ -1,3 +1,5 @@
+type ParticleName = 'bubbles' | 'circles' | 'rain' | 'snow' | 'triangles'
+
 interface BackgroundConfig {
   static_image: {
     source: 'upload' | 'web'
@@ -14,7 +16,7 @@ interface BackgroundConfig {
   background: 'triangles' | 'static' | 'random'
   blur: false | 'dark' | 'light'
   dots: boolean
-  particles: false | string
+  particles: false | ParticleName
   selected: boolean
 }
 
