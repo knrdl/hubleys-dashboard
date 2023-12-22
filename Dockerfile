@@ -1,19 +1,25 @@
 FROM node:21.4-alpine3.19 as build
 
 COPY . /app/
-
 WORKDIR /app
 
-RUN npm install && npm run build
+RUN export PUBLIC_BUILD_DATE=$(date -Iseconds) && \
+    npm install && \
+    npm audit && \
+    npm run check || true && \
+    npm run lint:check || true && \
+    npm run format:check && \
+    npm run build
+
 
 
 FROM node:21.4-alpine3.19 as deps
 
 COPY package.json package-lock.json /app/
-
 WORKDIR /app
 
-RUN NODE_ENV=production npm install
+RUN NODE_ENV=production npm install --omit=dev
+
 
 
 FROM node:21.4-alpine3.19
@@ -37,11 +43,5 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
 
 VOLUME /data
 
+CMD ["node", "--unhandled-rejections=strict", "/app/entrypoint.js"]
 
-CMD mkdir -p /data/logos && \
-    ( [ -L /app/client/logos ] || ln -s /data/logos /app/client/logos ) && \
-    mkdir -p /data/users/backgrounds && \
-    ( [ -L /app/client/backgrounds ] || ln -s /data/users/backgrounds /app/client/backgrounds ) && \
-    mkdir -p /data/users/config && \
-    ( [ -f /app/client/backgrounds ] || touch /data/config.yml) && \
-    node --unhandled-rejections=strict /app/entrypoint.js

@@ -41,3 +41,19 @@ export async function handle({ event, resolve }) {
     }
   }
 }
+
+async function onServerStartup() {
+  await Promise.all([
+    fs.promises.mkdir('/data/logos', { recursive: true }),
+    fs.promises.mkdir('/data/users/backgrounds', { recursive: true }),
+    fs.promises.mkdir('/data/users/config', { recursive: true }),
+    (async () => {
+      if (await isFile('/data/favicon.png')) await fs.promises.copyFile('/data/favicon.png', '/app/client/favicon.png')
+    })()
+  ])
+
+
+  console.log('up and running')
+}
+
+await onServerStartup()
