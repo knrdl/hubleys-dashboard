@@ -13,6 +13,7 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
@@ -59,7 +60,7 @@ jobs:
           context: .
           build-args: |
             PUBLIC_VERSION=${{ github.ref_name }}
-          platforms: linux/amd64,linux/arm64 #,linux/arm,linux/aarch64
+          platforms: linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
