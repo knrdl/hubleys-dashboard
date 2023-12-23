@@ -3,6 +3,7 @@ FROM node:21.5-alpine3.19 as build
 COPY . /app/
 WORKDIR /app
 
+ARG PUBLIC_VERSION
 RUN export PUBLIC_BUILD_DATE=$(date -Iseconds) && \
     npm install && \
     npm audit && \
