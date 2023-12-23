@@ -36,6 +36,7 @@ interface UserConfig {
   calendar: { show: boolean }
   searchbar: { show: boolean }
   dashboard: { show_settings_text: boolean }
+  tiles: { layout: 'center' | 'wide'; position: 'top' | 'bottom' }
   backgrounds: BackgroundConfig[]
 }
 

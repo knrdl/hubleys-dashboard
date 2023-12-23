@@ -12,7 +12,7 @@
   <title>Dashboard</title>
 </svelte:head>
 
-<main class="flex w-full max-w-screen-lg grow flex-col p-3">
+<main class="flex w-full grow flex-col p-3" class:max-w-screen-lg={data.userConfig.tiles.layout === 'center'}>
   {#if data.userConfig?.searchbar.show && data.searchEngines?.length > 0}
     <section class="flex justify-center">
       <Searchbar engines={data.searchEngines} />
@@ -30,7 +30,8 @@
     </section>
   {/if}
 
-  <section class="flex grow items-end justify-center">
+
+  <section class="mt-6 flex items-end justify-center" class:grow={data.userConfig.tiles.position === 'bottom'}>
     <div class="flex flex-wrap justify-center" in:fly={{ y: 20 }}>
       {#each data.tiles as tile}
         <Tile {...tile}></Tile>

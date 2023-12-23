@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores'
   import Fa from 'svelte-fa'
-  import { faImage, faCloud, faKey, faUserGear, faSliders } from '@fortawesome/free-solid-svg-icons'
+  import { faImage, faCloud, faKey, faSliders, faTable } from '@fortawesome/free-solid-svg-icons'
   import { fly } from 'svelte/transition'
   import { t } from '$lib/translations'
 
@@ -17,22 +17,22 @@
     <ul class="flex flex-wrap items-center justify-center text-center text-sm font-medium text-gray-500 dark:text-gray-400">
       <li class="mx-1">
         <a
+          href="./dashboard"
+          class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
+          aria-current={$page.url.pathname.endsWith('dashboard') ? 'page' : undefined}
+        >
+          <Fa icon={faTable} size="lg" />
+          <span>{$t('settings.nav.dashboard')}</span>
+        </a>
+      </li>
+      <li class="mx-1">
+        <a
           href="./background"
           class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
           aria-current={$page.url.pathname.endsWith('background') ? 'page' : undefined}
         >
           <Fa icon={faImage} size="lg" />
           <span>{$t('settings.nav.background')}</span>
-        </a>
-      </li>
-      <li class="mx-1">
-        <a
-          href="./widgets"
-          class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
-          aria-current={$page.url.pathname.endsWith('widgets') ? 'page' : undefined}
-        >
-          <Fa icon={faUserGear} size="lg" />
-          <span>Widgets</span>
         </a>
       </li>
       <li class="mx-1">
