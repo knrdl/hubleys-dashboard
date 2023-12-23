@@ -5,8 +5,7 @@
   import { invalidateAll } from '$app/navigation'
   import Message from '../Message.svelte'
   import type { PageData } from './$types.js'
-  import { faArrowsToCircle, faLeftRight, faTurnDown, faTurnUp } from '@fortawesome/free-solid-svg-icons'
-  import Fa from 'svelte-fa'
+  import TilesVisualizer from './TilesVisualizer.svelte'
 
   export let data: PageData
   export let form
@@ -28,36 +27,39 @@
 
 <form method="POST" on:submit|preventDefault={handleSubmit} action="?/save">
   <header class="text-lg font-bold text-gray-900 dark:text-gray-300">Layout</header>
-  <section class="flex">
-    <label class="flex items-center">
-      <input type="radio" value="center" bind:group={data.userConfig.tiles.layout} />
-      <Fa icon={faArrowsToCircle} size="lg" />
-      Center tiles on screen
+  <section class="mb-8">
+    <label class="mb-5 flex flex-wrap items-center gap-2">
+      <div class="min-w-48">
+        <input type="radio" value="center" bind:group={data.userConfig.tiles.layout} class="mr-3 h-4" />
+        Center tiles on screen
+      </div>
+      <TilesVisualizer mode="center" active={data.userConfig.tiles.layout === 'center'} />
     </label>
-
-    <label>
-      <input type="radio" value="wide" bind:group={data.userConfig.tiles.layout} />
-      <Fa icon={faLeftRight} size="lg" />
-      Use screen width
+    <label class="flex flex-wrap items-center gap-2">
+      <div class="min-w-48">
+        <input type="radio" value="wide" bind:group={data.userConfig.tiles.layout} class="mr-3 h-4" />
+        Fill screen with tiles
+      </div>
+      <TilesVisualizer mode="wide" active={data.userConfig.tiles.layout === 'wide'} />
     </label>
   </section>
 
   <header class="text-lg font-bold text-gray-900 dark:text-gray-300">Position</header>
-  <section class="flex">
-    <label>
+  <section class="mb-8 flex gap-2 max-sm:mt-2 sm:gap-20 sm:pl-20">
+    <label class="flex flex-col items-center">
       <input type="radio" value="top" bind:group={data.userConfig.tiles.position} />
-      <Fa icon={faTurnUp} size="lg" />
-      Tiles on top
+      <div class="mt-1">Tiles on top</div>
+      <TilesVisualizer mode="top" active={data.userConfig.tiles.position === 'top'} />
     </label>
 
-    <label>
+    <label class="flex flex-col items-center">
       <input type="radio" value="bottom" bind:group={data.userConfig.tiles.position} />
-      <Fa icon={faTurnDown} size="lg" />
-      Tiles on bottom
+      <div class="mt-1">Tiles on bottom</div>
+      <TilesVisualizer mode="bottom" active={data.userConfig.tiles.position === 'bottom'} />
     </label>
   </section>
 
-  <header class="text-lg font-bold text-gray-900 dark:text-gray-300">Features</header>
+  <header class="mb-2 text-lg font-bold text-gray-900 dark:text-gray-300">Features</header>
   <section class="flex flex-col items-start">
     <div class="flex flex-col">
       <Toggle bind:checked={data.userConfig.calendar.show}>Show Calendar</Toggle>
@@ -80,5 +82,9 @@
 
   section {
     @apply ml-6;
+  }
+
+  input[type='radio'] {
+    @apply scale-150;
   }
 </style>

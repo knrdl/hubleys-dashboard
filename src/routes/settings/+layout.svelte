@@ -12,7 +12,10 @@
   <title>Settings</title>
 </svelte:head>
 
-<div class="z-10 my-3 max-w-3xl rounded-lg border-b border-gray-200 bg-slate-100 p-6 pt-2 shadow-md dark:border-gray-700 dark:bg-gray-800" in:fly={{ y: -20 }}>
+<div
+  class="z-10 my-3 w-screen rounded-lg border-b border-gray-200 bg-slate-100 p-6 pt-2 shadow-md md:max-w-3xl dark:border-gray-700 dark:bg-gray-800"
+  in:fly={{ y: -20 }}
+>
   <nav class="mb-6">
     <ul class="flex flex-wrap items-center justify-center text-center text-sm font-medium text-gray-500 dark:text-gray-400">
       <li class="mx-1">

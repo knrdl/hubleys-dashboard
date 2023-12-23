@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 }
 
 export const actions: Actions = {
-  'reload': async ({ locals }) => {
+  reload: async ({ locals }) => {
     if (locals.user.isAdmin) {
       await reloadSysConfig()
       await reloadAllUsersConfig()
