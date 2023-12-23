@@ -13,6 +13,9 @@ search_engines:
 #  - url: https://onlinekalender.info/feiertage/deutschland/berlin.ics
 #    allow: true
 
+messages:
+  - content: test
+    allow: true
 
 tiles:
   - title: Logout

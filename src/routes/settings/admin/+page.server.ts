@@ -6,31 +6,18 @@ import cache from '$lib/server/httpcache'
 
 export const load: PageServerLoad = async ({ locals }) => {
   return {
-    userinfo: locals.user
+    userinfo: locals.user,
+    appinfo: locals.sysConfig.appInfo
   }
 }
 
 export const actions: Actions = {
-  'reload-system-config': async ({ locals }) => {
+  'reload': async ({ locals }) => {
     if (locals.user.isAdmin) {
       await reloadSysConfig()
-      return { message: 'Reloaded System Config' }
-    } else {
-      error(403, 'user is not admin')
-    }
-  },
-  'reload-users-config': async ({ locals }) => {
-    if (locals.user.isAdmin) {
       await reloadAllUsersConfig()
-      return { message: 'Reloaded Users Config' }
-    } else {
-      error(403, 'user is not admin')
-    }
-  },
-  'clear-http-cache': async ({ locals }) => {
-    if (locals.user.isAdmin) {
       await cache.clear()
-      return { message: 'Cleared HTTP Cache' }
+      return { message: 'Reload successful' }
     } else {
       error(403, 'user is not admin')
     }

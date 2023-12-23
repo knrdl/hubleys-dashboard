@@ -7,9 +7,9 @@ So you run a bunch of self-hosted services for multiple users but are tired of h
 - separate dashboard per user, according to their groups/permissions
 - all dashboard contents are predefined by the admin
 - dashboard features:
-    - link tiles, organized by folders
-    - search engines with autocomplete
-    - upcoming calendar events
+  - link tiles, organized by folders
+  - search engines with autocomplete
+  - upcoming calendar events
 - customizable & dynamic backgrounds
 - current weather & forecast
 - clock, stopwatch, timer
@@ -17,7 +17,7 @@ So you run a bunch of self-hosted services for multiple users but are tired of h
 ## Quick Demo
 
 ```shell
-docker run -it --rm -e DEMO_MODE=1 -e ORIGIN=http://localhost:3000 -p3000:3000 ghcr.io/knrdl/hubleys-dashboard:edge
+docker run -it --rm -e DEMO_MODE=1 -e ORIGIN=http://localhost:3000 -p127.0.0.1:3000:3000 ghcr.io/knrdl/hubleys-dashboard:edge
 ```
 
 > Weather and unsplash backgrounds won't work in demo.
@@ -47,20 +47,21 @@ services:
     mem_limit: 100m
 ```
 
-File paths explained:
+Persistent files reside under `/data`. The file structure is auto-generated:
 
-| Path                       | Type | Required | Description                                                                                                               |
-|----------------------------|------|----------|---------------------------------------------------------------------------------------------------------------------------|
-| `/data/`                   | 📂   | ☑        | holds all persistent data                                                                                                 |
-| `/data/config.yml`         | 🗎   | ☑        | system config file (can be readonly)                                                                                      |
-| `/data/logos/`             | 📂   |          | additional image files to reference in `config.yml`.<br/>hubleys also ships some [default icons](./static/fallback-logos) |
-| `/data/users/backgrounds/` | 📂   |          | where user uploaded images are persisted                                                                                  |
-| `/data/users/config/`      | 📂   |          | where user settings are persisted                                                                                         |
-| `/app/client/favicon.png`  | 🗎   |          | provide a custom favicon                                                                                                  |
+| Path                       | Type | Description                                                                                                               |
+| -------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------- |
+| `/data/`                   | 📂   | holds all persistent data                                                                                                 |
+| `/data/config.yml`         | 🗎    | system config file                                                                                      |
+| `/data/logos/`             | 📂   | additional image files to reference in `config.yml`.<br/>hubleys also ships some [default icons](./static/fallback-logos) |
+| `/data/users/backgrounds/` | 📂   | where user uploaded images are persisted                                                                                  |
+| `/data/users/config/`      | 📂   | where user settings are persisted                                                                                         |
+| `/data/users/default-config.json` | 🗎  | the user settings template. edit to predefine settings for new users                                                                                         |
+| `/data/favicon.png`        | 🗎  | provide a custom favicon                  |
 
 ## 2. Configure Hubleys
 
-Edit the contents of `/data/config.yml`. The demo example can be found [here](./docs/config.yml).
+Edit the contents of `./data/config.yml`. The default example can be found [here](./lib/server/sysconfig/default.yml). After a config change restart the application OR go to Settings → Admin → Reload application.
 
 ## 3. Configure reverse proxy and auth provider:
 
@@ -84,10 +85,11 @@ hubleys.example.org {
 		header_up X-Forwarded-Uri {uri}
 		copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
 	}
-	
+
 	reverse_proxy hubleys:3000
 }
 ```
+
 ### 3.2 [nginx](https://nginx.org) example configuration
 
 ```
@@ -121,9 +123,9 @@ Both above examples are using [Authelia](https://www.authelia.com/) as the auth 
 ## 4. I need more icons
 
 Please have a look here:
-* https://github.com/walkxcode/dashboard-icons
-* https://github.com/Templarian/MaterialDesign
-* https://simpleicons.org/
+
+- https://github.com/walkxcode/dashboard-icons
+- https://github.com/Templarian/MaterialDesign
+- https://simpleicons.org/
 
 You can download additional icons into the `/data/logos` folder or just reference the image via it's url in the `config.yml`
-

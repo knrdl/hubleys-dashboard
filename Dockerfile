@@ -30,7 +30,6 @@ ENV NODE_ENV=production
 COPY --from=build --chown=node:node /app/build /app
 COPY --from=deps --chown=0:0 /app/node_modules /app/node_modules
 COPY --chown=0:0 package.json package-lock.json entrypoint.js /app/
-COPY --chown=0:0 docs/config.yml /app/demo/config.yml
 
 USER node
 WORKDIR /app
