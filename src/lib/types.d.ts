@@ -68,12 +68,17 @@ interface Calendar {
   url: string
 }
 
+interface Message {
+  html: string
+}
+
 type SysconfigAllow = boolean | string[]
 
 interface Sysconfig {
   tiles: SysconfigTile[]
   search_engines: (SearchEngine & { allow?: SysconfigAllow })[]
   calendars: (Calendar & { allow?: SysconfigAllow })[]
+  messages: (Message & { allow?: SysconfigAllow })[]
   admin_userids: string[]
   unsplash_api_key: string | null
   openweathermap_api_key: string | null
@@ -82,6 +87,11 @@ interface Sysconfig {
     email: string
     username: string
     groups: string
+  }
+
+  appInfo: {
+    buildDate: string
+    version: string
   }
 
   demo_mode: boolean

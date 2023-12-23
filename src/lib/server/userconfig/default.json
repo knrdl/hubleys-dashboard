@@ -1,49 +1,49 @@
 {
-    "version": 1,
-    "theme": "system",
-    "language": null,
-    "weather": {
-        "lon": null,
-        "lat": null,
-        "zip_code": null,
-        "country_code": null,
-        "mode": "zip",
-        "show": true
-    },
-    "clock": {
-        "show": true
-    },
-    "calendar": {
-        "show": true
-    },
-    "searchbar": {
-        "show": true
-    },
-    "dashboard": {
-        "show_settings_text": true
-    },
-    "tiles": {
-        "layout": "center",
-        "position": "bottom"
-    },
-    "backgrounds": [
-        {
-            "static_image": {
-                "source": "upload",
-                "web_url": "",
-                "upload_url": ""
-            },
-            "random_image": {
-                "provider": "unsplash",
-                "unsplash_query": "",
-                "subreddits": "",
-                "duration": 0
-            },
-            "background": "triangles",
-            "blur": "dark",
-            "dots": true,
-            "particles": false,
-            "selected": true
-        }
-    ]
+  "version": 1,
+  "theme": "system",
+  "language": null,
+  "weather": {
+    "lon": null,
+    "lat": null,
+    "zip_code": null,
+    "country_code": null,
+    "mode": "zip",
+    "show": true
+  },
+  "clock": {
+    "show": true
+  },
+  "calendar": {
+    "show": true
+  },
+  "searchbar": {
+    "show": true
+  },
+  "dashboard": {
+    "show_settings_text": true
+  },
+  "tiles": {
+    "layout": "center",
+    "position": "bottom"
+  },
+  "backgrounds": [
+    {
+      "static_image": {
+        "source": "upload",
+        "web_url": "",
+        "upload_url": ""
+      },
+      "random_image": {
+        "provider": "unsplash",
+        "unsplash_query": "",
+        "subreddits": "",
+        "duration": 0
+      },
+      "background": "triangles",
+      "blur": "dark",
+      "dots": true,
+      "particles": false,
+      "selected": true
+    }
+  ]
 }

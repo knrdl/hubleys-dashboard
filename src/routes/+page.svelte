@@ -2,6 +2,7 @@
   import Tile from './Tile.svelte'
   import Searchbar from './search/Widget.svelte'
   import CalendarWidget from './calendar/Widget.svelte'
+  import MessagesWidget from './messages/Widget.svelte'
   import { fly } from 'svelte/transition'
   import type { PageData } from './$types'
 
@@ -30,6 +31,11 @@
     </section>
   {/if}
 
+  {#if data.messages && data.messages.length > 0}
+    <section class="mt-3 flex flex-col items-center justify-center gap-2">
+      <MessagesWidget messages={data.messages} />
+    </section>
+  {/if}
 
   <section class="mt-6 flex items-end justify-center" class:grow={data.userConfig.tiles.position === 'bottom'}>
     <div class="flex flex-wrap justify-center" in:fly={{ y: 20 }}>

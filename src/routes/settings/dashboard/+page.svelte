@@ -77,7 +77,7 @@
 
 <style lang="postcss">
   label {
-    @apply text-gray-900 dark:text-gray-300;
+    @apply cursor-pointer text-gray-900 dark:text-gray-300;
   }
 
   section {
@@ -85,6 +85,6 @@
   }
 
   input[type='radio'] {
-    @apply scale-150;
+    @apply scale-150 accent-blue-600;
   }
 </style>

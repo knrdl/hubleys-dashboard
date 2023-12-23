@@ -8,23 +8,30 @@ search_engines:
     autocomplete_url: https://www.startpage.com/suggestions?segment=startpage.udog&lui=english
     allow: true
 
-
 #calendars:
 #  - url: https://onlinekalender.info/feiertage/deutschland/berlin.ics
 #    allow: true
 
 messages:
-  - content: test
-    allow: true
+  - html: |
+      <h1 style="font-size: 18pt">Welcome to hubleys!</h1>
+      <p>What you see here is the default example configuration.</p>
+      <p>Edit the <code>config.yml</code> file to customize your setup <b>:)</b></p>
+      <hr>
+      <footer style="font-size: 11pt; text-align: right">
+        Find hubleys documentation on 
+        <a href="https://github.com/knrdl/hubleys-dashboard" target="_blank" rel="noopener noreferrer">Github</a>.
+      </footer>
+    allow: true # show to everyone
 
 tiles:
   - title: Logout
     url: https://example.org/logout/
     logo: authelia.png # a tile can have a `logo` (image) and an `emoji` (text). Logos have precedence. At least a `logo` or an `emoji` should be present for a tile
-    allow: true  # show to everybody
+    allow: true # show to everybody
 
   - title: Admin
-    allow: [ user:demo1, group:example-group1, email:demo1@example.org ]  # user must fulfill at least on condition to see tile
+    allow: [user:demo1, group:example-group1, email:demo1@example.org] # user must fulfill at least on condition to see tile
     menu:
       - title: PiHole
         url: https://example.org/pihole/
@@ -39,13 +46,13 @@ tiles:
   - title: Hidden
     url: https://example.org
     emoji: Secret
-    allow: false  # always hidden
+    allow: false # always hidden
 
   - title: Animals
     allow: true
     menu: # tiles can have nested menus
       - title: Cats
-        allow: [ group:example-group1 ]  # access to menu items can also be restricted
+        allow: [group:example-group1] # access to menu items can also be restricted
         menu:
           - title: Cat1
             emoji: 🐈
@@ -64,7 +71,7 @@ tiles:
 
   - title: Grafana
     # logo can be a local file or point to a web image, see README.md section "I need more icons"
-    logo: grafana.svg  # or: https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/grafana.png
+    logo: grafana.svg # or: https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/grafana.png
     url: https://grafana.com/
     allow: true
     menu:

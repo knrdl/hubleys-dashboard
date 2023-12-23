@@ -61,10 +61,7 @@ async function onServerStartup() {
     })()
   ])
 
-  await Promise.all([
-    initDefaultUserConfig(),
-    runUserConfigMigrations()
-  ])
+  await Promise.all([initDefaultUserConfig(), runUserConfigMigrations()])
 
   console.log('up and running')
 }

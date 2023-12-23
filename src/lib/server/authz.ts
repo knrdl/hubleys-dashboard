@@ -92,3 +92,14 @@ export async function getUserTiles(user: RequestUserInfo): Promise<Tile[]> {
   if (config.tiles) return Promise.all(transformTiles(config.tiles))
   else return []
 }
+
+export async function getUserMessages(user: RequestUserInfo): Promise<Message[]> {
+  const config = await getSysConfig()
+  return (config.messages || [])
+    .filter(msg => isUserAllowed(msg.allow, user))
+    .map(origMsg => {
+      const msg = { ...origMsg }
+      delete msg.allow
+      return msg
+    }) as Message[]
+}
