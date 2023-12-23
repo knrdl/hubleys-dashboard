@@ -1,33 +1,6 @@
-import { isFile, readJsonFile, writeFile, writeJsonFile } from '$lib/server/fs'
+import { isFile, readJsonFile, writeJsonFile } from '$lib/server/fs'
 
-let defaultConfig: UserConfig = {
-  version: 0,
-  theme: 'system',
-  language: null,
-  weather: {
-    lon: null,
-    lat: null,
-    zip_code: null,
-    country_code: null,
-    mode: 'zip',
-    show: true
-  },
-  clock: { show: true },
-  calendar: { show: true },
-  searchbar: { show: true },
-  dashboard: { show_settings_text: true },
-  backgrounds: [
-    {
-      static_image: { source: 'upload', web_url: '', upload_url: '' },
-      random_image: { provider: 'unsplash', unsplash_query: '', subreddits: '', duration: 0 },
-      background: 'triangles',
-      blur: 'dark',
-      dots: true,
-      particles: false,
-      selected: true
-    }
-  ]
-}
+let defaultConfig: UserConfig = (await import('./default.json')).default as UserConfig
 
 type UserId = string
 
@@ -41,7 +14,7 @@ function userConfigFilePath(userid: UserId) {
 async function readUserConfig(userid: UserId) {
   const filepath = userConfigFilePath(userid)
   if (await isFile(filepath)) {
-    return await readJsonFile(filepath)
+    return await readJsonFile<UserConfig>(filepath)
   } else {
     return defaultConfig
   }
@@ -49,7 +22,7 @@ async function readUserConfig(userid: UserId) {
 
 async function writeUserConfig(userid: UserId, config: UserConfig) {
   const filepath = userConfigFilePath(userid)
-  await writeFile(filepath, JSON.stringify(config))
+  await writeJsonFile(filepath, config)
 }
 
 export async function getUserConfig(userid: UserId) {
@@ -74,8 +47,12 @@ export function userBackgroundImgFilePath(userid: UserId, imgId: string) {
   return '/data/users/backgrounds/' + encodeURIComponent(userid + '-' + imgId)
 }
 
-export async function initDefaultConfig() {
+export async function initDefaultUserConfig() {
   const path = '/data/users/default-config.json'
   if (await isFile(path)) defaultConfig = await readJsonFile(path)
   else await writeJsonFile(path, defaultConfig)
+}
+
+export async function runUserConfigMigrations() {
+  // todo
 }
