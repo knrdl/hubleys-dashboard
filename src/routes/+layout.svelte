@@ -6,7 +6,7 @@
   import Header from './Header.svelte'
   import type { Engine } from '@tsparticles/engine'
 
-  let ParticlesComponent: ConstructorOfATypedSvelteComponent
+  let ParticlesComponent: any
 
   export let data: PageData
 
@@ -29,7 +29,7 @@
   }
 
   let triangleCanvas: HTMLCanvasElement
-  let trianglify
+  let trianglify: any
   $: {
     // this could be handled in onMount but then config changes would not be applied as live reload
     if (browser) {

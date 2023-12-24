@@ -2,6 +2,7 @@
   import Fa from 'svelte-fa'
   import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
   import { browser } from '$app/environment'
+  import type { CurrentWeather } from './types'
 
   export let weather: CurrentWeather
 

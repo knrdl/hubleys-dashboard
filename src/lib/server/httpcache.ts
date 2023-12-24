@@ -31,7 +31,7 @@ export default {
   },
 
   has(requestUrl: string) {
-    return _cache.hasOwnProperty(requestUrl)
+    return Object.prototype.hasOwnProperty.call(_cache, requestUrl)
   },
 
   set<T>(requestUrl: string, responseData: T, cacheLifetime: Seconds = 10 * 60) {

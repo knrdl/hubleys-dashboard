@@ -8,6 +8,7 @@
   import Message from '../Message.svelte'
   import cloneDeep from 'lodash.clonedeep'
   import type { ActionData, PageData } from './$types'
+  import type { UserConfig } from '$lib/server/userconfig/types'
 
   export let form: ActionData
   export let data: PageData & { userConfig: UserConfig }

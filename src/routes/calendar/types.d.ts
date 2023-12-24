@@ -1,4 +1,4 @@
-interface CalendarEntry {
+export interface CalendarEntry {
   dtstart: string
   dtend: string
   summary: string

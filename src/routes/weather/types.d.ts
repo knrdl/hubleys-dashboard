@@ -1,4 +1,4 @@
-type WeatherConditions =
+export type WeatherConditions =
   | 'Thunderstorm'
   | 'Drizzle'
   | 'Rain'
@@ -15,7 +15,7 @@ type WeatherConditions =
   | 'Clear'
   | 'Clouds'
 
-interface CurrentWeather {
+export interface CurrentWeather {
   wind_kmh: number
   weather_type: WeatherConditions
   weather_text: string

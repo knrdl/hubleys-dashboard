@@ -96,10 +96,12 @@
     }}
   >
     <div class="grid" class:playing={!won} class:bad-guess={form?.badGuess}>
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
       {#each Array(6) as _, row}
         {@const current = row === i}
         <h2 class="visually-hidden">Row {row + 1}</h2>
         <div class="row" class:current>
+          <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each Array(5) as _, column}
             {@const answer = data.answers[row]?.[column]}
             {@const value = data.guesses[row]?.[column] ?? ''}

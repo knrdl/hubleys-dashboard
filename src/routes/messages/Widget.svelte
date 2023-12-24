@@ -3,6 +3,7 @@
   import { faXmark } from '@fortawesome/free-solid-svg-icons'
   import './messages.css'
   import { slide } from 'svelte/transition'
+  import type { Message } from '$lib/server/sysconfig/types'
 
   export let messages: Message[]
 
@@ -26,6 +27,7 @@
       >
         <Fa icon={faXmark} class="text-white" />
       </button>
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html msg.html}
     </article>
   {/if}

@@ -8,7 +8,7 @@ RUN export PUBLIC_BUILD_DATE=$(date -Iseconds) && \
     npm install && \
     npm audit && \
     npm run check || true && \
-    npm run lint:check || true && \
+    npm run lint:check && \
     npm run format:check || true && \
     npm run build
 

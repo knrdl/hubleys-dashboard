@@ -2,8 +2,10 @@
   import Fa from 'svelte-fa'
   import { faEllipsisV, faCircleQuestion, faExpand, faFolderOpen, faPlus } from '@fortawesome/free-solid-svg-icons'
   import TileFolder from './TileFolder.svelte'
+  import type { Tile } from '$lib/server/sysconfig/types'
 
   export let title: Tile['title']
+  export let subtitle: Tile['subtitle'] = undefined
   export let emoji: Tile['emoji'] = undefined
   export let logo: Tile['logo'] = undefined
   export let url: Tile['url'] = undefined

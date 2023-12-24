@@ -1,4 +1,4 @@
-const particles: Record<ParticleName, Function> = {
+const particles: Record<ParticleName, any> = {
   bubbles: async () => (await import('./bubbles.json')).default,
   circles: async () => (await import('./circles.json')).default,
   rain: async () => (await import('./rain.json')).default,

@@ -6,6 +6,7 @@
 {#if mode === 'center' || mode === 'wide'}
   <div class="flex h-14 w-48 items-center justify-center gap-2 rounded-sm {active ? 'bg-slate-700 dark:bg-slate-500' : 'bg-slate-500 dark:bg-slate-700'}">
     <div class="m-2 flex flex-wrap items-center justify-center gap-2" class:w-24={mode === 'center'}>
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
       {#each [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] as _}
         <div class="h-2.5 w-2.5 rounded-sm bg-white shadow-inner"></div>
       {/each}
@@ -18,6 +19,7 @@
     class:items-start={mode === 'top'}
   >
     <div class="m-2 mb-4 mt-6 flex w-20 flex-wrap items-center justify-center gap-2">
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
       {#each [0, 0, 0, 0, 0, 0, 0, 0] as _}
         <div class="h-2.5 w-2.5 rounded-sm bg-white shadow-inner"></div>
       {/each}

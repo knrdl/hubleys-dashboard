@@ -3,6 +3,7 @@
   import { faCalendarCheck, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
   import { getTodayDate, getTomorrowDate, getYesterdayDate, isSingleDayEvent, isTodayContained } from './utils'
   import { browser } from '$app/environment'
+  import type { CalendarEntry } from './types'
 
   export let calendarEvents: { errors: boolean; entries: CalendarEntry[] }
   export let userLang: string

@@ -2,13 +2,13 @@
   import { scale } from 'svelte/transition'
   import { createEventDispatcher } from 'svelte'
   import Tile from './Tile.svelte'
+  import type { Tile as TileType } from '$lib/server/sysconfig/types'
 
   const dispatch = createEventDispatcher()
   export let clickX: number = 0
   export let clickY: number = 0
 
-  export let menu: Tile['menu']
-  export let folderTitle: string
+  export let menu: TileType['menu']
 
   let dialogWidth: number = 0,
     dialogHeight: number = 0

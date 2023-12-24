@@ -4,6 +4,7 @@
   import { createEventDispatcher } from 'svelte'
   import { fade } from 'svelte/transition'
   import type { PageData } from './$types'
+  import type { BackgroundConfig } from '$lib/server/userconfig/types'
 
   const dispatch = createEventDispatcher()
 
@@ -94,7 +95,6 @@
         </label>
       {:else if config.background === 'static'}
         {#if config.static_image.source === 'upload'}
-          {config.static_image.upload_img?.length}
           {#if config.static_image.upload_url && staticUploadImgMode === 'keep'}
             <button class="icon-button" on:click={() => (staticUploadImgMode = 'new')}>
               <Fa icon={faUpload} />

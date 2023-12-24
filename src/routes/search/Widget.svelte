@@ -4,6 +4,7 @@
   import debounce from 'lodash.debounce'
   import { tick } from 'svelte'
   import { t } from '$lib/translations'
+  import type { SearchEngine } from '$lib/server/sysconfig/types'
 
   export let engines: SearchEngine[]
 
