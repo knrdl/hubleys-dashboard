@@ -33,8 +33,14 @@
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} on:keydown={keydown} />
 
 {#if menu}
-  <div
-    class="absolute rounded-lg border border-gray-200 bg-gray-100/75 p-3 shadow-xl dark:border-gray-700 dark:bg-gray-900/95"
+  <button
+    type="button"
+    class="fixed bottom-0 left-0 right-0 top-0 z-[1000] block h-screen w-screen cursor-default"
+    on:click|stopPropagation={() => dispatch('close')}
+    on:keydown={keydown}
+  >
+    <div
+      class="fixed rounded-lg border border-gray-200 bg-gray-100/75 p-3 shadow-xl dark:border-gray-700 dark:bg-gray-900/95"
     bind:clientWidth={dialogWidth}
     bind:clientHeight={dialogHeight}
     style="left: {leftPos}px; top: {topPos}px"
@@ -48,4 +54,5 @@
       {/each}
     </div>
   </div>
+  </button>
 {/if}

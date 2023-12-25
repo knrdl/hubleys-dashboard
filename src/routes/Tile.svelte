@@ -48,6 +48,7 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
   {#if menu}
     {#if url}
       <button
+        title="Menu"
         on:click|preventDefault|stopPropagation={onMoreClick}
         class="
                     absolute -right-1 -top-1 inline-flex h-8
@@ -62,6 +63,7 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
       </button>
     {:else}
       <div
+        title="Show more"
         class="
                 absolute -right-1 -top-1 inline-flex h-8
                 w-8 items-center justify-center
@@ -72,9 +74,9 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
       </div>
     {/if}
   {/if}
-  <div {title} class="flex h-12 items-center justify-center overflow-hidden text-4xl text-stone-200">
+  <div class="flex h-12 items-center justify-center overflow-hidden text-4xl text-stone-200">
     {#if logo}
-      <img src={logo} alt={emoji || title} class="max-h-full max-w-full" />
+      <img src={logo} alt="Logo" class="max-h-full max-w-full" />
     {:else if emoji}
       <span>{emoji}</span>
     {:else if url}
