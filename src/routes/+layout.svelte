@@ -5,6 +5,7 @@
   import type { LayoutData } from './$types'
   import Header from './Header.svelte'
   import type { Engine } from '@tsparticles/engine'
+  import { onNavigate } from '$app/navigation'
 
   let ParticlesComponent: any
 
@@ -13,6 +14,18 @@
   onMount(async () => {
     const module = await import('svelte-particles')
     ParticlesComponent = module.default
+  })
+
+  // smooth transitions between pages
+  onNavigate(navigation => {
+    if (!(document as any).startViewTransition) return //experimental feature
+
+    return new Promise(resolve => {
+      ;(document as any).startViewTransition(async () => {
+        resolve()
+        await navigation.complete
+      })
+    })
   })
 
   let particlesInit = async (engine: Engine) => {
