@@ -43,7 +43,7 @@ export const actions = {
       game.guesses[i] += key
     }
 
-    /* @migration task: add path argument */ cookies.set('sverdle', game.toString())
+    cookies.set('sverdle', game.toString(), { path: '/sverdle' })
   },
 
   /**
@@ -60,10 +60,10 @@ export const actions = {
       return fail(400, { badGuess: true })
     }
 
-    /* @migration task: add path argument */ cookies.set('sverdle', game.toString())
+    cookies.set('sverdle', game.toString(), { path: '/sverdle' })
   },
 
   restart: async ({ cookies }) => {
-    /* @migration task: add path argument */ cookies.delete('sverdle')
+    cookies.delete('sverdle', { path: '/sverdle' })
   }
 } satisfies Actions

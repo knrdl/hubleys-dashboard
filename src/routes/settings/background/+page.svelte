@@ -8,12 +8,11 @@
   import Message from '../Message.svelte'
   import cloneDeep from 'lodash.clonedeep'
   import type { ActionData, PageData } from './$types'
-  import type { UserConfig } from '$lib/server/userconfig/types'
 
   export let form: ActionData
-  export let data: PageData & { userConfig: UserConfig }
+  export let data: PageData
 
-  async function handleSubmit() {
+  async function handleSubmit(this: HTMLFormElement) {
     const body = new FormData()
     data.userConfig.backgrounds.forEach((elem, idx) => {
       if (elem.static_image?.upload_img instanceof FileList && elem.static_image?.upload_img?.length > 0) {

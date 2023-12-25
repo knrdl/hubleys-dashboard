@@ -2,13 +2,13 @@
   import { browser } from '$app/environment'
   import { onMount } from 'svelte'
   import '../app.css'
-  import type { PageData } from './$types'
+  import type { LayoutData } from './$types'
   import Header from './Header.svelte'
   import type { Engine } from '@tsparticles/engine'
 
   let ParticlesComponent: any
 
-  export let data: PageData
+  export let data: LayoutData
 
   onMount(async () => {
     const module = await import('svelte-particles')
@@ -33,7 +33,7 @@
   $: {
     // this could be handled in onMount but then config changes would not be applied as live reload
     if (browser) {
-      if (data.background?.image?.error) {
+      if (!data.background.image.url) {
         // credentials include to accept cookie set on the server
         fetch('/background', { credentials: 'include' }).then(async res => {
           if (res.ok) data.background.image = (await res.json()).image

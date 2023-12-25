@@ -4,8 +4,9 @@
   import { faImage, faCloud, faKey, faSliders, faTable } from '@fortawesome/free-solid-svg-icons'
   import { fly } from 'svelte/transition'
   import { t } from '$lib/translations'
+  import type { LayoutData } from './$types'
 
-  export let data
+  export let data: LayoutData
 </script>
 
 <svelte:head>

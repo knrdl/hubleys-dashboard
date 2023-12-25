@@ -11,13 +11,13 @@
 </script>
 
 <header class="flex w-screen items-start justify-between overflow-hidden max-[380px]:flex-col max-[380px]:gap-1">
-  {#if data.userConfig?.weather.show && data.currentWeather !== 'NOT_ENABLED'}
+  {#if data.userConfig.weather.show && data.currentWeather !== 'NOT_ENABLED'}
     {#if data.currentWeather === 'NOT_CONFIGURED'}
       <a class="flex items-center gap-1 rounded-br-md pb-1 pl-2 pr-3 pt-1" href="/settings/weather">
         <Fa icon={faWrench} />
         Weather
       </a>
-    {:else}
+    {:else if typeof data.currentWeather !== 'string'}
       <a class="rounded-br-md pb-1 pl-2 pr-3 pt-1" href="/weather">
         <WeatherWidget weather={data.currentWeather} />
       </a>
@@ -26,19 +26,19 @@
   {#if $page.url.pathname === '/'}
     <a href="/settings/background" class="flex items-center gap-1 rounded-b-md px-2 py-1">
       <Fa icon={faCog} />
-      {#if data.userConfig?.dashboard.show_settings_text}
+      {#if data.userConfig.dashboard.show_settings_text}
         {$t('common.nav.settings')}
       {/if}
     </a>
   {:else}
     <a href="/" class="flex items-center gap-1 rounded-b-md px-2 pb-2 pt-1">
       <Fa icon={faHome} />
-      {#if data.userConfig?.dashboard.show_settings_text}
+      {#if data.userConfig.dashboard.show_settings_text}
         {$t('common.nav.home')}
       {/if}
     </a>
   {/if}
-  {#if data.userConfig?.clock.show}
+  {#if data.userConfig.clock.show}
     <a class="rounded-bl-md pb-1 pl-3 pr-2 pt-1" href="/clock/stopwatch">
       <ClockWidget userLang={data.userLang} />
     </a>

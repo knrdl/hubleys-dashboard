@@ -2,6 +2,7 @@ import { error, type Action } from '@sveltejs/kit'
 import { setUserConfig, userBackgroundImgFilePath } from '$lib/server/userconfig'
 import { deleteFile, writeBinaryFile } from '$lib/server/fs'
 import { genRandomId } from '$lib/random'
+import type { UserConfig } from '$lib/server/userconfig/types'
 
 export const saveUserConfig: Action = async ({ locals, request }) => {
   const data = await request.formData()

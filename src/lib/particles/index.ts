@@ -1,3 +1,5 @@
+import type { ParticleName } from './types'
+
 const particles: Record<ParticleName, any> = {
   bubbles: async () => (await import('./bubbles.json')).default,
   circles: async () => (await import('./circles.json')).default,

@@ -4,7 +4,7 @@
   import { browser } from '$app/environment'
   import type { CurrentWeather } from './types'
 
-  export let weather: CurrentWeather
+  export let weather: CurrentWeather | null
 
   $: {
     // this could be handled in onMount but then config changes would not be applied as live reload

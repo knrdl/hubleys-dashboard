@@ -1,4 +1,5 @@
 import { isFile, readJsonFile, writeJsonFile } from '$lib/server/fs'
+import type { UserConfig } from './types'
 
 let defaultConfig: UserConfig = (await import('./default.json')).default as UserConfig
 

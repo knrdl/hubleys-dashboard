@@ -1,3 +1,5 @@
+import type { CalendarEntry } from './types'
+
 export const getYesterdayDate = () => {
   const dat = new Date()
   dat.setDate(new Date().getDate() - 1)

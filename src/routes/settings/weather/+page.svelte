@@ -22,7 +22,7 @@
     )
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(this: HTMLFormElement) {
     const weatherConfig = data.userConfig.weather
     if (weatherConfig.mode === 'zip' && (!weatherConfig.zip_code || !weatherConfig.country_code)) {
       errorMsg = 'Fields cannot be empty.'

@@ -29,19 +29,14 @@
       }
     }
   }, 300)
+
+  function submit(e: SubmitEvent) {
+    ;(e.target as HTMLFormElement).submit()
+    tick().then(() => (query = ''))
+  }
 </script>
 
-<form
-  method="get"
-  target="_blank"
-  rel="noopener noreferrer"
-  action={selectedEngine.search_url}
-  on:submit|preventDefault={e => {
-    e.target.submit()
-    tick().then(() => (query = ''))
-  }}
-  class="max-w-md grow"
->
+<form method="get" target="_blank" rel="noopener noreferrer" action={selectedEngine.search_url} on:submit|preventDefault={submit} class="max-w-md grow">
   <div class="group relative z-[10] flex">
     {#if engines?.length > 1}
       <select

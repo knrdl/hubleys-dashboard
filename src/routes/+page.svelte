@@ -14,13 +14,13 @@
 </svelte:head>
 
 <main class="flex w-full grow flex-col p-3" class:max-w-screen-lg={data.userConfig.tiles.layout === 'center'}>
-  {#if data.userConfig?.searchbar.show && data.searchEngines?.length > 0}
+  {#if data.userConfig.searchbar.show && data.searchEngines?.length > 0}
     <section class="flex justify-center">
       <Searchbar engines={data.searchEngines} />
     </section>
   {/if}
 
-  {#if data.userConfig?.calendar.show && data.calendarEvents !== null}
+  {#if data.userConfig.calendar.show && data.calendarEvents !== null}
     <section class="mt-3 flex justify-center">
       <a
         href="/calendar"

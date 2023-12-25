@@ -1,6 +1,8 @@
 import { getSysConfig } from './sysconfig'
 import cache from '$lib/server/httpcache'
 import { fetchTimeout } from '$lib/fetch'
+import type { UserConfig } from './userconfig/types'
+import type { CurrentWeather } from '../../routes/weather/types'
 
 async function buildSearchParams({ lang, userConfig }: { lang: string; userConfig: UserConfig }) {
   const apiKey = (await getSysConfig()).openweathermap_api_key

@@ -2,12 +2,10 @@ import { getSysConfig } from './sysconfig'
 import path from 'path'
 import { isFile } from '$lib/server/fs'
 import { dev } from '$app/environment'
+import type { AccessRule, Calendar, Message, SearchEngine, SysconfigTile, Tile } from './sysconfig/types'
+import type { RequestUserInfo } from './types'
 
-function isUserAllowed(allowConditions: boolean | string[] | undefined, user: RequestUserInfo) {
-  if (allowConditions === true || allowConditions === false) return allowConditions
-  if (typeof allowConditions === 'undefined') return false
-  if (Array.isArray(allowConditions))
-    for (const cond of allowConditions) {
+// todo: tests hierfür schreiben
       const [condType, ...rest] = cond.split(':')
       const condValue = rest.join(':')
       switch (condType.toLowerCase()) {

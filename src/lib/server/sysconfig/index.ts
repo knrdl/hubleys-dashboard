@@ -3,6 +3,7 @@ import { env } from '$env/dynamic/private'
 import { PUBLIC_BUILD_DATE, PUBLIC_VERSION } from '$env/static/public'
 import { isFile } from '$lib/server/fs'
 import fs from 'fs'
+import type { Sysconfig, Tile } from './types'
 
 let config: Sysconfig
 

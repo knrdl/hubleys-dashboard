@@ -2,6 +2,8 @@ import ICAL from 'ical.js'
 import cache from '$lib/server/httpcache'
 import { getUserCalendars } from '$lib/server/authz'
 import { fetchTimeout } from '$lib/fetch'
+import type { CalendarEntry } from '../../routes/calendar/types'
+import type { RequestUserInfo } from './types'
 
 async function calFetch(url: string, timeout?: number) {
   const parsedUrl = new URL(url)

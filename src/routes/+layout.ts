@@ -1,7 +1,7 @@
 import { setLocale, setRoute } from '$lib/translations'
-import type { Load } from '@sveltejs/kit'
+import type { LayoutLoad } from './$types'
 
-export const load: Load = async ({ data, url }) => {
+export const load: LayoutLoad = async ({ data, url }) => {
   const { pathname } = url
 
   await setRoute(pathname)

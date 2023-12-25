@@ -10,7 +10,7 @@
   export let data: PageData
   export let form
 
-  async function handleSubmit() {
+  async function handleSubmit(this: HTMLFormElement) {
     const body = new FormData()
     body.set('userConfig', JSON.stringify(data.userConfig))
 

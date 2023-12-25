@@ -6,6 +6,7 @@ import { chooseRandom } from '$lib/random'
 import { getParticles } from '$lib/particles'
 import { epoch } from '$lib/datetime'
 import type { Cookies } from '@sveltejs/kit'
+import type { BackgroundConfig, UserConfig } from './userconfig/types'
 
 export async function queryBgImgUrlReddit(subreddits: string, timeout?: number) {
   const fetchPosts = async (subreddits: string[]) => {

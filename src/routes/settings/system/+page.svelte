@@ -9,7 +9,7 @@
 
   let errorMsg = ''
 
-  async function handleSubmit() {
+  async function handleSubmit(this: HTMLFormElement) {
     if (data.userConfig.language !== null && data.userConfig.language?.length !== 2) {
       errorMsg = 'Language code must be 2 characters.'
       return

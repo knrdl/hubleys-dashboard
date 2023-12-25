@@ -3,6 +3,7 @@ import { error, type RequestEvent } from '@sveltejs/kit'
 import { getUserConfig, initDefaultUserConfig, runUserConfigMigrations } from '$lib/server/userconfig'
 import fs from 'fs'
 import { isFile } from '$lib/server/fs'
+import type { RequestUserInfo } from '$lib/server/types'
 
 function getConfiguredUserLang(ev: RequestEvent) {
   if (ev.locals.userConfig.language === null) return (ev.request.headers.get('accept-language') || 'en').split(/[,;]/)[0]
