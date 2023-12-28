@@ -34,7 +34,7 @@ export interface AccessConfig {
 }
 
 export interface SysconfigTile extends Tile, AccessConfig {
-  menu?: Tile['menu'] & AccessConfig
+  menu?: (Tile['menu'] & { tiles: SysconfigTile[] }) & AccessConfig
 }
 
 export interface Sysconfig {

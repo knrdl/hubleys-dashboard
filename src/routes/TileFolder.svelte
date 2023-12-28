@@ -41,18 +41,28 @@
   >
     <div
       class="fixed rounded-lg border border-gray-200 bg-gray-100/75 p-3 shadow-xl dark:border-gray-700 dark:bg-gray-900/95"
-    bind:clientWidth={dialogWidth}
-    bind:clientHeight={dialogHeight}
-    style="left: {leftPos}px; top: {topPos}px"
-    transition:scale={{ duration: 200 }}
-  >
-    <h1 class="mb-3 select-none text-center text-2xl text-gray-900 dark:text-gray-100">
-      {folderTitle}
-    </h1>
+      bind:clientWidth={dialogWidth}
+      bind:clientHeight={dialogHeight}
+      style="left: {leftPos}px; top: {topPos}px"
+      transition:scale={{ duration: 200 }}
+    >
+      <div class="mb-2">
+        <h1 class="select-none text-center text-2xl text-gray-900 dark:text-gray-100">
+          {menu.title}
+        </h1>
+        {#if menu.subtitle}
+          <h2 class="select-none text-center text-lg text-gray-900 dark:text-gray-100">
+            {menu.subtitle}
+          </h2>
+        {/if}
+      </div>
+      <div class="inline-grid gap-1" class:grid-cols-2={menu.tiles.length > 1} class:grid-rows-2={menu.tiles.length > 2}>
+        {#each menu.tiles || [] as menuTile, idx}
+          <div class:col-span-2={idx === menu.tiles.length - 1 && idx % 2 === 0} class="flex justify-center">
             <TileComponent {...menuTile} />
-        </div>
-      {/each}
+          </div>
+        {/each}
+      </div>
     </div>
-  </div>
   </button>
 {/if}

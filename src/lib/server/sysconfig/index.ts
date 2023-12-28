@@ -3,9 +3,29 @@ import { env } from '$env/dynamic/private'
 import { PUBLIC_BUILD_DATE, PUBLIC_VERSION } from '$env/static/public'
 import { isFile } from '$lib/server/fs'
 import fs from 'fs'
-import type { Sysconfig, Tile } from './types'
+import type { Sysconfig, SysconfigTile } from './types'
 
 let config: Sysconfig
+
+function sanatizeFileConfig(config: Sysconfig) {
+  function sanatizeTileRules(tile: SysconfigTile) {
+    if (typeof tile.allow === 'string') tile.allow = [tile.allow]
+    if (typeof tile.deny === 'string') tile.deny = [tile.deny]
+  }
+  function sanatizeTileMenu(tile: SysconfigTile) {
+    sanatizeTileRules(tile)
+    if (tile.menu) {
+      if (Array.isArray(tile.menu)) {
+        tile.menu = { tiles: tile.menu, title: '' }
+      }
+      tile.menu.title = tile.menu.title || tile.title
+      tile.menu.subtitle = tile.menu.subtitle || (tile.menu.title ? undefined : tile.subtitle)
+      tile.menu.tiles.forEach(t => sanatizeTileMenu(t))
+      sanatizeTileRules(tile.menu)
+    }
+  }
+  config.tiles.forEach(tile => sanatizeTileMenu(tile))
+}
 
 async function loadConfig(): Promise<Sysconfig> {
   const configpath = '/data/config.yml'
@@ -17,6 +37,8 @@ async function loadConfig(): Promise<Sysconfig> {
 
   const configFile = await fs.promises.readFile(configpath, { encoding: 'utf8' })
   const config = yaml.load(configFile) as Sysconfig
+  sanatizeFileConfig(config)
+
   return {
     ...config,
     demo_mode: ['1', 'true', 'yes'].includes((env.DEMO_MODE || '').toLowerCase().trim()),

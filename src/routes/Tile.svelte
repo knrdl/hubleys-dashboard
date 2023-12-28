@@ -3,6 +3,7 @@
   import { faEllipsisV, faCircleQuestion, faExpand, faFolderOpen, faPlus } from '@fortawesome/free-solid-svg-icons'
   import TileFolder from './TileFolder.svelte'
   import type { Tile } from '$lib/server/sysconfig/types'
+  import { t } from '$lib/translations'
 
   export let title: Tile['title']
   export let subtitle: Tile['subtitle'] = undefined
@@ -33,7 +34,7 @@
 </script>
 
 {#if selectedCoords}
-  <TileFolder clickX={selectedCoords.x} clickY={selectedCoords.y} on:close={() => (selectedCoords = null)} {menu} folderTitle={title} />
+  <TileFolder clickX={selectedCoords.x} clickY={selectedCoords.y} on:close={() => (selectedCoords = null)} {menu} />
 {/if}
 
 <a
@@ -53,7 +54,7 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
   {#if menu}
     {#if url}
       <button
-        title="Menu"
+        title={$t('dashboard.menu')}
         on:click|preventDefault|stopPropagation={onMoreClick}
         class="
                     absolute -right-1 -top-1 inline-flex h-8
@@ -81,21 +82,21 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
   {/if}
   <div class="flex h-12 items-center justify-center overflow-hidden text-4xl text-stone-200">
     {#if logo}
-      <img src={logo} alt="Logo" class="max-h-full max-w-full" />
+      <img src={logo2url(logo)} alt={$t('dashboard.logo')} class="max-h-full max-w-full" />
     {:else if emoji}
       <span>{emoji}</span>
     {:else if url}
       <Fa icon={faCircleQuestion} />
-    {:else if menu?.some((itm, idx) => idx < 4 && (itm.logo || itm.emoji))}
-      <div class="inline-grid gap-1 text-xl" class:grid-cols-2={menu.length > 1} class:grid-rows-2={menu.length > 2}>
-        {#each menu as item, index}
+    {:else if menu?.tiles.some((itm, idx) => idx < 4 && (itm.logo || itm.emoji))}
+      <div class="inline-grid gap-1 text-xl" class:grid-cols-2={menu.tiles.length > 1} class:grid-rows-2={menu.tiles.length > 2}>
+        {#each menu.tiles as menuTile, index}
           {#if index < 4}
-            <div class:col-span-2={index === menu.length - 1 && index % 2 === 0} class="flex justify-center">
+            <div class:col-span-2={index === menu.tiles.length - 1 && index % 2 === 0} class="flex justify-center">
               <div class="flex h-6 w-6 items-center justify-center">
-                {#if item.logo}
-                  <img src={item.logo} alt={item.emoji || item.title} class="max-h-full max-w-full" />
-                {:else if item.emoji}
-                  <span>{item.emoji}</span>
+                {#if menuTile.logo}
+                  <img src={logo2url(menuTile.logo)} alt={$t('dashboard.logo')} class="max-h-full max-w-full" />
+                {:else if menuTile.emoji}
+                  <span>{menuTile.emoji}</span>
                 {:else}
                   <Fa icon={faExpand} />
                 {/if}
@@ -109,7 +110,10 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
     {/if}
   </div>
   {#if display !== 'icon-only' || (!logo && !emoji)}
-    <span class="mt-1 overflow-hidden text-center leading-5 text-slate-300">{title}</span>
+    <h1 class="mt-1 overflow-hidden text-center leading-5 text-slate-300">{title || '???'}</h1>
+    {#if subtitle}
+      <h2 class="overflow-hidden text-center text-xs text-slate-300">{subtitle}</h2>
+    {/if}
   {/if}
 </a>
 

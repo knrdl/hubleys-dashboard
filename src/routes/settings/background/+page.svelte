@@ -1,7 +1,7 @@
 <script lang="ts">
   import { applyAction, deserialize } from '$app/forms'
   import Fa from 'svelte-fa'
-  import { faDownload, faExternalLink, faIcons, faPanorama, faPlay, faRotate, faUpload } from '@fortawesome/free-solid-svg-icons'
+  import { faDownload, faExternalLink, faIcons, faPanorama, faPlay, faRotate } from '@fortawesome/free-solid-svg-icons'
   import SaveButton from '../SaveButton.svelte'
   import { invalidateAll } from '$app/navigation'
   import Message from '../Message.svelte'
