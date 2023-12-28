@@ -25,7 +25,7 @@
           class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
           aria-current={$page.url.pathname.endsWith('background') ? 'page' : undefined}
         >
-          <Fa icon={faImage} size="lg" />
+          <Fa icon={faImage} size="lg" class="mr-2 w-5" />
           <span>{$t('settings.nav.background')}</span>
         </a>
       </li>
@@ -35,7 +35,7 @@
           class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
           aria-current={$page.url.pathname.endsWith('dashboard') ? 'page' : undefined}
         >
-          <Fa icon={faTable} size="lg" />
+          <Fa icon={faTable} size="lg" class="mr-2 w-5" />
           <span>{$t('settings.nav.dashboard')}</span>
         </a>
       </li>
@@ -46,7 +46,7 @@
             class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
             aria-current={$page.url.pathname.endsWith('weather') ? 'page' : undefined}
           >
-            <Fa icon={faCloud} size="lg" />
+            <Fa icon={faCloud} size="lg" class="mr-2 w-5" />
             <span>{$t('settings.nav.weather')}</span>
           </a>
         </li>
@@ -57,7 +57,7 @@
           class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
           aria-current={$page.url.pathname.endsWith('system') ? 'page' : undefined}
         >
-          <Fa icon={faSliders} size="lg" />
+          <Fa icon={faSliders} size="lg" class="mr-2 w-5" />
           <span>{$t('settings.nav.system')}</span>
         </a>
       </li>
@@ -68,7 +68,7 @@
             class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
             aria-current={$page.url.pathname.endsWith('admin') ? 'page' : undefined}
           >
-            <Fa icon={faKey} size="lg" />
+            <Fa icon={faKey} size="lg" class="mr-2 w-5" />
             <span>{$t('settings.nav.admin')}</span>
           </a>
         </li>
@@ -81,13 +81,5 @@
 <style lang="postcss">
   ul li a[aria-current='page'] {
     @apply border-blue-600 text-blue-600 dark:border-blue-500 dark:text-blue-500;
-  }
-
-  ul li a[aria-current='page'] :global(svg) {
-    @apply text-blue-600 dark:text-blue-500;
-  }
-
-  ul li a :global(svg) {
-    @apply mr-2 h-5 w-5 transition-colors;
   }
 </style>

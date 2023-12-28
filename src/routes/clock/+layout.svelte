@@ -18,7 +18,7 @@
         class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
         aria-current={$page.url.pathname.endsWith('stopwatch') ? 'page' : undefined}
       >
-        <Fa icon={faStopwatch20} size="lg" />
+        <Fa icon={faStopwatch20} size="lg" class="mr-2 w-5" />
         <span>{$t('clock.stopwatch')}</span>
       </a>
     </li>
@@ -28,7 +28,7 @@
         class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
         aria-current={$page.url.pathname.endsWith('timer') ? 'page' : undefined}
       >
-        <Fa icon={faHourglass} size="lg" />
+        <Fa icon={faHourglass} size="lg" class="mr-2 w-5" />
         {$t('clock.timer')}
       </a>
     </li>
@@ -39,13 +39,5 @@
 <style lang="postcss">
   ul li a[aria-current='page'] {
     @apply border-blue-600 text-blue-600 dark:border-blue-500 dark:text-blue-500;
-  }
-
-  ul li a[aria-current='page'] :global(svg) {
-    @apply text-blue-600 dark:text-blue-500;
-  }
-
-  ul li a :global(svg) {
-    @apply mr-2 h-5 w-5;
   }
 </style>
