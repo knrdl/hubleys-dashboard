@@ -10,15 +10,20 @@ export async function GET({ url, locals }) {
 
   const userSearchEngines = await getUserSearchEngines(locals.user)
   if (!userSearchEngines.some(engine => engine.autocomplete_url && engine.autocomplete_url === autocompleteUrl)) {
-    error(403, 'user not allowed to use specified search engine')
+    error(403, 'user not allowed to use specified search engine') // prevent SSRF
   }
 
   const autoCompUrl = new URL(autocompleteUrl)
   const params = autoCompUrl.searchParams
   params.set('q', searchTerm)
 
-  const response = await fetch(autocompleteUrl + '?' + autoCompUrl.searchParams.toString())
-  if (!response.ok) error(504, 'search provider error: ' + (await response.text()))
+  const response = await fetch(autoCompUrl, {
+    headers: {
+      Pragma: 'no-cache',
+      'Cache-Control': 'no-cache'
+    }
+  })
+  if (!response.ok || response.status === 204) error(504, 'search provider error: ' + (await response.text()))
   const resbody: any = (await response.json()) as unknown
   if (resbody.suggestions) {
     return json(resbody.suggestions.map((suggestion: { text: string }) => suggestion.text))

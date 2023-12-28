@@ -5,7 +5,7 @@ import { isFile } from '$lib/server/fs'
 import fs from 'fs'
 import type { Sysconfig, SysconfigTile } from './types'
 
-let config: Sysconfig
+export let sysConfig: Sysconfig
 
 function sanatizeFileConfig(config: Sysconfig) {
   function sanatizeTileRules(tile: SysconfigTile) {
@@ -45,7 +45,11 @@ async function loadConfig(): Promise<Sysconfig> {
     admin_userids: (env.ADMIN_USERIDS || '').split(/\s*[,;:]\s*/).filter(userid => !!userid),
     unsplash_api_key: env.UNSPLASH_API_KEY || null,
     openweathermap_api_key: env.OPENWEATHERMAP_API_KEY || null,
-    server_request_timeout: parseInt(env.SERVER_REQUEST_TIMEOUT as string),
+    server_request_timeout: {
+      failfast: parseInt(env.SERVER_REQUEST_FAILFAST_TIMEOUT as string),
+      max: parseInt(env.SERVER_REQUEST_MAX_TIMEOUT as string)
+    },
+    httpcache_ttl: parseInt(env.SERVER_REQUEST_CACHE_TTL as string),
     userHttpHeaders: {
       userid: env.HTTP_HEADER_USERID as string,
       email: env.HTTP_HEADER_USERNAME as string,
@@ -57,10 +61,5 @@ async function loadConfig(): Promise<Sysconfig> {
 }
 
 export async function reloadSysConfig() {
-  config = await loadConfig()
-}
-
-export async function getSysConfig() {
-  if (!config) config = await loadConfig()
-  return config
+  sysConfig = await loadConfig()
 }

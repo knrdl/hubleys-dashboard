@@ -1,18 +1,18 @@
 import ICAL from 'ical.js'
 import cache from '$lib/server/httpcache'
 import { getUserCalendars } from '$lib/server/authz'
-import { fetchTimeout } from '$lib/fetch'
+import { fetchTimeout } from '$lib/server/fetch'
 import type { CalendarEntry } from '../../routes/calendar/types'
 import type { RequestUserInfo } from './types'
 
-async function calFetch(url: string, timeout?: number) {
+async function calFetch({ url, failfast }: { url: string; failfast: boolean }) {
   const parsedUrl = new URL(url)
   const headers =
     parsedUrl.username && parsedUrl.password ? new Headers({ Authorization: `Basic ${btoa(parsedUrl.username + ':' + parsedUrl.password)}` }) : new Headers()
   parsedUrl.username = ''
   parsedUrl.password = ''
 
-  const res = await fetchTimeout(parsedUrl, { headers, redirect: 'follow', timeout })
+  const res = await fetchTimeout(parsedUrl, { headers, redirect: 'follow', failfast })
   const txt = await res.text()
   if (res.ok) {
     const ical = ICAL.parse(txt)
@@ -31,21 +31,21 @@ async function calFetch(url: string, timeout?: number) {
           summary: summary ? summary[3] : '',
           location: location ? location[3] : '',
           description: description ? description[3] : ''
-        }
+        } as CalendarEntry
       })
   } else {
     throw new Error('Calendar error: ' + txt)
   }
 }
 
-export async function queryCalendar({ user, timeout }: { user: RequestUserInfo; timeout?: number }) {
+export async function queryCalendar({ user, failfast }: { user: RequestUserInfo; failfast: boolean }) {
   const calendars = await getUserCalendars(user)
 
   if (calendars?.length > 0) {
     const calData = await Promise.allSettled(
       calendars.map(async cal => {
-        if (cache.has(cal.url)) return cache.get(cal.url)
-        else return cache.set(cal.url, await calFetch(cal.url, timeout))
+        if (cache.has(cal.url)) return cache.get<CalendarEntry[]>(cal.url)
+        else return cache.set(cal.url, await calFetch({ url: cal.url, failfast }))
       })
     )
 
@@ -61,9 +61,9 @@ export async function queryCalendar({ user, timeout }: { user: RequestUserInfo; 
     const results: CalendarEntry[] = []
     let errors = false
 
-    for (const { status, value } of calData) {
-      if (status === 'fulfilled') {
-        for (const entry of value) {
+    for (const calResult of calData) {
+      if (calResult.status === 'fulfilled') {
+        for (const entry of calResult.value) {
           const dtStartDate = entry.dtstart?.split('T')[0]
           const dtEndDate = entry.dtend?.split('T')[0]
 
@@ -77,7 +77,7 @@ export async function queryCalendar({ user, timeout }: { user: RequestUserInfo; 
         }
       } else {
         errors = true
-        console.error(`Error loading calendar: ${value}`)
+        console.error(`Error loading calendar: ${calResult.reason}`)
       }
     }
     return {

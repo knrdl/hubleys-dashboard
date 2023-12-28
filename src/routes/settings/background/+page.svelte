@@ -264,8 +264,4 @@
   .icon-button {
     @apply flex items-center justify-center gap-1 rounded-lg bg-blue-700/80 p-1 text-center text-sm font-medium text-white hover:bg-blue-800 dark:bg-blue-600/80 dark:hover:bg-blue-700;
   }
-
-  .icon-button[disabled] {
-    @apply bg-gray-700 hover:bg-gray-700;
-  }
 </style>

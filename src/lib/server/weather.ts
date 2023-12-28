@@ -1,11 +1,11 @@
-import { getSysConfig } from './sysconfig'
+import { sysConfig } from './sysconfig'
 import cache from '$lib/server/httpcache'
-import { fetchTimeout } from '$lib/fetch'
+import { fetchTimeout } from '$lib/server/fetch'
 import type { UserConfig } from './userconfig/types'
 import type { CurrentWeather } from '../../routes/weather/types'
 
 async function buildSearchParams({ lang, userConfig }: { lang: string; userConfig: UserConfig }) {
-  const apiKey = (await getSysConfig()).openweathermap_api_key
+  const apiKey = sysConfig.openweathermap_api_key
   if (!apiKey) throw new Error('weather error: no api key given')
   const conf = userConfig.weather
   const search = new URLSearchParams({ appid: apiKey, lang, units: 'metric' })
@@ -48,11 +48,19 @@ export async function queryWeatherForecast({ lang, userConfig }: { lang: string;
   }
 }
 
-export async function queryCurrentWeather({ lang, userConfig, timeout }: { lang: string; userConfig: UserConfig; timeout?: number }): Promise<CurrentWeather> {
+export async function queryCurrentWeather({
+  lang,
+  userConfig,
+  failfast
+}: {
+  lang: string
+  userConfig: UserConfig
+  failfast: boolean
+}): Promise<CurrentWeather> {
   const search = await buildSearchParams({ lang, userConfig })
   const url = 'https://api.openweathermap.org/data/2.5/weather?' + search
   if (cache.has(url)) return cache.get(url)
-  const res = await fetchTimeout(url, { timeout })
+  const res = await fetchTimeout(url, { failfast })
   if (res.status === 200) {
     const data = await res.json()
     return cache.set(url, {

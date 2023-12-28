@@ -52,7 +52,11 @@ export interface Sysconfig {
     groups: string
   }
 
-  server_request_timeout: number
+  server_request_timeout: {
+    failfast: number
+    max: number
+  }
+  httpcache_ttl: number
 
   appInfo: {
     buildDate: string

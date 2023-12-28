@@ -1,4 +1,4 @@
-import { getSysConfig } from '$lib/server/sysconfig'
+import { sysConfig, reloadSysConfig } from '$lib/server/sysconfig'
 import { error, type RequestEvent } from '@sveltejs/kit'
 import { getUserConfig, initDefaultUserConfig, runUserConfigMigrations } from '$lib/server/userconfig'
 import fs from 'fs'
@@ -16,7 +16,6 @@ function sanatizeHeader(ev: RequestEvent, header: string) {
 }
 
 export async function handle({ event, resolve }) {
-  const sysConfig = await getSysConfig()
   if (sysConfig.demo_mode) {
     const userid = 'demo1'
     event.locals.userConfig = await getUserConfig(userid)
@@ -62,7 +61,7 @@ async function onServerStartup() {
     })()
   ])
 
-  await Promise.all([initDefaultUserConfig(), runUserConfigMigrations()])
+  await Promise.all([initDefaultUserConfig(), runUserConfigMigrations(), reloadSysConfig()])
 
   console.log('up and running')
 }

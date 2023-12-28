@@ -6,12 +6,7 @@ import { loadTranslations } from '$lib/translations'
 export const load: LayoutServerLoad = async ({ url, cookies, locals }) => {
   const currentWeatherJob = (async () => {
     try {
-      if (locals.sysConfig.openweathermap_api_key)
-        return await queryCurrentWeather({
-          lang: locals.user.lang,
-          userConfig: locals.userConfig,
-          timeout: locals.sysConfig.server_request_timeout
-        })
+      if (locals.sysConfig.openweathermap_api_key) return await queryCurrentWeather({ lang: locals.user.lang, userConfig: locals.userConfig, failfast: true })
       else return 'NOT_ENABLED'
     } catch (e) {
       if (e instanceof Error && e.message === 'weather for user not configured') return 'NOT_CONFIGURED'
@@ -22,7 +17,7 @@ export const load: LayoutServerLoad = async ({ url, cookies, locals }) => {
   const background = await generateCurrentBgConfig({
     currentBgImgUrl: cookies.get('bgimg'),
     userConfig: locals.userConfig,
-    timeout: locals.sysConfig.server_request_timeout
+    failfast: true
   })
   setBgImgCookie(cookies, background.image)
 

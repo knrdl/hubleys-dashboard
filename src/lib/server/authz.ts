@@ -1,4 +1,4 @@
-import { getSysConfig } from './sysconfig'
+import { sysConfig } from './sysconfig'
 import type { AccessRule, Calendar, Message, SearchEngine, SysconfigTile, Tile } from './sysconfig/types'
 import type { RequestUserInfo } from './types'
 
@@ -34,8 +34,7 @@ function isUserAllowed(allowRule: AccessRule | undefined, denyRule: AccessRule |
 }
 
 export async function getUserCalendars(user: RequestUserInfo) {
-  const config = await getSysConfig()
-  return structuredClone(config.calendars || [])
+  return structuredClone(sysConfig.calendars || [])
     .filter(cal => isUserAllowed(cal.allow, cal.deny, user))
     .map(cal => {
       delete cal.allow
@@ -45,8 +44,7 @@ export async function getUserCalendars(user: RequestUserInfo) {
 }
 
 export async function getUserSearchEngines(user: RequestUserInfo) {
-  const config = await getSysConfig()
-  return structuredClone(config.search_engines || [])
+  return structuredClone(sysConfig.search_engines || [])
     .filter(engine => isUserAllowed(engine.allow, engine.deny, user))
     .map(engine => {
       delete engine.allow
@@ -71,14 +69,11 @@ export async function getUserTiles(user: RequestUserInfo): Promise<Tile[]> {
         return tile
       })
 
-  const config = await getSysConfig()
-  if (config.tiles) return Promise.all(transformTiles(structuredClone(config.tiles)))
-  else return []
+  return Promise.all(transformTiles(structuredClone(sysConfig.tiles || [])))
 }
 
 export async function getUserMessages(user: RequestUserInfo): Promise<Message[]> {
-  const config = await getSysConfig()
-  return structuredClone(config.messages || [])
+  return structuredClone(sysConfig.messages || [])
     .filter(msg => isUserAllowed(msg.allow, msg.deny, user))
     .map(msg => {
       delete msg.allow

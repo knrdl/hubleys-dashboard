@@ -1,4 +1,4 @@
-import { epoch } from '$lib/datetime'
+import { epoch } from '$lib/utils'
 import type { Cookies } from '@sveltejs/kit'
 import type { BackgroundConfig, UserConfig } from './userconfig/types'
 import { queryBgImgUrlReddit, queryBgImgUrlUnsplash } from '$lib/backgrounds/random'
@@ -6,11 +6,11 @@ import { queryBgImgUrlReddit, queryBgImgUrlUnsplash } from '$lib/backgrounds/ran
 export async function generateCurrentBgConfig({
   currentBgImgUrl,
   userConfig,
-  timeout
+  failfast
 }: {
   currentBgImgUrl?: string
   userConfig: UserConfig
-  timeout?: number
+  failfast: boolean
 }) {
   const bgCfg: BackgroundConfig = userConfig.backgrounds.find(bgCfg => bgCfg.selected) as BackgroundConfig
 
@@ -20,8 +20,8 @@ export async function generateCurrentBgConfig({
 
     if (bgCfg.background === 'random') {
       try {
-        if (bgCfg.random_image.provider === 'unsplash') bgImgUrlJob = queryBgImgUrlUnsplash(bgCfg.random_image.unsplash_query, timeout)
-        else if (bgCfg.random_image.provider === 'reddit') bgImgUrlJob = queryBgImgUrlReddit(bgCfg.random_image.subreddits, timeout)
+        if (bgCfg.random_image.provider === 'unsplash') bgImgUrlJob = queryBgImgUrlUnsplash({ searchTerm: bgCfg.random_image.unsplash_query, failfast })
+        else if (bgCfg.random_image.provider === 'reddit') bgImgUrlJob = queryBgImgUrlReddit({ subreddits: bgCfg.random_image.subreddits, failfast })
         else console.warn('unknown background image provider:', bgCfg.random_image.provider)
       } catch (e) {
         console.error(e)

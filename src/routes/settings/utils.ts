@@ -1,12 +1,12 @@
-import { error, type Action } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 import { setUserConfig, userBackgroundImgFilePath } from '$lib/server/userconfig'
-import { genRandomId } from '$lib/random'
+import { genRandomId } from '$lib/server/random'
 import type { UserConfig } from '$lib/server/userconfig/types'
 import path from 'path'
 import { writeFile, unlink } from 'node:fs/promises'
 import { t } from '$lib/translations'
 
-export const saveUserConfig: Action = async ({ locals, request }) => {
+export const saveUserConfig = async ({ locals, request }: { locals: App.Locals; request: Request }) => {
   const data = await request.formData()
   const userConfigStr = data.get('userConfig')
   if (typeof userConfigStr !== 'string') error(422)

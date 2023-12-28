@@ -7,7 +7,7 @@ ARG PUBLIC_VERSION
 RUN export PUBLIC_BUILD_DATE=$(date -Iseconds) && \
     npm install && \
     npm audit && \
-    npm run check || true && \
+    npm run check && \
     npm run lint:check && \
     npm run format:check && \
     npm run build
@@ -44,8 +44,15 @@ VOLUME /data
 
 CMD ["node", "--unhandled-rejections=strict", "/app/entrypoint.js"]
 
+
 ENV HTTP_HEADER_USERID="Remote-User"
 ENV HTTP_HEADER_USERNAME="Remote-Name"
 ENV HTTP_HEADER_EMAIL="Remote-Email"
 ENV HTTP_HEADER_GROUPS="Remote-Groups"
 
+# timeout for requests from server to third party apis, in millisecs
+ENV SERVER_REQUEST_FAILFAST_TIMEOUT="750"
+ENV SERVER_REQUEST_MAX_TIMEOUT="15000"
+
+# cache lifetime for requests from server to third party apis, in minutes
+ENV SERVER_REQUEST_CACHE_TTL="10"

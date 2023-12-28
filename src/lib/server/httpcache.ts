@@ -1,4 +1,5 @@
-import { epoch } from '$lib/datetime'
+import { epoch } from '$lib/utils'
+import { sysConfig } from './sysconfig'
 
 type CacheUrl = string
 type Seconds = number
@@ -34,11 +35,12 @@ export default {
     return Object.prototype.hasOwnProperty.call(_cache, requestUrl)
   },
 
-  set<T>(requestUrl: string, responseData: T, cacheLifetime: Seconds = 10 * 60) {
-    //todo: cache lifetime from env var
-    _cache[requestUrl] = responseData
-    _lifetimes[requestUrl] = epoch() + cacheLifetime
-    if (intervalHandle === null) intervalHandle = setInterval(cleanup, 1000) as any
+  set<T>(requestUrl: string, responseData: T) {
+    if (sysConfig.httpcache_ttl) {
+      _cache[requestUrl] = responseData
+      _lifetimes[requestUrl] = epoch() + sysConfig.httpcache_ttl * 60
+      if (intervalHandle === null) intervalHandle = setInterval(cleanup, 1_000) as any
+    }
     return responseData
   },
 
