@@ -4,7 +4,7 @@ COPY . /app/
 WORKDIR /app
 
 ARG PUBLIC_VERSION
-RUN export PUBLIC_BUILD_DATE=$(date -Iseconds) && \
+RUN export PUBLIC_BUILD_DATE="$(date -Iseconds)" && \
     npm install && \
     npm audit && \
     npm run check && \
@@ -44,7 +44,7 @@ VOLUME /data
 
 CMD ["node", "--unhandled-rejections=strict", "/app/entrypoint.js"]
 
-
+# Headers set by the reverse proxy
 ENV HTTP_HEADER_USERID="Remote-User"
 ENV HTTP_HEADER_USERNAME="Remote-Name"
 ENV HTTP_HEADER_EMAIL="Remote-Email"
