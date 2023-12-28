@@ -39,3 +39,42 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
+
+/*chrome won't display form controls correctly, so we have to build them manually :/ */
+
+input[type='radio'] {
+  @apply h-4 w-4 cursor-pointer border border-gray-400 accent-blue-600;
+  appearance: none;
+  border-radius: 50%;
+}
+
+input[type='radio']:checked {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  @apply border-blue-600 bg-blue-600;
+}
+
+input[type='checkbox'] {
+  @apply h-4 w-4 cursor-pointer border border-gray-400 accent-blue-600;
+  appearance: none;
+  border-radius: 0.25em;
+}
+
+input[type='checkbox']:checked {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  @apply border-blue-600 bg-blue-600;
+}
+
+select {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 10 6'%3E%3Cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1' d='m1 1 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 12px 9px;
+  appearance: none;
+  padding-right: 1.8rem;
+}

@@ -143,7 +143,7 @@
           {#if bg.background === 'random'}
             <label class="flex items-center gap-2">
               Change every:
-              <select bind:value={bg.random_image.duration}>
+              <select bind:value={bg.random_image.duration} class="w-20">
                 {#each randomImageChangeDurations as duration}
                   <option value={duration.value}>{duration.title}</option>
                 {/each}
@@ -209,7 +209,7 @@
         <label
           class="mx-3 mb-3 flex flex-col items-center rounded p-2 transition-colors {bg.particles === particlesName ? 'bg-slate-500/50 shadow-inner' : ''}"
         >
-          <input type="radio" class="mb-2" value={particlesName} bind:group={bg.particles} />
+          <input type="radio" hidden value={particlesName} bind:group={bg.particles} />
           <div class="mask h-24 w-24 {particlesName ? 'bg-blue-600' : 'bg-blue-600/50'} shadow-inner drop-shadow">
             {#if typeof particlesName !== 'boolean'}
               <ParticlesThumbnail {particlesName} />
@@ -229,14 +229,6 @@
 <style lang="postcss">
   section {
     @apply ml-6;
-  }
-
-  input[type='radio'] {
-    @apply scale-150 accent-blue-600;
-  }
-
-  input[type='checkbox'] {
-    @apply scale-125 accent-blue-600;
   }
 
   label {

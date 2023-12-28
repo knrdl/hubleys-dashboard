@@ -84,8 +84,4 @@
   section {
     @apply ml-6;
   }
-
-  input[type='radio'] {
-    @apply scale-150 accent-blue-600;
-  }
 </style>
