@@ -68,7 +68,6 @@ export async function getUserTiles(user: RequestUserInfo): Promise<Tile[]> {
         if (!tile.menu || tile.menu.tiles.length === 0) delete tile.menu
         delete tile.allow
         delete tile.deny
-        console.log(JSON.stringify(tile, null, 4))
         return tile
       })
 

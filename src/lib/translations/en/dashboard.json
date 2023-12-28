@@ -1,5 +1,8 @@
 {
   "search": {
     "placeholder": "Search"
-  }
+  },
+  "menu": "Menu",
+  "show-more": "Show more",
+  "logo": "Logo"
 }

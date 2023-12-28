@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-  <title>Settings</title>
+  <title>{$t('common.settings')}</title>
 </svelte:head>
 
 <div

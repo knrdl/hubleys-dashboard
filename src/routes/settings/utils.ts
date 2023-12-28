@@ -4,6 +4,7 @@ import { genRandomId } from '$lib/random'
 import type { UserConfig } from '$lib/server/userconfig/types'
 import path from 'path'
 import { writeFile, unlink } from 'node:fs/promises'
+import { t } from '$lib/translations'
 
 export const saveUserConfig: Action = async ({ locals, request }) => {
   const data = await request.formData()
@@ -25,5 +26,5 @@ export const saveUserConfig: Action = async ({ locals, request }) => {
     userConfig.backgrounds[0].static_image.upload_url = newImgId
   }
   await setUserConfig(locals.user.userid, userConfig)
-  return { message: 'Settings saved' }
+  return { message: t.get('settings.msg.saved') }
 }

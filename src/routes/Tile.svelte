@@ -69,7 +69,7 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
       </button>
     {:else}
       <div
-        title="Show more"
+        title={$t('dashboard.show-more')}
         class="
                 absolute -right-1 -top-1 inline-flex h-8
                 w-8 items-center justify-center

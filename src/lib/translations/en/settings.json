@@ -8,6 +8,8 @@
   },
   "bg": {
     "image": "Image",
+    "image-static": "static image",
+    "image-random": "random images",
     "particleslist": {
       "": "none",
       "bubbles": "bubbles",
@@ -25,5 +27,22 @@
     "light-blur": "light blur",
     "effects": "Effects",
     "dot-matrix": "dot matrix"
+  },
+  "dashboard": {
+    "layout": "Layout",
+    "layout-center": "Center tiles on screen",
+    "layout-wide": "Fill screen with tiles",
+    "position": "Position",
+    "position-top": "Tiles on top",
+    "position-bottom": "Tiles on bottom",
+    "features": "Features"
+  },
+  "admin": {
+    "reload-app": "Reload application",
+    "auth-data": "Your authentication data",
+    "about-app": "About the application"
+  },
+  "msg": {
+    "saved": "Settings saved"
   }
 }

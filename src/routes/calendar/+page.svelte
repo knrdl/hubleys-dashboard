@@ -3,6 +3,7 @@
   import Fa from 'svelte-fa'
   import { faCalendarCheck, faExclamationTriangle, faLocationDot } from '@fortawesome/free-solid-svg-icons'
   import type { PageData } from './$types'
+  import { t } from '$lib/translations'
 
   export let data: PageData
 
@@ -38,7 +39,7 @@
   {#if data.calendarEvents?.errors}
     <div class="mb-1 flex items-center gap-1 text-red-500">
       <Fa icon={faExclamationTriangle} />
-      <span>Some calendars missing</span>
+      <span>{$t('calendar.msg.missing-calendars')}</span>
     </div>
   {/if}
   {#if data.calendarEvents?.entries && data.calendarEvents.entries.length > 0}
@@ -76,7 +77,7 @@
   {:else}
     <div class="mb-1 flex items-center gap-1 text-teal-400">
       <Fa icon={faCalendarCheck} />
-      <span>No upcoming events</span>
+      <span>{$t('calendar.msg.no-events')}</span>
     </div>
   {/if}
 </div>

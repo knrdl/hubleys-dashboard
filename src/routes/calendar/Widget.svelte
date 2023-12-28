@@ -4,6 +4,7 @@
   import { getTodayDate, getTomorrowDate, getYesterdayDate, isSingleDayEvent, isTodayContained } from './utils'
   import { browser } from '$app/environment'
   import type { CalendarEntry } from './types'
+  import { t } from '$lib/translations'
 
   export let calendarEvents: { errors: boolean; entries: CalendarEntry[] }
   export let userLang: string
@@ -55,7 +56,7 @@
 {#if calendarEvents?.errors}
   <div class="mb-1 flex items-center gap-1 text-orange-500">
     <Fa icon={faExclamationTriangle} />
-    <span>Some calendars missing</span>
+    <span>{$t('calendar.msg.missing-calendars')}</span>
   </div>
 {/if}
 {#if calendarEvents?.entries?.length > 0}
@@ -86,7 +87,7 @@
 {:else if !calendarEvents?.errors}
   <div class="mb-1 flex items-center gap-1 text-teal-400">
     <Fa icon={faCalendarCheck} />
-    <span>No upcoming events</span>
+    <span>{$t('calendar.msg.no-events')}</span>
   </div>
 {/if}
 

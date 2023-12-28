@@ -5,6 +5,7 @@
   import { faPlay, faStop, faCircleNotch, faPause } from '@fortawesome/free-solid-svg-icons'
   import { fly } from 'svelte/transition'
   import ClockFace from '../ClockFace.svelte'
+  import { t } from '$lib/translations'
 
   let rounds: number[] = []
 
@@ -72,9 +73,9 @@
       >
         <Fa icon={faPause} class="mr-2" />
         {#if isPaused}
-          Continue
+          {$t('clock.continue')}
         {:else}
-          Pause
+          {$t('clock.pause')}
         {/if}
       </button>
     {/if}
@@ -85,7 +86,7 @@
       class="border-b border-t bg-sky-300 enabled:hover:bg-sky-400 dark:bg-sky-500 dark:enabled:hover:bg-sky-600"
     >
       <Fa icon={faCircleNotch} class="mr-2" />
-      Round
+      {$t('clock.round')}
     </button>
     <button
       type="button"
@@ -94,7 +95,7 @@
       class="rounded-r-md border bg-red-400 enabled:hover:bg-red-500 dark:bg-rose-500 dark:enabled:hover:bg-rose-600"
     >
       <Fa icon={faStop} class="mr-2" />
-      Stop
+      {$t('clock.stop')}
     </button>
   </div>
 </div>

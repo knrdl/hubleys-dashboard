@@ -3,6 +3,7 @@
   import { faBinoculars, faCheckCircle, faSun, faUpLong, faDownLong } from '@fortawesome/free-solid-svg-icons'
   import { fly } from 'svelte/transition'
   import type { PageData } from './$types'
+  import { t } from '$lib/translations'
 
   export let data: PageData
 
@@ -19,7 +20,7 @@
 </script>
 
 <svelte:head>
-  <title>Weather</title>
+  <title>{$t('common.weather')}</title>
 </svelte:head>
 
 <div class="my-3 rounded-lg bg-slate-300/90 p-1 drop-shadow dark:bg-slate-900/90" in:fly={{ y: -20 }}>
@@ -41,18 +42,18 @@
               </div>
             </div>
             <div class="flex flex-col items-end">
-              <div>Temperature</div>
-              <div class="font-normal">(feels like)</div>
+              <div>{$t('weather.temperature')}</div>
+              <div class="font-normal">({$t('weather.feelslike')})</div>
             </div>
           </div>
         </th>
         <th scope="col" class="px-4 py-3 text-right">
-          <div>Wind</div>
-          <div>Gust</div>
+          <div>{$t('weather.wind')}</div>
+          <div>{$t('weather.gust')}</div>
         </th>
         <th scope="col" class="px-4 py-3 text-right">
-          <div>Humidity</div>
-          <div>Visibility</div>
+          <div>{$t('weather.humidity')}</div>
+          <div>{$t('weather.visibility')}</div>
         </th>
       </tr>
     </thead>

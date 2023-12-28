@@ -1,6 +1,8 @@
 {
-  "nav": {
-    "settings": "Settings",
-    "home": "Home"
-  }
+  "close": "Close",
+  "dashboard": "Dashboard",
+  "home": "Home",
+  "save": "Speichern",
+  "settings": "Settings",
+  "weather": "Weather"
 }

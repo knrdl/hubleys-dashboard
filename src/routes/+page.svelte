@@ -5,12 +5,13 @@
   import MessagesWidget from './messages/Widget.svelte'
   import { fly } from 'svelte/transition'
   import type { PageData } from './$types'
+  import { t } from '$lib/translations'
 
   export let data: PageData
 </script>
 
 <svelte:head>
-  <title>Dashboard</title>
+  <title>{$t('common.dashboard')}</title>
 </svelte:head>
 
 <main class="flex w-full grow flex-col p-3" class:max-w-screen-lg={data.userConfig.tiles.layout === 'center'}>

@@ -4,6 +4,7 @@
   import Message from '../Message.svelte'
   import Fa from 'svelte-fa'
   import type { ActionData, PageData } from './$types'
+  import { t } from '$lib/translations'
 
   export let form: ActionData
   export let data: PageData
@@ -13,8 +14,8 @@
   <Message text={form?.message} kind="success" />
   <button type="submit">
     <Fa icon={faRotate} size="lg" />
-    Reload application</button
-  >
+    {$t('settings.admin.reload-app')}
+  </button>
   <ul class="ml-5 mt-1 list-inside list-disc text-gray-900 dark:text-gray-300">
     <li>Reloads system configuration in <span class="font-mono font-semibold">config.yml</span></li>
     <li>Reloads user configurations</li>
@@ -23,7 +24,7 @@
 </form>
 
 <div class="mt-5 rounded border border-gray-200 p-5 font-light dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
-  <header class="text-lg font-bold">Your authentication data</header>
+  <header class="text-lg font-bold">{$t('settings.admin.auth-data')}</header>
   <section class="ml-5">
     <ul>
       <li>UserID: <span class="font-mono">{data.userinfo?.userid}</span></li>
@@ -33,7 +34,7 @@
       <li>Is admin: <span class="font-mono">{data.userinfo?.isAdmin}</span></li>
     </ul>
   </section>
-  <header class="mt-5 text-lg font-bold">About the application</header>
+  <header class="mt-5 text-lg font-bold">{$t('settings.admin.about-app')}</header>
   <section class="ml-5">
     <ul>
       <li>Version: <span class="font-mono">{data.appinfo.version}</span></li>

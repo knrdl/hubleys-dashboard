@@ -3,10 +3,11 @@
   import Fa from 'svelte-fa'
   import { faStopwatch20, faHourglass } from '@fortawesome/free-solid-svg-icons'
   import { fly } from 'svelte/transition'
+  import { t } from '$lib/translations'
 </script>
 
 <svelte:head>
-  <title>Clock</title>
+  <title>{$t('clock.clock')}</title>
 </svelte:head>
 
 <nav class="z-10 max-w-xl rounded-lg border-b border-gray-200 bg-slate-100 p-6 pt-2 shadow-md dark:border-gray-700 dark:bg-gray-800" in:fly={{ y: -20 }}>
@@ -18,7 +19,7 @@
         aria-current={$page.url.pathname.endsWith('stopwatch') ? 'page' : undefined}
       >
         <Fa icon={faStopwatch20} size="lg" />
-        <span>Stopwatch</span>
+        <span>{$t('clock.stopwatch')}</span>
       </a>
     </li>
     <li class="mx-1">
@@ -28,7 +29,7 @@
         aria-current={$page.url.pathname.endsWith('timer') ? 'page' : undefined}
       >
         <Fa icon={faHourglass} size="lg" />
-        Timer
+        {$t('clock.timer')}
       </a>
     </li>
   </ul>

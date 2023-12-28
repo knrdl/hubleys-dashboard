@@ -64,7 +64,7 @@
           >
             <Fa icon={faPanorama} />
             <input type="radio" hidden value="static" bind:group={bg.background} />
-            static image
+            {$t('settings.bg.image-static')}
           </label>
           {#if bg.background === 'static'}
             <div class="mb-3 mt-2 flex flex-col gap-2 pl-6" in:fade>
@@ -87,7 +87,7 @@
           >
             <Fa icon={faIcons} />
             <input type="radio" hidden value="random" bind:group={bg.background} />
-            random images
+            {$t('settings.bg.image-random')}
           </label>
           {#if bg.background === 'random'}
             <div class="mb-3 mt-2 flex flex-col gap-2 pl-6" in:fade>
