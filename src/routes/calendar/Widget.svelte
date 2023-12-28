@@ -2,7 +2,8 @@
   import Fa from 'svelte-fa'
   import { faCalendarCheck, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
   import { getTodayDate, getTomorrowDate, getYesterdayDate, isSingleDayEvent, isTodayContained } from './utils'
-  import { browser } from '$app/environment'
+  import { onDestroy, onMount } from 'svelte'
+  import { epoch } from '$lib/utils'
   import type { CalendarEntry } from './types'
   import { t } from '$lib/translations'
 
@@ -41,16 +42,31 @@
       })
   }
 
-  $: {
-    // this could be handled in onMount but then config changes would not be applied as live reload
-    if (browser && (!calendarEvents || calendarEvents.errors))
-      window
-        .fetch('/calendar/entries')
-        .then(res => res.json())
-        .then(data => {
-          calendarEvents = data
-        })
+  let lastUpdate: number
+  let updateInterval: number
+
+  function update() {
+    window
+      .fetch('/calendar/entries')
+      .then(res => res.json())
+      .then(data => {
+        calendarEvents = data
+        lastUpdate = epoch()
+      })
   }
+
+  onMount(() => {
+    updateInterval = setInterval(() => {
+      if (document.visibilityState === 'visible' && epoch() - lastUpdate > 5 * 60) update() // todo: make 5min configurable
+    }, 10_000) as unknown as number
+    if (!calendarEvents || calendarEvents.errors) {
+      update()
+    }
+  })
+
+  onDestroy(() => {
+    clearInterval(updateInterval)
+  })
 </script>
 
 {#if calendarEvents?.errors}
