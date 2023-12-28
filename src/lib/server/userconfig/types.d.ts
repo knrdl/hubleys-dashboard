@@ -1,9 +1,10 @@
+import type { ParticlesName } from '$lib/backgrounds/particles/types'
+
 export interface BackgroundConfig {
   static_image: {
     source: 'upload' | 'web'
-    upload_url: string
+    upload_url: string // the id generated for the uploaded image
     web_url: string
-    upload_img?: FileList
   }
   random_image: {
     provider: 'unsplash' | 'reddit'
@@ -14,8 +15,8 @@ export interface BackgroundConfig {
   background: 'triangles' | 'static' | 'random'
   blur: false | 'dark' | 'light'
   dots: boolean
-  particles: false | ParticleName
-  selected: boolean
+  particles: false | ParticlesName
+  selected: boolean // backgrounds array now has only a single entry, so this is not in use
 }
 
 export interface UserConfig {

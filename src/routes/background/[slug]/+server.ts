@@ -1,7 +1,7 @@
-import { readBinaryFile } from '$lib/server/fs'
 import { userBackgroundImgFilePath } from '$lib/server/userconfig'
+import fs from 'node:fs'
 
-export async function GET({ params, locals }) {
-  const img = await readBinaryFile(userBackgroundImgFilePath(locals.user.userid, params.slug))
-  return new Response(img)
+export async function GET({ params }) {
+  const img = fs.createReadStream(userBackgroundImgFilePath(params.slug))
+  return new Response(img as unknown as ReadableStream)
 }

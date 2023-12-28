@@ -1,0 +1,112 @@
+{
+  "particles": {
+    "shape": {
+      "type": "emoji",
+      "options": {
+        "emoji": {
+          "value": "🍂"
+        }
+      }
+    },
+    "life": {
+      "duration": {
+        "value": 0
+      }
+    },
+    "number": {
+      "value": 200,
+      "max": 0,
+      "density": {
+        "enable": true
+      }
+    },
+    "move": {
+      "gravity": {
+        "enable": false
+      },
+      "decay": 0,
+      "direction": "bottom",
+      "speed": 1,
+      "outModes": "out"
+    },
+    "size": {
+      "value": 12
+    },
+    "opacity": {
+      "value": 1,
+      "animation": {
+        "enable": false
+      }
+    },
+    "rotate": {
+      "value": {
+        "min": 0,
+        "max": 180
+      },
+      "direction": "random",
+      "move": true,
+      "animation": {
+        "enable": true,
+        "speed": 10
+      }
+    },
+    "tilt": {
+      "direction": "random",
+      "enable": true,
+      "move": true,
+      "value": {
+        "min": 0,
+        "max": 180
+      },
+      "animation": {
+        "enable": true,
+        "speed": 30
+      }
+    },
+    "roll": {
+      "darken": {
+        "enable": true,
+        "value": 30
+      },
+      "enlighten": {
+        "enable": true,
+        "value": 30
+      },
+      "enable": true,
+      "mode": "both",
+      "speed": {
+        "min": 1,
+        "max": 25
+      }
+    },
+    "wobble": {
+      "distance": 10,
+      "enable": true,
+      "move": true,
+      "speed": {
+        "min": -15,
+        "max": 1
+      }
+    }
+  },
+  "interactivity": {
+    "detectsOn": "canvas",
+    "events": {
+      "onHover": {
+        "enable": true,
+        "mode": "repulse"
+      },
+      "onClick": {
+        "enable": true,
+        "mode": "pause"
+      },
+      "resize": true
+    },
+    "modes": {
+      "repulse": {
+        "distance": 100,
+        "duration": 0.4
+      }
+    }
+  }
+}

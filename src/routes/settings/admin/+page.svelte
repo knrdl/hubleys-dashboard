@@ -3,9 +3,10 @@
   import { faRotate } from '@fortawesome/free-solid-svg-icons'
   import Message from '../Message.svelte'
   import Fa from 'svelte-fa'
+  import type { ActionData, PageData } from './$types'
 
-  export let form
-  export let data
+  export let form: ActionData
+  export let data: PageData
 </script>
 
 <form method="POST" action="?/reload" use:enhance>
@@ -25,18 +26,18 @@
   <header class="text-lg font-bold">Your authentication data</header>
   <section class="ml-5">
     <ul>
-      <li>UserID: {data.userinfo?.userid}</li>
-      <li>Username: {data.userinfo?.username}</li>
-      <li>Email: {data.userinfo?.email}</li>
-      <li>Groups: {data.userinfo?.groups?.sort().join(', ')}</li>
-      <li>Is admin: {data.userinfo?.isAdmin}</li>
+      <li>UserID: <span class="font-mono">{data.userinfo?.userid}</span></li>
+      <li>Username: <span class="font-mono">{data.userinfo?.username}</span></li>
+      <li>Email: <span class="font-mono">{data.userinfo?.email}</span></li>
+      <li>Groups: <span class="font-mono">{data.userinfo?.groups?.sort().join(', ')}</span></li>
+      <li>Is admin: <span class="font-mono">{data.userinfo?.isAdmin}</span></li>
     </ul>
   </section>
   <header class="mt-5 text-lg font-bold">About the application</header>
   <section class="ml-5">
     <ul>
-      <li>Version: {data.appinfo.version}</li>
-      <li>Build Date: {data.appinfo.buildDate}</li>
+      <li>Version: <span class="font-mono">{data.appinfo.version}</span></li>
+      <li>Build Date: <span class="font-mono">{data.appinfo.buildDate}</span></li>
     </ul>
   </section>
 </div>

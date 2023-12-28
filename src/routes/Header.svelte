@@ -24,7 +24,7 @@
     {/if}
   {/if}
   {#if $page.url.pathname === '/'}
-    <a href="/settings/background" class="flex items-center gap-1 rounded-b-md px-2 py-1">
+    <a href="/settings" class="flex items-center gap-1 rounded-b-md px-2 py-1">
       <Fa icon={faCog} />
       {#if data.userConfig.dashboard.show_settings_text}
         {$t('common.nav.settings')}

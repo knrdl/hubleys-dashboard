@@ -1,6 +1,29 @@
 {
   "nav": {
     "background": "Hintergrund",
-    "weather": "Wetter"
+    "weather": "Wetter",
+    "dashboard": "Dashboard",
+    "system": "System",
+    "admin": "Admin"
+  },
+  "bg": {
+    "image": "Bild",
+    "particleslist": {
+      "": "Keine",
+      "bubbles": "Blasen",
+      "circles": "Kreise",
+      "leaves": "Herbstblätter",
+      "rain": "Regen",
+      "snow": "Schnee",
+      "squares": "Quadrate",
+      "stars": "Sterne",
+      "triangles": "Dreiecke"
+    },
+    "particles": "Partikel",
+    "no-blur": "Keine",
+    "dark-blur": "Abdunkeln",
+    "light-blur": "Aufhellen",
+    "effects": "Effekte",
+    "dot-matrix": "Gepunktet"
   }
 }

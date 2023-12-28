@@ -1,57 +1,53 @@
 {
   "emitters": {
-    "direction": "top",
+    "direction": "bottom",
     "size": {
       "width": 100,
       "height": 0
     },
     "position": {
       "x": 50,
-      "y": 100
+      "y": 0
     },
     "rate": {
       "delay": 0.1,
-      "quantity": 2
+      "quantity": 20
     }
   },
   "particles": {
     "number": {
-      "value": 0,
-      "density": {
-        "enable": true,
-        "valueArea": 800
-      }
+      "value": 0
     },
     "color": {
-      "value": "#ffffff"
+      "value": "#0000ff"
     },
     "shape": {
-      "type": "circle"
+      "type": "emoji",
+      "options": {
+        "emoji": {
+          "value": "💧"
+        }
+      }
     },
     "opacity": {
       "value": {
-        "min": 0,
-        "max": 0.5
+        "min": 0.5,
+        "max": 0.9
       }
     },
     "size": {
-      "value": 20,
-      "random": false,
-      "anim": {
-        "enable": true,
-        "speed": 5,
-        "size_min": 5,
-        "sync": true,
-        "startValue": "min",
-        "destroy": "max"
-      }
+      "value": 4,
+      "random": true
     },
     "move": {
       "enable": true,
-      "speed": 5,
+      "speed": 15,
       "direction": "none",
       "random": false,
-      "straight": false
+      "straight": true,
+      "outModes": {
+        "default": "destroy"
+      }
     }
   },
   "interactivity": {
@@ -66,7 +62,12 @@
         "mode": "pause"
       },
       "resize": true
+    },
+    "modes": {
+      "repulse": {
+        "distance": 75,
+        "duration": 1
+      }
     }
-  },
-  "detectRetina": true
+  }
 }

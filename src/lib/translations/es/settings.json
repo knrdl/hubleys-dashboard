@@ -1,6 +1,7 @@
 {
   "nav": {
     "background": "fondo",
-    "weather": "clima"
+    "weather": "clima",
+    "dashboard": "panel"
   }
 }

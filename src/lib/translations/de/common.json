@@ -1,6 +1,6 @@
 {
-  "nav": {
-    "settings": "Einstellungen",
-    "home": "Dashboard"
-  }
+  "home": "Dashboard",
+  "settings": "Einstellungen",
+  "save": "Speichern",
+  "weather": "Wetter"
 }

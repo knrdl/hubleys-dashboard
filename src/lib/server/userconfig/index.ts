@@ -1,4 +1,5 @@
 import { isFile, readJsonFile, writeJsonFile } from '$lib/server/fs'
+import path from 'node:path'
 import type { UserConfig } from './types'
 
 let defaultConfig: UserConfig = (await import('./default.json')).default as UserConfig
@@ -40,12 +41,8 @@ export async function reloadAllUsersConfig() {
   _cache = {}
 }
 
-export async function reloadUserConfig(userid: UserId) {
-  _cache[userid] = await readUserConfig(userid)
-}
-
-export function userBackgroundImgFilePath(userid: UserId, imgId: string) {
-  return '/data/users/backgrounds/' + encodeURIComponent(userid + '-' + imgId)
+export function userBackgroundImgFilePath(imgId: string) {
+  return path.join('/data/users/backgrounds/', path.basename(imgId))
 }
 
 export async function initDefaultUserConfig() {

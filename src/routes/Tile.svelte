@@ -14,6 +14,11 @@
 
   let selectedCoords: null | { x: number; y: number } = null
 
+  function logo2url(logo: string) {
+    if (logo.match(/^https?:\/\/.+/)) return logo
+    else return '/logo/' + encodeURIComponent(logo)
+  }
+
   function onMoreClick(ev: MouseEvent) {
     selectedCoords = { x: ev.x, y: ev.y }
   }

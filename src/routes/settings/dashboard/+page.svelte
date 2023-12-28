@@ -4,11 +4,11 @@
   import { applyAction, deserialize } from '$app/forms'
   import { invalidateAll } from '$app/navigation'
   import Message from '../Message.svelte'
-  import type { PageData } from './$types.js'
+  import type { PageData, ActionData } from './$types'
   import TilesVisualizer from './TilesVisualizer.svelte'
 
   export let data: PageData
-  export let form
+  export let form: ActionData
 
   async function handleSubmit(this: HTMLFormElement) {
     const body = new FormData()

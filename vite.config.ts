@@ -7,6 +7,6 @@ export default defineConfig({
     host: '0.0.0.0'
   },
   ssr: {
-    noExternal: ['tsparticles', 'tsparticles-slim', 'tsparticles-engine', 'svelte-particles'] // add all tsparticles libraries here, they're not made for SSR, they're client only
+    noExternal: ['tsparticles', 'tsparticles-slim', 'tsparticles-engine', 'svelte-particles', '@tsparticles/svelte'] // add all tsparticles libraries here, they're not made for SSR, they're client only
   }
 })

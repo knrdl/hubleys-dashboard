@@ -1,17 +1,17 @@
 {
   "emitters": {
-    "direction": "bottom",
+    "direction": "none",
     "size": {
-      "width": 100,
+      "width": 0,
       "height": 0
     },
     "position": {
       "x": 50,
-      "y": 100
+      "y": 50
     },
     "rate": {
       "delay": 0.1,
-      "quantity": 2
+      "quantity": 1
     }
   },
   "particles": {
@@ -35,38 +35,32 @@
       }
     },
     "size": {
-      "value": 20,
-      "random": false,
-      "anim": {
-        "enable": true,
-        "speed": 5,
-        "size_min": 5,
-        "sync": true,
-        "startValue": "min",
-        "destroy": "max"
-      }
+      "value": {
+        "min": 1,
+        "max": 10
+      },
+      "random": true
     },
     "move": {
       "enable": true,
       "speed": 5,
       "direction": "none",
       "random": false,
-      "straight": false
+      "size": true,
+      "straight": true,
+      "outModes": {
+        "default": "destroy"
+      }
     }
   },
   "interactivity": {
     "detectsOn": "canvas",
     "events": {
-      "onHover": {
-        "enable": true,
-        "mode": "repulse"
-      },
       "onClick": {
         "enable": true,
         "mode": "pause"
       },
       "resize": true
     }
-  },
-  "detectRetina": true
+  }
 }

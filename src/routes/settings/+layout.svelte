@@ -14,21 +14,11 @@
 </svelte:head>
 
 <div
-  class="z-10 my-3 w-screen rounded-lg border-b border-gray-200 bg-slate-100 p-6 pt-2 shadow-md md:max-w-3xl dark:border-gray-700 dark:bg-gray-800"
+  class="z-10 my-3 w-screen rounded-lg border-b border-gray-200 bg-slate-100/95 p-6 pt-2 shadow-md md:max-w-3xl dark:border-gray-700 dark:bg-gray-800/95"
   in:fly={{ y: -20 }}
 >
   <nav class="mb-6">
     <ul class="flex flex-wrap items-center justify-center text-center text-sm font-medium text-gray-500 dark:text-gray-400">
-      <li class="mx-1">
-        <a
-          href="./dashboard"
-          class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
-          aria-current={$page.url.pathname.endsWith('dashboard') ? 'page' : undefined}
-        >
-          <Fa icon={faTable} size="lg" />
-          <span>{$t('settings.nav.dashboard')}</span>
-        </a>
-      </li>
       <li class="mx-1">
         <a
           href="./background"
@@ -41,14 +31,26 @@
       </li>
       <li class="mx-1">
         <a
-          href="./weather"
+          href="./dashboard"
           class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
-          aria-current={$page.url.pathname.endsWith('weather') ? 'page' : undefined}
+          aria-current={$page.url.pathname.endsWith('dashboard') ? 'page' : undefined}
         >
-          <Fa icon={faCloud} size="lg" />
-          <span>{$t('settings.nav.weather')}</span>
+          <Fa icon={faTable} size="lg" />
+          <span>{$t('settings.nav.dashboard')}</span>
         </a>
       </li>
+      {#if data.isWeatherProviderConfigured}
+        <li class="mx-1">
+          <a
+            href="./weather"
+            class="group inline-flex rounded-t-lg border-b-2 border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
+            aria-current={$page.url.pathname.endsWith('weather') ? 'page' : undefined}
+          >
+            <Fa icon={faCloud} size="lg" />
+            <span>{$t('settings.nav.weather')}</span>
+          </a>
+        </li>
+      {/if}
       <li class="mx-1">
         <a
           href="./system"
@@ -56,7 +58,7 @@
           aria-current={$page.url.pathname.endsWith('system') ? 'page' : undefined}
         >
           <Fa icon={faSliders} size="lg" />
-          <span>System</span>
+          <span>{$t('settings.nav.system')}</span>
         </a>
       </li>
       {#if data.isAdmin}
@@ -67,7 +69,7 @@
             aria-current={$page.url.pathname.endsWith('admin') ? 'page' : undefined}
           >
             <Fa icon={faKey} size="lg" />
-            <span>Admin</span>
+            <span>{$t('settings.nav.admin')}</span>
           </a>
         </li>
       {/if}
@@ -86,6 +88,6 @@
   }
 
   ul li a :global(svg) {
-    @apply mr-2 h-5 w-5;
+    @apply mr-2 h-5 w-5 transition-colors;
   }
 </style>

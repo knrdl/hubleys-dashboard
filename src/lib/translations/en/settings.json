@@ -1,6 +1,29 @@
 {
   "nav": {
     "background": "Background",
-    "weather": "Weather"
+    "weather": "Weather",
+    "dashboard": "Dashboard",
+    "system": "System",
+    "admin": "Admin"
+  },
+  "bg": {
+    "image": "Image",
+    "particleslist": {
+      "": "none",
+      "bubbles": "bubbles",
+      "circles": "circles",
+      "leaves": "leaves",
+      "rain": "rain",
+      "snow": "snow",
+      "squares": "squares",
+      "stars": "stars",
+      "triangles": "triangles"
+    },
+    "particles": "Particles",
+    "no-blur": "no blur",
+    "dark-blur": "dark blur",
+    "light-blur": "light blur",
+    "effects": "Effects",
+    "dot-matrix": "dot matrix"
   }
 }

@@ -1,44 +1,17 @@
-import fs from 'fs'
+import { readFile, writeFile, stat } from 'node:fs/promises'
 
 export async function readJsonFile<T>(filepath: string) {
-  return JSON.parse(await fs.promises.readFile(filepath, { encoding: 'utf8' })) as T
+  return JSON.parse(await readFile(filepath, { encoding: 'utf8' })) as T
 }
 
 export async function writeJsonFile(filepath: string, data: unknown) {
-  return await fs.promises.writeFile(filepath, JSON.stringify(data, null, 4), { encoding: 'utf8' })
-}
-
-export async function writeBinaryFile(filepath: string, data: Buffer) {
-  return new Promise<void>((resolve, reject) => {
-    fs.writeFile(filepath, data, err => {
-      if (err) reject(err)
-      else resolve()
-    })
-  })
-}
-
-export async function readBinaryFile(filepath: string) {
-  return new Promise<Buffer>((resolve, reject) => {
-    fs.readFile(filepath, (err, file) => {
-      if (err) reject(err)
-      else resolve(file)
-    })
-  })
+  return await writeFile(filepath, JSON.stringify(data, null, 4), { encoding: 'utf8' })
 }
 
 export async function isFile(filepath: string) {
   try {
-    return (await fs.promises.stat(filepath)).isFile()
+    return (await stat(filepath)).isFile()
   } catch (e) {
     return false
   }
-}
-
-export async function deleteFile(filepath: string) {
-  return new Promise<void>((resolve, reject) => {
-    fs.unlink(filepath, err => {
-      if (err) reject(err)
-      else resolve()
-    })
-  })
 }

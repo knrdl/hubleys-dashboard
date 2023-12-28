@@ -1,0 +1,33 @@
+<script lang="ts">
+  import type { ParticlesName } from './types'
+
+  export let particlesName: ParticlesName
+</script>
+
+{#if particlesName === 'bubbles'}
+  {#await import('./thumbnails/bubbles.png') then thumbnail}
+    <img src={thumbnail.default} alt="Particles thumbnail" />
+  {/await}
+{:else if particlesName === 'circles'}
+  {#await import('./thumbnails/circles.png') then thumbnail}
+    <img src={thumbnail.default} alt="Particles thumbnail" />
+  {/await}
+{:else if particlesName === 'leaves'}
+  {#await import('./thumbnails/leaves.png') then thumbnail}
+    <img src={thumbnail.default} alt="Particles thumbnail" />
+  {/await}
+{:else if particlesName === 'rain'}
+  {#await import('./thumbnails/rain.png') then thumbnail}
+    <img src={thumbnail.default} alt="Particles thumbnail" />
+  {/await}
+{:else if particlesName === 'snow'}
+  {#await import('./thumbnails/snow.png') then thumbnail}
+    <img src={thumbnail.default} alt="Particles thumbnail" />
+  {/await}
+{:else if particlesName === 'triangles'}
+  {#await import('./thumbnails/triangles.png') then thumbnail}
+    <img src={thumbnail.default} alt="Particles thumbnail" />
+  {/await}
+{:else}
+  <div class="text-center text-red-700">missing thumbnail</div>
+{/if}

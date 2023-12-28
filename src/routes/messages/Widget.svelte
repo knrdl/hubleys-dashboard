@@ -23,7 +23,7 @@
       <button
         type="button"
         on:click={() => (hiddenMsgs = [...hiddenMsgs, msg.html])}
-        class="absolute -right-2 -top-2 flex w-4 items-center justify-center rounded-full bg-black hover:scale-125 hover:bg-red-800"
+        class="absolute -right-2 -top-2 flex w-4 items-center justify-center rounded-full bg-gray-800 hover:scale-125 hover:bg-red-800"
       >
         <Fa icon={faXmark} class="text-white" />
       </button>

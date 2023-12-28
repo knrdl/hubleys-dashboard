@@ -1,6 +1,6 @@
 import type { Actions, PageServerLoad } from './$types'
 import { saveUserConfig } from '../utils'
-import { getParticlesList } from '$lib/particles'
+import { getParticlesList } from '$lib/backgrounds/particles'
 
 export const load: PageServerLoad = async () => {
   return {
@@ -13,7 +13,8 @@ export const actions: Actions = {
     cookies.delete('bgimg', { path: '/' })
   },
   save: async ({ locals, request, cookies }) => {
-    await saveUserConfig({ locals, request })
+    const job = saveUserConfig({ locals, request })
     cookies.delete('bgimg', { path: '/' })
+    return await job
   }
 }

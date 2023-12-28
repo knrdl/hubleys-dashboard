@@ -30,11 +30,12 @@ import type { RequestUserInfo } from './types'
 export async function getUserCalendars(user: RequestUserInfo) {
   const config = await getSysConfig()
   return (config.calendars || [])
-    .filter(tile => isUserAllowed(tile.allow, user))
-    .map(origTile => {
-      const tile = { ...origTile }
-      delete tile.allow
-      return tile
+    .filter(cal => isUserAllowed(cal.allow, cal.deny, user))
+    .map(origCal => {
+      const cal = { ...origCal }
+      delete cal.allow
+      delete cal.deny
+      return cal
     }) as Calendar[]
 }
 
