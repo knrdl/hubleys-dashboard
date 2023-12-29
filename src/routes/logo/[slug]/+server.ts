@@ -6,9 +6,9 @@ import path from 'node:path'
 
 async function getFilename({ fspath, filename, uapath }: { fspath: string; filename: string; uapath?: string }) {
   try {
-    for await (const d of await opendir(fspath)) {
-      const p = path.parse(d.name)
-      if (p.base === filename || p.name === filename) return path.join(uapath || fspath, p.base)
+    for await (const e of await opendir(fspath)) {
+      const p = path.parse(e.name)
+      if (e.isFile() && (p.base === filename || p.name === filename)) return path.join(uapath || fspath, p.base)
     }
   } catch (e) {
     console.error(e)

@@ -7,9 +7,9 @@ type ReqInit = Omit<RequestInit, 'signal'> & {
 export async function fetchTimeout(input: RequestInfo | URL, init?: ReqInit): Promise<Response> {
   const timeout = init?.failfast ? sysConfig.server_request_timeout.failfast : sysConfig.server_request_timeout.max
   const abortController = new AbortController()
-  const timeoutId = setTimeout(() => abortController.abort(), timeout)
+  const timeoutId = timeout ? setTimeout(() => abortController.abort(), timeout) : null
   console.debug('fetch', input)
   const res = await fetch(input, { ...init, signal: abortController.signal })
-  clearTimeout(timeoutId)
+  if (timeoutId !== null) clearTimeout(timeoutId)
   return res
 }

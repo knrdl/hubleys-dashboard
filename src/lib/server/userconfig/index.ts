@@ -63,8 +63,8 @@ export async function runUserConfigMigrations() {
         if (profile.version === 0) {
           // new props
           profile.tiles = {
-            "layout": "center",
-            "position": "bottom"
+            layout: 'center',
+            position: 'bottom'
           }
           // only the first bg is show in settings ui, so make selected the first one
           const bgIdx = profile.backgrounds.findIndex(bg => bg.selected) || 0
