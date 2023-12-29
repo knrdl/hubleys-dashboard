@@ -26,7 +26,10 @@
       "value": "#ffffff"
     },
     "shape": {
-      "type": "circle"
+      "type": "star",
+      "polygon": {
+        "sides": 7
+      }
     },
     "opacity": {
       "value": {
@@ -37,7 +40,7 @@
     "size": {
       "value": {
         "min": 1,
-        "max": 10
+        "max": 7
       },
       "random": true
     },

@@ -1,0 +1,98 @@
+{
+  "emitters": {
+    "direction": "none",
+    "size": {
+      "width": 0,
+      "height": 0
+    },
+    "position": {
+      "x": 50,
+      "y": 50
+    },
+    "rate": {
+      "delay": 0.1,
+      "quantity": 1
+    }
+  },
+  "particles": {
+    "number": {
+      "value": 0
+    },
+    "color": {
+      "value": "#ffffff"
+    },
+    "shape": {
+      "type": "square",
+      "options": {
+        "square": {
+          "fill": false,
+          "particles": {
+            "stroke": {
+              "color": {
+                "value": [
+                  "#f00",
+                  "#0f0",
+                  "#00f"
+                ]
+              },
+              "width": 1
+            }
+          }
+        }
+      }
+    },
+    "opacity": {
+      "value": {
+        "min": 0.01,
+        "max": 0.3
+      },
+      "random": true
+    },
+    "rotate": {
+      "value": 0,
+      "random": true,
+      "direction": "random",
+      "animation": {
+        "enable": true,
+        "speed": 10,
+        "sync": false
+      }
+    },
+    "size": {
+      "value": {
+        "min": 1,
+        "max": 10
+      },
+      "animation": {
+        "enable": true,
+        "speed": 1,
+        "sync": false
+      },
+      "random": true
+    },
+    "move": {
+      "enable": true,
+      "speed": 1,
+      "direction": "none",
+      "random": true,
+      "straight": false,
+      "outModes": {
+        "default": "destroy"
+      }
+    }
+  },
+  "interactivity": {
+    "detectsOn": "canvas",
+    "events": {
+      "onHover": {
+        "enable": true,
+        "mode": "repulse"
+      },
+      "onClick": {
+        "enable": true,
+        "mode": "pause"
+      },
+      "resize": true
+    }
+  }
+}

@@ -24,6 +24,14 @@
   {#await import('./thumbnails/snow.png') then thumbnail}
     <img src={thumbnail.default} alt="Particles thumbnail" />
   {/await}
+{:else if particlesName === 'squares'}
+  {#await import('./thumbnails/squares.png') then thumbnail}
+    <img src={thumbnail.default} alt="Particles thumbnail" />
+  {/await}
+{:else if particlesName === 'stars'}
+  {#await import('./thumbnails/stars.png') then thumbnail}
+    <img src={thumbnail.default} alt="Particles thumbnail" />
+  {/await}
 {:else if particlesName === 'triangles'}
   {#await import('./thumbnails/triangles.png') then thumbnail}
     <img src={thumbnail.default} alt="Particles thumbnail" />
