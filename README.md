@@ -81,12 +81,16 @@ See also: [Authelia docs](https://www.authelia.com/integration/trusted-header-ss
 
 ```mermaid
 graph LR
-client[Browser] --(1)--> proxy[Reverse Proxy]
-proxy --(2)--> idp[Auth Provider]
-idp --(3)--> proxy
-proxy --(4)--> app[Hubleys]
-app --(5)--> proxy
-proxy --(6)--> client
+client[Browser]
+proxy[Reverse Proxy]
+idp[Auth Provider]
+app[Hubleys]
+client --1--> proxy
+proxy --2--> idp
+idp --3--> proxy
+proxy --4--> app
+app --5--> proxy
+proxy --6--> client
 ```
 
 1. the browser sends a request to your server
