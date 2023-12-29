@@ -10,7 +10,17 @@ const config = {
   }),
 
   kit: {
-    adapter: adapter({ precompress: true })
+    adapter: adapter({ precompress: true }),
+    csp: {
+      directives: {
+        'script-src': ['self'],
+        'connect-src': ['self'],
+        'manifest-src': ['self'],
+        'form-action': ['self'],
+        'base-uri': ['self'],
+        'object-src': ['none'],
+      },
+    }
   }
 }
 
