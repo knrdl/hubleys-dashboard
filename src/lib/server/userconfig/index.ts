@@ -1,6 +1,7 @@
 import { isFile, readJsonFile, writeJsonFile } from '$lib/server/fs'
 import path from 'node:path'
-import type { UserConfig } from './types'
+import type { BackgroundConfig, UserConfig } from './types'
+import { opendir } from 'node:fs/promises'
 
 let defaultConfig: UserConfig = (await import('./default.json')).default as UserConfig
 
@@ -52,5 +53,26 @@ export async function initDefaultUserConfig() {
 }
 
 export async function runUserConfigMigrations() {
-  // todo
+  const newest_migration_version = 1
+  for await (const e of await opendir('/data/users/config/')) {
+    if (e.isFile() && e.name.endsWith('.json')) {
+      const p = path.join(e.path, e.name)
+      const profile = await readJsonFile<UserConfig>(p)
+      if (profile.version < newest_migration_version) {
+        console.info('migrating profile: ', p)
+        if (profile.version === 0) {
+          // new props
+          profile.tiles = {
+            "layout": "center",
+            "position": "bottom"
+          }
+          // only the first bg is show in settings ui, so make selected the first one
+          const bgIdx = profile.backgrounds.findIndex(bg => bg.selected) || 0
+          profile.backgrounds.unshift(profile.backgrounds.splice(bgIdx, 1) as unknown as BackgroundConfig)
+          profile.version = 1
+        }
+        await writeJsonFile(p, profile)
+      }
+    }
+  }
 }
