@@ -1,7 +1,8 @@
 {
-  "home": "Dashboard",
-  "settings": "Einstellungen",
-  "save": "Speichern",
+  "close": "Schließen",
   "dashboard": "Dashboard",
+  "home": "Dashboard",
+  "save": "Speichern",
+  "settings": "Einstellungen",
   "weather": "Wetter"
 }

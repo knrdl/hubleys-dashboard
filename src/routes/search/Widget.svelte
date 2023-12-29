@@ -70,6 +70,7 @@
         class="absolute right-0 top-0 flex h-full w-10 items-center justify-center rounded-r-lg border border-gray-300 bg-gray-100/10 text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/75 dark:text-gray-100 dark:focus:ring-blue-800 dark:group-hover:bg-gray-700"
       >
         <Fa icon={faSearch} />
+        <span class="sr-only">search</span>
       </button>
     </div>
   </div>

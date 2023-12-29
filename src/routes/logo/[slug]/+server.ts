@@ -5,9 +5,13 @@ import { opendir } from 'node:fs/promises'
 import path from 'node:path'
 
 async function getFilename({ fspath, filename, uapath }: { fspath: string; filename: string; uapath?: string }) {
-  for await (const d of await opendir(fspath)) {
-    const p = path.parse(d.name)
-    if (p.base === filename || p.name === filename) return path.join(uapath || fspath, p.base)
+  try {
+    for await (const d of await opendir(fspath)) {
+      const p = path.parse(d.name)
+      if (p.base === filename || p.name === filename) return path.join(uapath || fspath, p.base)
+    }
+  } catch (e) {
+    console.error(e)
   }
 }
 

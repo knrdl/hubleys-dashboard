@@ -25,5 +25,22 @@
     "light-blur": "Aufhellen",
     "effects": "Effekte",
     "dot-matrix": "Gepunktet"
+  },
+  "dashboard": {
+    "layout": "Layout",
+    "layout-center": "Kacheln zentrieren",
+    "layout-wide": "Kacheln ausbreiten",
+    "position": "Position",
+    "position-top": "Kacheln oben",
+    "position-bottom": "Kacheln unten",
+    "features": "Features"
+  },
+  "admin": {
+    "reload-app": "Anwendung neuladen",
+    "auth-data": "Authentifizierungsdaten",
+    "about-app": "Über die Anwendung"
+  },
+  "msg": {
+    "saved": "Einstellungen wurden gespeichert"
   }
 }

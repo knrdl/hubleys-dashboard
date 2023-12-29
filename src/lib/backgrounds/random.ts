@@ -45,7 +45,3 @@ export async function queryBgImgUrlUnsplash({ searchTerm, failfast }: { searchTe
     throw new Error('unsplash error: ' + (await res.text()))
   }
 }
-
-// export async function queryBgImgUrlNasa(timeout?: number) {
-//   // todo
-// }
