@@ -5,11 +5,12 @@
 So you run a bunch of self-hosted services for multiple users but are tired of handing out links? No problem, Hubleys got you covered.
 
 - separate dashboard per user, according to their groups/permissions
-- all dashboard contents are predefined by the admin
+- all dashboard contents are predefined by the admin(s)
 - dashboard features:
   - link tiles, organized by folders
   - search engines with autocomplete
   - upcoming calendar events
+  - show messages to the users
 - customizable & dynamic backgrounds
 - current weather & forecast
 - clock, stopwatch, timer
@@ -47,7 +48,7 @@ services:
     mem_limit: 100m
 ```
 
-Persistent files reside under `/data`. The file structure is auto-generated:
+Persistent files reside under `/data`. The file structure is auto-generated on startup:
 
 | Path                       | Type | Description                                                                                                               |
 | -------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------- |
@@ -61,9 +62,11 @@ Persistent files reside under `/data`. The file structure is auto-generated:
 
 ## 2. Configure Hubleys
 
-Edit the contents of `./data/config.yml`. The default example can be found [here](./lib/server/sysconfig/default.yml). After a config change restart the application OR go to Settings → Admin → Reload application.
+Edit the contents of `./data/config.yml`. The default example can be found [here](./src/lib/server/sysconfig/default.yml). After a config change restart the application *OR* go to Settings → Admin → Reload application.
 
-## 3. Configure reverse proxy and auth provider:
+Fine-tuning is done via env vars defined [here](./Dockerfile#L47)
+
+## 3. Configure reverse proxy + auth provider
 
 Hubleys uses forward auth (also known as webproxy auth) to get all relevant user info via http header:
 
@@ -74,7 +77,29 @@ Hubleys uses forward auth (also known as webproxy auth) to get all relevant user
 
 See also: [Authelia docs](https://www.authelia.com/integration/trusted-header-sso/introduction/#response-headers)
 
-### 3.1 [Caddy](https://caddyserver.com/) example configuration
+### 3.0 How does it work?
+
+```mermaid
+graph LR
+client[Browser] --(1)--> proxy[Reverse Proxy]
+proxy --(2)--> idp[Auth Provider]
+idp --(3)--> proxy
+proxy --(4)--> app[Hubleys]
+app --(5)--> proxy
+proxy --(6)--> client
+```
+
+1. the browser sends a request to your server
+2. the reverse proxy forwards the request to your auth provider (aka IDP)
+3. the auth provider checks the request
+    - if the user is logged in, it sets the **Remote-User** response header (and the other headers explained above)
+    - if the user is not logged in, it returns the login page
+4. the reverse proxy checks and copies the **Remote-User** header into the request to Hubleys
+5. Hubleys reads the **Remote-User** header and acts according to the user profile
+6. send Hubleys response to the client
+
+
+### 3.1 [Caddy](https://caddyserver.com/) + [Authelia](https://www.authelia.com/) example configuration
 
 ```
 hubleys.example.org {
@@ -90,7 +115,7 @@ hubleys.example.org {
 }
 ```
 
-### 3.2 [nginx](https://nginx.org) example configuration
+### 3.2 [Nginx](https://nginx.org) + [Authelia](https://www.authelia.com/) example configuration
 
 ```
 location /authelia {
@@ -117,8 +142,6 @@ location / {
   proxy_set_header      Remote-Email $upstream_http_remote_email;
 }
 ```
-
-Both above examples are using [Authelia](https://www.authelia.com/) as the auth provider.
 
 ## 4. I need more icons
 
