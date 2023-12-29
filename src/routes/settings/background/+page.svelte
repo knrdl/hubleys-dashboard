@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { applyAction, deserialize } from '$app/forms'
+  import { applyAction, deserialize, enhance } from '$app/forms'
   import Fa from 'svelte-fa'
   import { faDownload, faExternalLink, faIcons, faPanorama, faPlay, faRotate } from '@fortawesome/free-solid-svg-icons'
   import SaveButton from '../SaveButton.svelte'
@@ -41,6 +41,8 @@
 </script>
 
 <Message text={form?.message} kind="success" />
+
+<form method="POST" use:enhance action="?/reload-random-background-image" id="reloadbgform"></form>
 
 <form method="POST" on:submit|preventDefault={handleSubmit} action="?/save">
   <header class="text-lg font-bold text-gray-900 dark:text-gray-300">{$t('settings.bg.image')}</header>
@@ -146,7 +148,7 @@
               </select>
             </label>
             <div class="flex items-center justify-end gap-2">
-              <button type="submit" formaction="?/reload-random-background-image" class="icon-button">
+              <button type="submit" form="reloadbgform" class="icon-button">
                 <Fa icon={faRotate} />
                 Shuffle
               </button>

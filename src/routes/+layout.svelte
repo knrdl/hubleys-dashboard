@@ -7,6 +7,7 @@
   import { blurDark, blurLight, dotMatrix } from '$lib/backgrounds/effects'
   import Trianglify from '$lib/backgrounds/Trianglify.svelte'
   import ParticlesBackground from '$lib/backgrounds/particles/Background.svelte'
+  import { epoch } from '$lib/utils'
 
   export let data: LayoutData
 
@@ -27,14 +28,19 @@
     else window.document.documentElement.classList.remove('dark')
   }
 
+  let lastBgImgLoadAttempt: number = 0
+
   $: {
     // this could be handled in onMount but then config changes would not be applied as live reload
     if (browser) {
       if (!data.background.triangles && !data.background.image.url) {
-        // credentials include to accept cookie set on the server
-        fetch('/background', { credentials: 'include' }).then(async res => {
-          if (res.ok) data.background.image = (await res.json()).image
-        })
+        if (epoch() - lastBgImgLoadAttempt > 5) {
+          lastBgImgLoadAttempt = epoch()
+          // credentials include to accept cookie set on the server
+          fetch('/background', { credentials: 'include' }).then(async res => {
+            if (res.ok) data.background.image = (await res.json()).image
+          })
+        }
       }
 
       handleTheme()
