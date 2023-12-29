@@ -4,6 +4,8 @@
   import { invalidateAll } from '$app/navigation'
   import Message from '../Message.svelte'
   import type { PageData, ActionData } from './$types'
+  import { faSection } from '@fortawesome/free-solid-svg-icons'
+  import Fa from 'svelte-fa'
 
   export let data: PageData
   export let form: ActionData
@@ -92,6 +94,13 @@
 <p class="ml-1 mt-1 text-gray-900 dark:text-white">
   Current language:
   <span class="mr-2 rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">{data.userLang}</span>
+</p>
+
+<p class="ml-1 mt-3">
+  <a href="/3rdpartylicenses.txt" class="flex items-center gap-2 text-blue-600" target="_blank">
+    <Fa icon={faSection} />
+    Open Source Licenses</a
+  >
 </p>
 
 <form method="POST" on:submit|preventDefault={handleSubmit} action="?/save" class="mt-4 flex justify-end">
