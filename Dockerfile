@@ -4,7 +4,7 @@ COPY . /app/
 WORKDIR /app
 
 ARG PUBLIC_VERSION
-RUN export PUBLIC_BUILD_DATE="$(date -Iseconds)" && \
+RUN PUBLIC_BUILD_DATE="$(date -Iseconds)" && \
     npm install && \
     npm audit && \
     npm run check && \
