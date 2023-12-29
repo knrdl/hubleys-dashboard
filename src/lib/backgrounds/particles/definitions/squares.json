@@ -29,11 +29,7 @@
           "particles": {
             "stroke": {
               "color": {
-                "value": [
-                  "#f00",
-                  "#0f0",
-                  "#00f"
-                ]
+                "value": ["#f00", "#0f0", "#00f"]
               },
               "width": 1
             }

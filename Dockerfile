@@ -5,6 +5,7 @@ WORKDIR /app
 
 ARG PUBLIC_VERSION
 RUN PUBLIC_BUILD_DATE="$(date -Iseconds)" && \
+    export PUBLIC_BUILD_DATE && \
     npm install && \
     npm audit && \
     npm run check && \
