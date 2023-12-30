@@ -51,6 +51,20 @@ export async function handle({ event, resolve }) {
   }
 }
 
+function applyLogLevels() {
+  type LogLevel = 'debug' | 'info' | 'warn' | 'error'
+  const logLevels: LogLevel[] = ['debug', 'info', 'warn', 'error']
+  const shouldLog = (level: LogLevel) => logLevels.indexOf(level) >= logLevels.indexOf(sysConfig.logLevel)
+  const _console = global.console
+  global.console = {
+    ..._console,
+    debug: (...params: any[]) => shouldLog('debug') && _console.debug(...params),
+    info: (...params: any[]) => shouldLog('info') && _console.info(...params),
+    warn: (...params: any[]) => shouldLog('warn') && _console.warn(...params),
+    error: (...params: any[]) => shouldLog('error') && _console.error(...params)
+  }
+}
+
 async function onServerStartup() {
   await Promise.all([
     fs.promises.mkdir('/data/logos', { recursive: true }),
@@ -61,9 +75,11 @@ async function onServerStartup() {
     })()
   ])
 
-  await Promise.all([initDefaultUserConfig(), runUserConfigMigrations(), reloadSysConfig()])
+  await reloadSysConfig()
+  applyLogLevels()
 
-  console.log('up and running')
+  await Promise.all([initDefaultUserConfig(), runUserConfigMigrations()])
+  console.debug('up and running')
 }
 
 await onServerStartup()

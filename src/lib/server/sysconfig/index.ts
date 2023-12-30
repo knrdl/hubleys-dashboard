@@ -56,6 +56,7 @@ async function loadConfig(): Promise<Sysconfig> {
       username: env.HTTP_HEADER_EMAIL as string,
       groups: env.HTTP_HEADER_GROUPS as string
     },
+    logLevel: (env.LOG_LEVEL || 'info') as any,
     appInfo: { buildDate: PUBLIC_BUILD_DATE || 'unknown', version: PUBLIC_VERSION || 'edge' }
   }
 }

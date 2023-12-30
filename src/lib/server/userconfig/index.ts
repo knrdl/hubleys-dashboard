@@ -59,13 +59,10 @@ export async function runUserConfigMigrations() {
       const p = path.join(e.path, e.name)
       const profile = await readJsonFile<UserConfig>(p)
       if (profile.version < newest_migration_version) {
-        console.info('migrating profile: ', p)
+        console.debug('migrating profile: ', p)
         if (profile.version === 0) {
           // new props
-          profile.tiles = {
-            layout: 'center',
-            position: 'bottom'
-          }
+          profile.tiles = { layout: 'center', position: 'bottom' }
           // only the first bg is show in settings ui, so make selected the first one
           const bgIdx = profile.backgrounds.findIndex(bg => bg.selected) || 0
           profile.backgrounds.unshift(profile.backgrounds.splice(bgIdx, 1) as unknown as BackgroundConfig)

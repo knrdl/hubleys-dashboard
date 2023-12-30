@@ -64,7 +64,7 @@ Persistent files reside under `/data`. The file structure is auto-generated on s
 
 Edit the contents of `./data/config.yml`. The default example can be found [here](./src/lib/server/sysconfig/default.yml). After a config change restart the application *OR* go to Settings → Admin → Reload application.
 
-Fine-tuning is done via env vars defined [here](./Dockerfile#L47).
+Fine-tuning is done via env vars defined [here](./Dockerfile#L50).
 
 ## 3. Configure reverse proxy + auth provider
 

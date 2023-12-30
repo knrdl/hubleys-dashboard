@@ -3,7 +3,7 @@
 import { server as app } from './index.js' // created by sveltekit on build
 
 function shutdownGracefully() {
-  console.log('Server shutdown')
+  console.debug('Server shutdown')
   app.server.close()
 }
 

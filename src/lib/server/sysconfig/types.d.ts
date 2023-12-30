@@ -58,6 +58,8 @@ export interface Sysconfig {
   }
   httpcache_ttl: number
 
+  logLevel: 'debug' | 'info' | 'warn' | 'error'
+
   appInfo: {
     buildDate: string
     version: string
