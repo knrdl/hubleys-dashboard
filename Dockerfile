@@ -35,6 +35,9 @@ COPY --from=build --chown=node:node /app/build /app
 COPY --from=deps --chown=0:0 /app/node_modules /app/node_modules
 COPY --chown=0:0 package.json package-lock.json entrypoint.js .npmrc /app/
 
+VOLUME /data
+RUN chown -R node:node /data
+
 USER node
 WORKDIR /app
 
@@ -42,8 +45,6 @@ EXPOSE 3000/tcp
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD [ "curl", "--fail", "--silent", "--output", "/dev/null", "--header", "$HTTP_HEADER_USERID: healthcheck", "localhost:3000/healthcheck" ]
-
-VOLUME /data
 
 CMD ["node", "/app/entrypoint.js"]
 
