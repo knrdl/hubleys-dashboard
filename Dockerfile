@@ -36,7 +36,8 @@ COPY --from=deps --chown=0:0 /app/node_modules /app/node_modules
 COPY --chown=0:0 package.json package-lock.json entrypoint.js .npmrc /app/
 
 VOLUME /data
-RUN chown -R node:node /data
+RUN mkdir -p /data && \
+    chown -R node:node /data
 
 USER node
 WORKDIR /app
