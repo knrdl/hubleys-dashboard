@@ -66,6 +66,12 @@ function applyLogLevels() {
 }
 
 async function onServerStartup() {
+  try {
+    await fs.promises.access('/data', fs.constants.W_OK)
+  } catch (e) {
+    console.log('Missing write permission to the /data volume. The folder must be writable by the user with uid=1000.')
+    process.exit(1)
+  }
   await Promise.all([
     fs.promises.mkdir('/data/logos', { recursive: true }),
     fs.promises.mkdir('/data/users/backgrounds', { recursive: true }),
