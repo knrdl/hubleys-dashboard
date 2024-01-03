@@ -44,8 +44,8 @@ WORKDIR /app
 
 EXPOSE 3000/tcp
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD [ "curl", "--fail", "--silent", "--output", "/dev/null", "--header", "$HTTP_HEADER_USERID: healthcheck", "localhost:3000/healthcheck" ]
+HEALTHCHECK --interval=30s --timeout=1s --start-period=1s --retries=2 \
+    CMD curl --fail --silent --output /dev/null --header "$HTTP_HEADER_USERID: healthcheck" "http://localhost:3000/healthcheck"
 
 CMD ["node", "/app/entrypoint.js"]
 
