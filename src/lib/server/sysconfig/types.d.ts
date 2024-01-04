@@ -38,11 +38,14 @@ export interface SysconfigTile extends Tile, AccessConfig {
   menu?: (Tile['menu'] & { tiles: SysconfigTile[] }) & AccessConfig
 }
 
-export interface Sysconfig {
+export interface FileSysconfig {
   tiles: SysconfigTile[]
   search_engines: (SearchEngine & AccessConfig)[]
   calendars: (Calendar & AccessConfig)[]
   messages: (Message & AccessConfig)[]
+}
+
+export interface Sysconfig extends FileSysconfig {
   admin_userids: string[]
   unsplash_api_key: string | null
   openweathermap_api_key: string | null

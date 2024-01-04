@@ -8,16 +8,14 @@ search_engines:
     allow: true
   - title: Wikipedia
     search_url: https://wikipedia.org/w/index.php
-    search_parameter: search  # the url parameter which holds the query term (default: "q")
+    search_parameter: search # the url parameter which holds the query term (default: "q")
     allow: true
-
 
 # calendars:
 #   - url: https://onlinekalender.info/feiertage/deutschland/berlin.ics
 #     allow: true
 #   - url: https://username:password@www.example.org/calendar.ical
 #     allow: [user:me]
-
 
 messages:
   - html: |

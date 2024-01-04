@@ -3,11 +3,11 @@ import { env } from '$env/dynamic/private'
 import { PUBLIC_BUILD_DATE, PUBLIC_VERSION } from '$env/static/public'
 import { isFile } from '$lib/server/fs'
 import fs from 'fs'
-import type { Sysconfig, SysconfigTile } from './types'
+import type { FileSysconfig, Sysconfig, SysconfigTile } from './types'
 
 export let sysConfig: Sysconfig
 
-function sanatizeFileConfig(config: Sysconfig) {
+function sanatizeFileConfig(config: FileSysconfig) {
   function sanatizeTileRules(tile: SysconfigTile) {
     if (typeof tile.allow === 'string') tile.allow = [tile.allow]
     if (typeof tile.deny === 'string') tile.deny = [tile.deny]
@@ -24,7 +24,14 @@ function sanatizeFileConfig(config: Sysconfig) {
       sanatizeTileRules(tile.menu)
     }
   }
-  config.tiles.forEach(tile => sanatizeTileMenu(tile))
+  ;(config.tiles || []).forEach(tile => sanatizeTileMenu(tile))
+
+  const kinds: (keyof FileSysconfig)[] = ['search_engines', 'calendars', 'messages', 'tiles']
+  kinds.forEach(kind => {
+    ;(config[kind] || []).forEach(entry => {
+      if (typeof entry.allow === 'undefined') console.warn('Config entry', entry, 'has no "allow" attribute. It will never show up!')
+    })
+  })
 }
 
 async function loadConfig(): Promise<Sysconfig> {
@@ -36,7 +43,7 @@ async function loadConfig(): Promise<Sysconfig> {
   }
 
   const configFile = await fs.promises.readFile(configpath, { encoding: 'utf8' })
-  const config = yaml.load(configFile) as Sysconfig
+  const config = yaml.load(configFile) as FileSysconfig
   sanatizeFileConfig(config)
 
   return {
