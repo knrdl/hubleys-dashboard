@@ -55,7 +55,7 @@
       </datalist>
       <input
         type="search"
-        name="q"
+        name={selectedEngine.search_parameter || 'q'}
         placeholder={engines?.length > 1 ? $t('dashboard.search.placeholder') : engines[0].title}
         required
         list="searchboxAutocomplete"

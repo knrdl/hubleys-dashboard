@@ -15,6 +15,7 @@ export interface Tile {
 export interface SearchEngine {
   title: string
   search_url: string
+  search_parameter?: string
   autocomplete_url?: string
 }
 

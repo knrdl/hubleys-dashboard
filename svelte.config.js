@@ -16,7 +16,6 @@ const config = {
         'script-src': ['self'],
         'connect-src': ['self'],
         'manifest-src': ['self'],
-        'form-action': ['self'],
         'base-uri': ['self'],
         'object-src': ['none'],
       },
