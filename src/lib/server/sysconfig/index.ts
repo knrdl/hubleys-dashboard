@@ -61,7 +61,7 @@ async function loadConfig(): Promise<Sysconfig> {
     },
     httpcache_ttl: parseInt(env.SERVER_REQUEST_CACHE_TTL as string),
     userHttpHeaders: {
-      userid: env.HTTP_HEADER_USERID,
+      userid: env.HTTP_HEADER_USERID as string,
       email: env.HTTP_HEADER_EMAIL,
       username: env.HTTP_HEADER_USERNAME,
       groups: env.HTTP_HEADER_GROUPS,
