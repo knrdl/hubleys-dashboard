@@ -49,7 +49,10 @@ async function loadConfig(): Promise<Sysconfig> {
   return {
     ...config,
     demo_mode: ['1', 'true', 'yes'].includes((env.DEMO_MODE || '').toLowerCase().trim()),
-    admin_userids: (env.ADMIN_USERIDS || '').split(/\s*[,;:]\s*/).filter(userid => !!userid),
+    admin_userids: (env.ADMIN_USERIDS || '')
+      .split(/\s*[,;:|]\s*/)
+      .map(userid => userid.trim())
+      .filter(userid => !!userid),
     unsplash_api_key: env.UNSPLASH_API_KEY || null,
     openweathermap_api_key: env.OPENWEATHERMAP_API_KEY || null,
     server_request_timeout: {
@@ -58,11 +61,11 @@ async function loadConfig(): Promise<Sysconfig> {
     },
     httpcache_ttl: parseInt(env.SERVER_REQUEST_CACHE_TTL as string),
     userHttpHeaders: {
-      userid: env.HTTP_HEADER_USERID as string,
-      email: env.HTTP_HEADER_EMAIL as string,
-      username: env.HTTP_HEADER_USERNAME as string,
-      groups: env.HTTP_HEADER_GROUPS as string,
-      groups_separator: env.HTTP_HEADER_GROUPS_SEPARATOR as string
+      userid: env.HTTP_HEADER_USERID,
+      email: env.HTTP_HEADER_EMAIL,
+      username: env.HTTP_HEADER_USERNAME,
+      groups: env.HTTP_HEADER_GROUPS,
+      groups_separator: env.HTTP_HEADER_GROUPS_SEPARATOR
     },
     logLevel: (env.LOG_LEVEL || 'info') as any,
     appInfo: { buildDate: PUBLIC_BUILD_DATE || 'unknown', version: PUBLIC_VERSION || 'edge' }

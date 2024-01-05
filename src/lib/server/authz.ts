@@ -13,6 +13,9 @@ function isUserAllowed(allowRule: AccessRule | undefined, denyRule: AccessRule |
       const condValue = rest.join(':')
       switch (condType.toLowerCase()) {
         case 'user':
+          if (condValue === user.userid) return true
+          break
+        case 'username':
           if (condValue === user.username) return true
           break
         case 'email':

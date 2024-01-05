@@ -10,9 +10,11 @@ function getConfiguredUserLang(ev: RequestEvent) {
   else return ev.locals.userConfig.language
 }
 
-function sanatizeHeader(ev: RequestEvent, header: string) {
-  const val = ev.request.headers.get(header) || ''
-  return val.split('\n', 1).shift()?.trim() || ''
+function sanatizeHeader(ev: RequestEvent, header: string | undefined) {
+  if (header) {
+    const val = ev.request.headers.get(header) || ''
+    return val.split('\n', 1).shift()?.trim() || ''
+  }
 }
 
 export async function handle({ event, resolve }) {
@@ -31,14 +33,15 @@ export async function handle({ event, resolve }) {
     return resolve(event)
   } else {
     const userid = sanatizeHeader(event, sysConfig.userHttpHeaders.userid)
-    if (userid.length > 0) {
+    if (userid && userid.length > 0) {
       event.locals.userConfig = await getUserConfig(userid)
       event.locals.user = {
         userid,
         email: sanatizeHeader(event, sysConfig.userHttpHeaders.email) || null,
         username: sanatizeHeader(event, sysConfig.userHttpHeaders.username) || null,
-        groups: sanatizeHeader(event, sysConfig.userHttpHeaders.groups)
-          .split(sysConfig.userHttpHeaders.groups_separator || ',')
+        groups: (sanatizeHeader(event, sysConfig.userHttpHeaders.groups) || '')
+          .split(sysConfig.userHttpHeaders.groups_separator || /\s*[,;:|]\s*/)
+          .map(group => group.trim())
           .filter(group => !!group),
         isAdmin: sysConfig.admin_userids.includes(userid),
         lang: getConfiguredUserLang(event)

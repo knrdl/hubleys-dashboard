@@ -51,10 +51,10 @@ export interface Sysconfig extends FileSysconfig {
   openweathermap_api_key: string | null
   userHttpHeaders: {
     userid: string
-    email: string
-    username: string
-    groups: string
-    groups_separator: string
+    email?: string
+    username?: string
+    groups?: string
+    groups_separator?: string
   }
 
   server_request_timeout: {
