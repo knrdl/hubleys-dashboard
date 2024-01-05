@@ -38,7 +38,7 @@ export async function handle({ event, resolve }) {
         email: sanatizeHeader(event, sysConfig.userHttpHeaders.email) || null,
         username: sanatizeHeader(event, sysConfig.userHttpHeaders.username) || null,
         groups: sanatizeHeader(event, sysConfig.userHttpHeaders.groups)
-          .split(/\s*,\s*/)
+          .split(sysConfig.userHttpHeaders.groups_separator || ',')
           .filter(group => !!group),
         isAdmin: sysConfig.admin_userids.includes(userid),
         lang: getConfiguredUserLang(event)

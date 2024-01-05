@@ -59,9 +59,10 @@ async function loadConfig(): Promise<Sysconfig> {
     httpcache_ttl: parseInt(env.SERVER_REQUEST_CACHE_TTL as string),
     userHttpHeaders: {
       userid: env.HTTP_HEADER_USERID as string,
-      email: env.HTTP_HEADER_USERNAME as string,
-      username: env.HTTP_HEADER_EMAIL as string,
-      groups: env.HTTP_HEADER_GROUPS as string
+      email: env.HTTP_HEADER_EMAIL as string,
+      username: env.HTTP_HEADER_USERNAME as string,
+      groups: env.HTTP_HEADER_GROUPS as string,
+      groups_separator: env.HTTP_HEADER_GROUPS_SEPARATOR as string
     },
     logLevel: (env.LOG_LEVEL || 'info') as any,
     appInfo: { buildDate: PUBLIC_BUILD_DATE || 'unknown', version: PUBLIC_VERSION || 'edge' }

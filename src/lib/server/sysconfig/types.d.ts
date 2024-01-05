@@ -54,6 +54,7 @@ export interface Sysconfig extends FileSysconfig {
     email: string
     username: string
     groups: string
+    groups_separator: string
   }
 
   server_request_timeout: {
