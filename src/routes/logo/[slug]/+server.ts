@@ -3,6 +3,7 @@ import { error, redirect } from '@sveltejs/kit'
 import fs from 'node:fs'
 import { opendir } from 'node:fs/promises'
 import path from 'node:path'
+import { lookup } from 'mrmime'
 
 async function getFilename({ fspath, filename, uapath }: { fspath: string; filename: string; uapath?: string }) {
   try {
@@ -22,7 +23,8 @@ export async function GET({ params }) {
   const job2 = getFilename({ fspath: dev ? 'static/fallback-logos' : 'client/fallback-logos', uapath: '/fallback-logos', filename })
 
   const path1 = await job1
-  if (path1) return new Response(fs.createReadStream(path1) as unknown as ReadableStream)
+  if (path1)
+    return new Response(fs.createReadStream(path1) as unknown as ReadableStream, { headers: { 'Content-Type': lookup(path1) || 'application/octet-stream' } })
   const path2 = await job2
   if (path2) redirect(307, path2)
   error(404, 'file not found')
