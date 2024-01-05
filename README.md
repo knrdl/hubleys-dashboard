@@ -18,7 +18,7 @@ So you run a bunch of self-hosted services for multiple users but are tired of h
 ## Quick Demo
 
 ```shell
-docker run -it --rm -e DEMO_MODE=1 -e ORIGIN=http://localhost:3000 -p127.0.0.1:3000:3000 ghcr.io/knrdl/hubleys-dashboard:edge
+docker run -it --rm -e SINGLE_USER_MODE=1 -e ORIGIN=http://localhost:3000 -p127.0.0.1:3000:3000 ghcr.io/knrdl/hubleys-dashboard:edge
 ```
 
 > Weather and unsplash backgrounds won't work in demo.
@@ -64,7 +64,7 @@ Persistent files reside under `/data`. The file structure is auto-generated on s
 
 Edit the contents of `./data/config.yml`. The default example can be found [here](./src/lib/server/sysconfig/default.yml). After a config change restart the application *OR* go to Settings → Admin → Reload application.
 
-Fine-tuning is done via env vars defined [here](./Dockerfile#L50).
+Fine-tuning is done via env vars defined [here](./Dockerfile#L60).
 
 ## 3. Configure reverse proxy + auth provider
 

@@ -75,5 +75,5 @@ ENV SERVER_REQUEST_MAX_TIMEOUT="15000"
 # cache lifetime for requests from server to third party apis, in minutes
 ENV SERVER_REQUEST_CACHE_TTL="10"
 
-
-
+# Single User Mode disables web proxy authentication and ignores all HTTP_HEADER_* userinfo
+ENV SINGLE_USER_MODE="false"

@@ -18,14 +18,14 @@ function sanatizeHeader(ev: RequestEvent, header: string | undefined) {
 }
 
 export async function handle({ event, resolve }) {
-  if (sysConfig.demo_mode) {
-    const userid = 'demo1'
+  if (sysConfig.single_user_mode) {
+    const userid = 'defaultuser'
     event.locals.userConfig = await getUserConfig(userid)
     event.locals.user = {
       userid,
-      email: 'demo1@example.org',
-      username: 'Demo User 1',
-      groups: ['example-group1'],
+      email: null,
+      username: null,
+      groups: [],
       isAdmin: true,
       lang: getConfiguredUserLang(event)
     }

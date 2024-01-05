@@ -48,7 +48,7 @@ async function loadConfig(): Promise<Sysconfig> {
 
   return {
     ...config,
-    demo_mode: ['1', 'true', 'yes'].includes((env.DEMO_MODE || '').toLowerCase().trim()),
+    single_user_mode: ['1', 'true', 'yes'].includes((env.SINGLE_USER_MODE || '').toLowerCase().trim()),
     admin_userids: (env.ADMIN_USERIDS || '')
       .split(/\s*[,;:|]\s*/)
       .map(userid => userid.trim())

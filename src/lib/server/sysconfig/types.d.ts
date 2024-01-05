@@ -70,5 +70,5 @@ export interface Sysconfig extends FileSysconfig {
     version: string
   }
 
-  demo_mode: boolean
+  single_user_mode: boolean
 }
