@@ -10,7 +10,7 @@
   export let emoji: Tile['emoji'] = undefined
   export let logo: Tile['logo'] = undefined
   export let url: Tile['url'] = undefined
-  export let display: Tile['display'] = undefined
+  export let only_icon: Tile['only_icon'] = undefined
   export let menu: Tile['menu'] = undefined
 
   let selectedCoords: null | { x: number; y: number } = null
@@ -109,7 +109,7 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
       <Fa icon={faFolderOpen} />
     {/if}
   </div>
-  {#if display !== 'icon-only' || (!logo && !emoji)}
+  {#if !only_icon || (!logo && !emoji)}
     <h1 class="mt-1 overflow-hidden text-center leading-5 text-slate-300">{title || '???'}</h1>
     {#if subtitle}
       <h2 class="overflow-hidden text-center text-xs text-slate-300">{subtitle}</h2>

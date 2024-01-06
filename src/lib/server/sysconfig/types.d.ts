@@ -4,7 +4,7 @@ export interface Tile {
   url?: string
   logo?: string
   emoji?: string
-  display?: 'icon-only'
+  only_icon?: boolean
   menu?: {
     title: string
     subtitle?: string
