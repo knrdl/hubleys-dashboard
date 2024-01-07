@@ -41,8 +41,6 @@ export async function queryWeatherForecast({ lang, userConfig }: { lang: string;
             visibility: itm.visibility === 10_000 ? true : itm.visibility,
             temp: Math.round(itm.main.temp),
             feels_like_temp: Math.round(itm.main.feels_like),
-            temp_min: itm.main.temp_min,
-            temp_max: itm.main.temp_max,
             humidity: Math.round(itm.main.humidity),
             pressure: Math.round(itm.main.pressure),
             units: userConfig.weather.units

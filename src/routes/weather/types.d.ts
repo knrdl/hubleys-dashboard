@@ -38,9 +38,6 @@ export interface CurrentWeather extends BaseWeather {
 export interface WeatherForecast extends BaseWeather {
   timestamp: number
 
-  temp_min: number
-  temp_max: number
-
   humidity: number
   pressure: number
 }

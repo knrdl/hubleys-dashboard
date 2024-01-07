@@ -4,6 +4,7 @@
   "humidity": "Luftfeuchte",
   "temperature": "Temperatur",
   "visibility": "Blickweite",
+  "pressure": "Luftdruck",
   "wind": "Wind",
   "metric": "metrisch",
   "imperial": "imperial"

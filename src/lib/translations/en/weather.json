@@ -4,6 +4,7 @@
   "humidity": "humidity",
   "temperature": "temperature",
   "visibility": "visibility",
+  "pressure": "pressure",
   "wind": "wind",
   "metric": "metric",
   "imperial": "imperial"
