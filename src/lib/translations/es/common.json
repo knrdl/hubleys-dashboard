@@ -1,6 +1,4 @@
 {
-  "nav": {
-    "settings": "Ajustes",
-    "home": "Panel"
-  }
+  "settings": "Ajustes",
+  "home": "Panel"
 }

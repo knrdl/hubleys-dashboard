@@ -14,6 +14,9 @@ export const load: LayoutServerLoad = async ({ url, cookies, locals }) => {
     }
   })()
 
+  const { pathname } = url
+  const translationsJob = loadTranslations(locals.user.lang, pathname)
+
   const background = await generateCurrentBgConfig({
     currentBgImgUrl: cookies.get('bgimg'),
     userConfig: locals.userConfig,
@@ -21,8 +24,7 @@ export const load: LayoutServerLoad = async ({ url, cookies, locals }) => {
   })
   setBgImgCookie(cookies, background.image)
 
-  const { pathname } = url
-  await loadTranslations(locals.user.lang, pathname)
+  await translationsJob
 
   return {
     background, // loaded from here or /background on timeout

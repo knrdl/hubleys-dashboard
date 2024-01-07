@@ -60,6 +60,8 @@
     <tbody>
       {#each data.weatherForecast as itm, idx}
         {@const dt = new Date(itm.timestamp * 1000)}
+        {@const tempUnit = { metric: '°C', imperial: '°F' }[itm.units]}
+        {@const speedUnit = { metric: 'km/h', imperial: 'mph' }[itm.units]}
         <tr
           class="
                 border-b
@@ -90,40 +92,40 @@
           </td>
           <td class="py-4 pl-1 pr-6 text-right">
             <div>
-              {itm.temp_c}
-              <span class="font-thin">°C</span>
+              {itm.temp}
+              <span class="font-thin">{tempUnit}</span>
             </div>
             <div>
-              {itm.feels_like_temp_c}
-              <span class="font-thin">°C</span>
-            </div>
-          </td>
-          <td class="px-6 py-4 text-right">
-            <div>
-              {itm.wind_speed_kmh}
-              <span class="font-thin">km/h</span>
-            </div>
-            <div>
-              {itm.wind_gust_kmh}
-              <span class="font-thin">km/h</span>
+              {itm.feels_like_temp}
+              <span class="font-thin">{tempUnit}</span>
             </div>
           </td>
           <td class="px-6 py-4 text-right">
             <div>
-              {itm.humidity_percent}
+              {itm.wind_speed}
+              <span class="font-thin">{speedUnit}</span>
+            </div>
+            <div>
+              {itm.wind_gust}
+              <span class="font-thin">{speedUnit}</span>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-right">
+            <div>
+              {itm.humidity}
               <span class="font-thin">%</span>
             </div>
             <div>
-              {#if itm.visibility_meters !== true}
-                {@const km = Math.floor(itm.visibility_meters / 1000)}
+              {#if itm.visibility !== true}
+                {@const km = Math.floor(itm.visibility / 1000)}
                 {#if km > 0}
                   {km}
                   <span class="font-thin">km</span>
                 {:else}
-                  {#if itm.visibility_meters >= 100}
-                    {Math.round(itm.visibility_meters / 100) * 100}
+                  {#if itm.visibility >= 100}
+                    {Math.round(itm.visibility / 100) * 100}
                   {:else}
-                    {Math.round(itm.visibility_meters / 10) * 10}
+                    {Math.round(itm.visibility / 10) * 10}
                   {/if}
                   <span class="font-bold">m</span>
                 {/if}

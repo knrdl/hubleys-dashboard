@@ -30,6 +30,7 @@ export interface UserConfig {
     lat: number | null
     mode: 'zip' | 'lonlat'
     show: boolean
+    units: 'metric' | 'imperial'
   }
   clock: { show: boolean }
   calendar: { show: boolean }

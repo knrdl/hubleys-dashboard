@@ -37,6 +37,17 @@
     "position-bottom": "Tiles on bottom",
     "features": "Features"
   },
+  "weather": {
+    "from-zip-code": "from zip code",
+    "from-geolocation": "from geolocation",
+    "zip-code": "zip code",
+    "country-code": "country code (2 letter)",
+    "detect-geolocation": "Detect your current position",
+    "no-geolocation": "Your browser doesn't support geolocation.",
+    "geolocation-lonlat": "Configured Location",
+    "geolocation-map": "Show on map",
+    "geolocation-not-configured": "No position configured yet."
+  },
   "admin": {
     "reload-app": "Reload application",
     "auth-data": "Your authentication data",

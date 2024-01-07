@@ -15,16 +15,32 @@ export type WeatherConditions =
   | 'Clear'
   | 'Clouds'
 
-export interface CurrentWeather {
-  wind_kmh: number
+interface BaseWeather {
   weather_type: WeatherConditions
   weather_text: string
   weather_icon_url: string
-  visibility_meters: number | true
-  temp_c: number
-  feels_like_temp_c: number
-  temp_min_c: number
-  temp_max_c: number
+
+  temp: number
+  feels_like_temp: number
+
+  wind_speed: number
+  wind_gust: number
+  visibility: number | true
+
+  units: 'metric' | 'imperial'
+}
+
+export interface CurrentWeather extends BaseWeather {
   sunrise_epoch: number
   sunset_epoch: number
+}
+
+export interface WeatherForecast extends BaseWeather {
+  timestamp: number
+
+  temp_min: number
+  temp_max: number
+
+  humidity: number
+  pressure: number
 }

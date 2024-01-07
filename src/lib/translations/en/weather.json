@@ -1,0 +1,10 @@
+{
+  "feelslike": "feels like",
+  "gust": "gust",
+  "humidity": "humidity",
+  "temperature": "temperature",
+  "visibility": "visibility",
+  "wind": "wind",
+  "metric": "metric",
+  "imperial": "imperial"
+}

@@ -53,7 +53,7 @@ export async function initDefaultUserConfig() {
 }
 
 export async function runUserConfigMigrations() {
-  const newest_migration_version = 1
+  const newest_migration_version = 2
   for await (const e of await opendir('/data/users/config/')) {
     if (e.isFile() && e.name.endsWith('.json')) {
       const p = path.join(e.path, e.name)
@@ -67,6 +67,10 @@ export async function runUserConfigMigrations() {
           const bgIdx = profile.backgrounds.findIndex(bg => bg.selected) || 0
           profile.backgrounds.unshift(profile.backgrounds.splice(bgIdx, 1)[0])
           profile.version = 1
+        }
+        if (profile.version === 1) {
+          profile.weather.units = 'metric'
+          profile.version = 2
         }
         await writeJsonFile(p, profile)
       }

@@ -1,0 +1,10 @@
+{
+  "feelslike": "gefühlt",
+  "gust": "Böen",
+  "humidity": "Luftfeuchte",
+  "temperature": "Temperatur",
+  "visibility": "Blickweite",
+  "wind": "Wind",
+  "metric": "metrisch",
+  "imperial": "imperial"
+}

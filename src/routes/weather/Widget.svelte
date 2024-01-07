@@ -3,6 +3,7 @@
   import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
   import { browser } from '$app/environment'
   import type { CurrentWeather } from './types'
+  import { t } from '$lib/translations'
 
   export let weather: CurrentWeather | null
 
@@ -19,14 +20,19 @@
 </script>
 
 {#if weather}
-  <div class="flex" title="{weather.temp_c}°C (feels like {weather.feels_like_temp_c}°C)&#13;{weather.wind_kmh}km/h wind speed">
+  {@const tempUnit = { metric: '°C', imperial: '°F' }[weather.units]}
+  {@const speedUnit = { metric: 'km/h', imperial: 'mph' }[weather.units]}
+  <div
+    class="flex"
+    title="{weather.temp}{tempUnit} ({$t('weather.feelslike')} {weather.feels_like_temp}{tempUnit})&#13;{$t('weather.wind')}: {weather.wind_speed}{speedUnit}"
+  >
     <img src={weather.weather_icon_url} alt={weather.weather_text} />
     <div class="ml-2">
       <span class="flex items-center">
-        {weather.temp_c}°C
-        {#if weather.temp_c !== weather.feels_like_temp_c}
+        {weather.temp}{tempUnit}
+        {#if weather.temp !== weather.feels_like_temp}
           <span class="ml-1 flex items-center text-neutral-400 group-hover:text-red-300">
-            <span class="font-thin">(</span>{weather.feels_like_temp_c}°C<span class="font-thin">)</span>
+            <span class="font-thin">[</span>{weather.feels_like_temp}{tempUnit}<span class="font-thin">]</span>
           </span>
         {/if}
       </span>
