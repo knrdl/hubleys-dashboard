@@ -24,35 +24,16 @@ messages:
       <p>Edit the <code>config.yml</code> file to customize your setup <b>:)</b></p>
       <hr style="border-style: dotted">
       <footer style="font-size: 11pt; text-align: right">
-        Find hubleys documentation on 
+        Find hubleys documentation on
         <a href="https://github.com/knrdl/hubleys-dashboard" target="_blank" rel="noopener noreferrer">Github</a>.
       </footer>
     allow: true # show to everyone
 
-tiles:
+tiles: # backwards compatibility. Will create a default section
   - title: Logout
     url: https://example.org/logout/
     logo: authelia # a tile can have a `logo` (image) and an `emoji` (text). Logos have precedence. At least a `logo` or an `emoji` should be present for a tile
     allow: true # show to everybody
-
-  - title: Admin
-    allow: [user:demo1, group:example-group1, email:demo1@example.org] # user must fulfill at least on condition to see tile
-    menu:
-      - title: PiHole
-        url: https://example.org/pihole/
-        logo: pihole
-      - title: Portainer
-        url: https://example.org/portainer/
-        logo: portainer
-      - title: Speedtest
-        url: https://example.org/speedtest/
-        logo: librespeed
-        allow: [group:example-group1] # access to menu items can also be restricted
-
-  - title: Hidden
-    url: https://example.org
-    emoji: Secret
-    allow: false # always hidden
 
   - title: Animals
     allow: true
@@ -76,28 +57,79 @@ tiles:
             emoji: 🐶
             url: https://httpstatusdogs.com/
 
-  - title: Grafana
-    subtitle: Monitoring
-    # logo can be a local file or point to a web image, see README.md section "I need more icons"
-    logo: grafana # or: https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/grafana.png
-    url: https://grafana.com/
-    allow: true
-    menu:
-      title: Grafana Dashboards
-      tiles:
-        - title: Dashboard 1
-          emoji: 📈
-          url: https://example.org/dashboard1/
-        - title: Dashboard 2
-          emoji: 📉
-          url: https://example.org/dashboard2/
-        - title: Dashboard 3
-          emoji: 📊
-          url: https://example.org/dashboard3/
-        - title: Dashboard 4
-          emoji: 💹
-          url: https://example.org/dashboard4/
-
   - title: Sverdle
     url: /sverdle/
     allow: true
+
+sections: # divides your tiles into sections
+  - allow: true # show this section to anyone
+    tiles:
+      - title: Logout
+        url: https://example.org/logout/
+        logo: authelia # a tile can have a `logo` (image) and an `emoji` (text). Logos have precedence. At least a `logo` or an `emoji` should be present for a tile
+        #allow: true # Is true by default
+
+      - title: Hidden
+        url: https://example.org
+        emoji: Secret
+        allow: false # always hidden
+
+      - title: Animals
+        allow: true
+        menu: # tiles can have nested menus
+          - title: Cats
+            deny: [group:dog-lovers]
+            menu:
+              - title: Cat1
+                emoji: 🐈
+                url: https://http.cat/
+              - title: Cat2
+                emoji: 🐈
+                url: https://http.cat/
+          - title: Dogs
+            deny: [group:cat-lovers]
+            menu:
+              - title: Dog1
+                emoji: 🐶
+                url: https://httpstatusdogs.com/
+              - title: Dog2
+                emoji: 🐶
+                url: https://httpstatusdogs.com/
+
+      - title: Sverdle
+        url: /sverdle/
+        allow: true
+
+  - title: Admin # section can have titles
+    allow: [user:defaultuser, group:example-group1, email:demo1@example.org] # user must fulfill at least on condition to see tile
+    tiles:
+      - title: PiHole
+        url: https://example.org/pihole/
+        logo: pihole
+      - title: Portainer
+        url: https://example.org/portainer/
+        logo: portainer
+      - title: Grafana
+        subtitle: Monitoring
+        logo: grafana # or: https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/grafana.png
+        url: https://grafana.com/
+        deny: [username:notdefaultuser] # username should be `defaultuser`
+        menu:
+          title: Grafana Dashboards
+          tiles:
+            - title: Dashboard 1
+              emoji: 📈
+              url: https://example.org/dashboard1/
+            - title: Dashboard 2
+              emoji: 📉
+              url: https://example.org/dashboard2/
+            - title: Dashboard 3
+              emoji: 📊
+              url: https://example.org/dashboard3/
+            - title: Dashboard 4
+              emoji: 💹
+              url: https://example.org/dashboard4/
+      - title: Speedtest
+        url: https://example.org/speedtest/
+        logo: librespeed
+        allow: [group:example-group1] # access to section items can also be restricted

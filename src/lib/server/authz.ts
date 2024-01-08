@@ -1,5 +1,5 @@
 import { sysConfig } from './sysconfig'
-import type { AccessRule, Calendar, Message, SearchEngine, SysconfigTile, Tile } from './sysconfig/types'
+import type { AccessRule, Calendar, Message, SearchEngine, Section, SysconfigSection, SysconfigTile, Tile } from './sysconfig/types'
 import type { RequestUserInfo } from './types'
 
 function isUserAllowed(allowRule: AccessRule | undefined, denyRule: AccessRule | undefined, user: RequestUserInfo) {
@@ -36,6 +36,22 @@ function isUserAllowed(allowRule: AccessRule | undefined, denyRule: AccessRule |
   return (allowRule === true || matchesRuleList(allowRule)) && (!denyRule || !matchesRuleList(denyRule))
 }
 
+function transformTiles(tiles: SysconfigTile[], user: RequestUserInfo, level = 0) {
+  return (tiles || [])
+    ?.filter(tile => isUserAllowed(tile.allow ?? level > 0, tile.deny, user))
+    .map(async tile => {
+      if (tile.menu && tile.menu.tiles && tile.menu.tiles.length > 0) {
+        if (isUserAllowed(tile.menu.allow ?? tile.allow ?? level > 0, tile.menu.deny, user))
+          tile.menu.tiles = await Promise.all(transformTiles(tile.menu.tiles, user, level + 1))
+        else tile.menu.tiles = []
+      }
+      if (!tile.menu || !tile.menu.tiles || tile.menu.tiles.length === 0) delete tile.menu
+      delete tile.allow
+      delete tile.deny
+      return tile
+    })
+}
+
 export async function getUserCalendars(user: RequestUserInfo) {
   return structuredClone(sysConfig.calendars || [])
     .filter(cal => isUserAllowed(cal.allow, cal.deny, user))
@@ -56,23 +72,32 @@ export async function getUserSearchEngines(user: RequestUserInfo) {
     }) as SearchEngine[]
 }
 
-export async function getUserTiles(user: RequestUserInfo): Promise<Tile[]> {
-  const transformTiles = (tiles: SysconfigTile[], level = 0) =>
-    tiles
-      ?.filter(tile => isUserAllowed(tile.allow ?? level > 0, tile.deny, user))
-      .map(async tile => {
-        if (tile.menu && tile.menu.tiles.length > 0) {
-          if (isUserAllowed(tile.menu.allow ?? tile.allow ?? level > 0, tile.menu.deny, user))
-            tile.menu.tiles = await Promise.all(transformTiles(tile.menu.tiles, level + 1))
-          else tile.menu.tiles = []
-        }
-        if (!tile.menu || tile.menu.tiles.length === 0) delete tile.menu
-        delete tile.allow
-        delete tile.deny
-        return tile
-      })
+async function getUserTiles(user: RequestUserInfo): Promise<Tile[]> {
+  return Promise.all(transformTiles(structuredClone(sysConfig.tiles || []), user))
+}
 
-  return Promise.all(transformTiles(structuredClone(sysConfig.tiles || [])))
+export async function getUserSections(user: RequestUserInfo): Promise<Section[]> {
+  const defaultTiles = await getUserTiles(user)
+  let sections: SysconfigSection[] = []
+  if (defaultTiles) {
+    sections.push({
+      allow: true,
+      tiles: defaultTiles
+    })
+  }
+
+  sections = [...sections, ...(sysConfig.sections || [])]
+
+  return Promise.all(
+    structuredClone(sections)
+      .filter(section => isUserAllowed(section.allow, section.deny, user))
+      .map(async section => {
+        section.tiles = await Promise.all(transformTiles(structuredClone(section.tiles || []), user, 1))
+        delete section.allow
+        delete section.deny
+        return section as Section
+      })
+  )
 }
 
 export async function getUserMessages(user: RequestUserInfo): Promise<Message[]> {
