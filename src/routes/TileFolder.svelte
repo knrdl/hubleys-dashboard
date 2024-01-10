@@ -46,13 +46,13 @@
     transition:scale={{ duration: 200 }}
   >
     <div class="mb-2">
-      <h1 class="select-none text-center text-2xl text-gray-900 dark:text-gray-100">
+      <h5 class="select-none text-center text-2xl text-gray-900 dark:text-gray-100">
         {menu?.title || ''}
-      </h1>
+      </h5>
       {#if menu?.subtitle}
-        <h2 class="select-none text-center text-lg text-gray-900 dark:text-gray-100">
+        <h6 class="select-none text-center text-lg text-gray-900 dark:text-gray-100">
           {menu?.subtitle || ''}
-        </h2>
+        </h6>
       {/if}
     </div>
     <div class="inline-grid gap-1" class:grid-cols-2={(menu?.tiles.length || 0) > 1} class:grid-rows-2={(menu?.tiles.length || 0) > 2}>

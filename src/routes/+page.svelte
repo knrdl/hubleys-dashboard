@@ -60,3 +60,14 @@
     {/each}
   </div>
 </main>
+
+<style>
+  h2,
+  h3 {
+    text-shadow:
+      -1px -1px 0 #8886,
+      1px -1px 0 #8886,
+      -1px 1px 0 #8886,
+      1px 1px 0 #8886;
+  }
+</style>
