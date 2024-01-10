@@ -51,8 +51,12 @@
     <div class="relative w-full" class:rounded-l-lg={engines?.length === 1}>
       <datalist id="searchboxAutocomplete">
         {#each autocompleteResults as result}
-          <option value={result} />{/each}
+          <option value={result} />
+        {/each}
       </datalist>
+      {#each new URL(selectedEngine.search_url).searchParams as [k, v]}
+        <input type="hidden" name={k} value={v} />
+      {/each}
       <input
         type="search"
         name={selectedEngine.search_parameter || 'q'}
