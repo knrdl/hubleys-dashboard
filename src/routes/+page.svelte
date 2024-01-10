@@ -38,11 +38,25 @@
     </section>
   {/if}
 
-  <section class="mt-6 flex items-end justify-center" class:grow={data.userConfig.tiles.position === 'bottom'}>
-    <div class="flex flex-wrap justify-center" in:fly={{ y: 20 }}>
-      {#each data.tiles as tile}
-        <Tile {...tile}></Tile>
-      {/each}
-    </div>
-  </section>
+  <div class="mt-6 flex flex-col place-content-end" class:grow={data.userConfig.tiles.position === 'bottom'}>
+    {#each data.sections as section}
+      <section class="flex flex-col justify-center">
+        {#if section.title || section.subtitle}
+          <div class="mt-6 flex flex-col items-center justify-center">
+            {#if section.title}
+              <h2 class="text-3xl text-slate-200">{section.title}</h2>
+            {/if}
+            {#if section.subtitle}
+              <h3 class="text-xl text-slate-200">{section.subtitle}</h3>
+            {/if}
+          </div>
+        {/if}
+        <div class="flex flex-wrap justify-center" in:fly={{ y: 20 }}>
+          {#each section.tiles || [] as tile}
+            <Tile {...tile}></Tile>
+          {/each}
+        </div>
+      </section>
+    {/each}
+  </div>
 </main>

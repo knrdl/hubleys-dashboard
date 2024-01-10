@@ -24,9 +24,15 @@ function sanatizeFileConfig(config: FileSysconfig) {
       sanatizeTileRules(tile.menu)
     }
   }
-  ;(config.tiles || []).forEach(tile => sanatizeTileMenu(tile))
+  config.sections = config.sections || []
+  if (config.tiles) {
+    config.sections.unshift({ allow: true, tiles: config.tiles })
+    delete config.tiles
+  }
 
-  const kinds: (keyof FileSysconfig)[] = ['search_engines', 'calendars', 'messages', 'tiles']
+  config.sections.forEach(section => section.tiles.forEach(tile => sanatizeTileMenu(tile)))
+
+  const kinds: (keyof FileSysconfig)[] = ['search_engines', 'calendars', 'messages', 'sections']
   kinds.forEach(kind => {
     ;(config[kind] || []).forEach(entry => {
       if (typeof entry.allow === 'undefined') console.warn('Config entry', entry, 'has no "allow" attribute. It will never show up!')

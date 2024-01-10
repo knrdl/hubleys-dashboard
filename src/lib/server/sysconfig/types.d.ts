@@ -12,6 +12,12 @@ export interface Tile {
   }
 }
 
+export interface Section {
+  title?: string
+  subtitle?: string
+  tiles: Tile[]
+}
+
 export interface SearchEngine {
   title: string
   search_url: string
@@ -27,7 +33,7 @@ export interface Message {
   html: string
 }
 
-export type AccessRule = boolean | (`user:${string}` | `group:${string}` | `mail:${string}` | `email:${string}`)[]
+export type AccessRule = boolean | (`user:${string}` | `username:${string}` | `group:${string}` | `mail:${string}` | `email:${string}`)[]
 
 export interface AccessConfig {
   allow?: AccessRule
@@ -38,14 +44,22 @@ export interface SysconfigTile extends Tile, AccessConfig {
   menu?: (Tile['menu'] & { tiles: SysconfigTile[] }) & AccessConfig
 }
 
-export interface FileSysconfig {
+export interface SysconfigSection extends Section, AccessConfig {
   tiles: SysconfigTile[]
+}
+
+interface BaseSysconfig {
+  sections: SysconfigSection[]
   search_engines: (SearchEngine & AccessConfig)[]
   calendars: (Calendar & AccessConfig)[]
   messages: (Message & AccessConfig)[]
 }
 
-export interface Sysconfig extends FileSysconfig {
+export interface FileSysconfig extends BaseSysconfig {
+  tiles?: SysconfigTile[]
+}
+
+export interface Sysconfig extends BaseSysconfig {
   admin_userids: string[]
   unsplash_api_key: string | null
   openweathermap_api_key: string | null
