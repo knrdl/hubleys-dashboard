@@ -131,7 +131,7 @@
             </td>
             <td class="flex flex-wrap items-center py-4 pl-0 pr-3 max-sm:text-red-500">
               <img src={itm.weather_icon_url} alt={itm.weather_text} />
-              <div class="max-sm:max-w-min dark:text-white">
+              <div class="dark:text-white max-sm:max-w-min">
                 <div>
                   {itm.weather_text}
                 </div>

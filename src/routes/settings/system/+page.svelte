@@ -46,9 +46,9 @@
 
 <h3 class="mb-1 font-bold text-gray-900 dark:text-white">Language</h3>
 <ul
-  class="w-full items-start rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-900 sm:flex dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+  class="w-full items-start rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white sm:flex"
 >
-  <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+  <li class="w-full border-b border-gray-200 dark:border-gray-600 sm:border-b-0 sm:border-r">
     <div class="flex items-center pl-3">
       <label class="ml-2 w-full py-3 text-sm font-medium text-gray-900 dark:text-gray-300">
         <input

@@ -14,7 +14,7 @@
 </svelte:head>
 
 <div
-  class="z-10 my-3 w-screen rounded-lg border-b border-gray-200 bg-slate-100/95 p-6 pt-2 shadow-md md:max-w-3xl dark:border-gray-700 dark:bg-gray-800/95"
+  class="z-10 my-3 w-screen rounded-lg border-b border-gray-200 bg-slate-100/95 p-6 pt-2 shadow-md dark:border-gray-700 dark:bg-gray-800/95 md:max-w-3xl"
   in:fly={{ y: -20 }}
 >
   <nav class="mb-6">
