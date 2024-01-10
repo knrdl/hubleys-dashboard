@@ -38,12 +38,17 @@
     </section>
   {/if}
 
-  <div class="mt-6 flex flex-col place-content-end gap-8" class:grow={data.userConfig.tiles.position === 'bottom'}>
+  <div class="mt-6 flex flex-col place-content-end" class:grow={data.userConfig.tiles.position === 'bottom'}>
     {#each data.sections as section}
       <section class="flex flex-col justify-center">
-        {#if section.title}
-          <div class="flex flex-wrap justify-center">
-            <h2 class="text-3xl text-slate-200">{section.title}</h2>
+        {#if section.title || section.subtitle}
+          <div class="mt-6 flex flex-col items-center justify-center">
+            {#if section.title}
+              <h2 class="text-3xl text-slate-200">{section.title}</h2>
+            {/if}
+            {#if section.subtitle}
+              <h3 class="text-xl text-slate-200">{section.subtitle}</h3>
+            {/if}
           </div>
         {/if}
         <div class="flex flex-wrap justify-center" in:fly={{ y: 20 }}>

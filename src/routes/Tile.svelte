@@ -110,9 +110,9 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
     {/if}
   </div>
   {#if !only_icon || (!logo && !emoji)}
-    <h1 class="mt-1 overflow-hidden text-center leading-5 text-slate-300">{title || '???'}</h1>
+    <h3 class="mt-1 overflow-hidden text-center leading-5 text-slate-300">{title || '???'}</h3>
     {#if subtitle}
-      <h2 class="overflow-hidden text-center text-xs text-slate-300">{subtitle}</h2>
+      <h4 class="overflow-hidden text-center text-xs text-slate-300">{subtitle}</h4>
     {/if}
   {/if}
 </a>
