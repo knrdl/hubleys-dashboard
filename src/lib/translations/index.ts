@@ -24,7 +24,14 @@ const config: Config = {
     { locale: 'es', key: 'common', loader: async () => (await import('./es/common.json')).default },
     { locale: 'es', key: 'dashboard', routes: ['/'], loader: async () => (await import('./es/dashboard.json')).default },
     { locale: 'es', key: 'settings', routes: [/^\/settings/], loader: async () => (await import('./es/settings.json')).default },
-    { locale: 'es', key: 'weather', routes: ['/', '/weather', '/settings/weather'], loader: async () => (await import('./es/weather.json')).default }
+    { locale: 'es', key: 'weather', routes: ['/', '/weather', '/settings/weather'], loader: async () => (await import('./es/weather.json')).default },
+
+    { locale: 'uk', key: 'calendar', routes: ['/', '/calendar'], loader: async () => (await import('./uk/calendar.json')).default },
+    { locale: 'uk', key: 'clock', routes: [/^\/clock/], loader: async () => (await import('./uk/clock.json')).default },
+    { locale: 'uk', key: 'common', loader: async () => (await import('./uk/common.json')).default },
+    { locale: 'uk', key: 'dashboard', routes: ['/'], loader: async () => (await import('./uk/dashboard.json')).default },
+    { locale: 'uk', key: 'settings', routes: [/^\/settings/], loader: async () => (await import('./uk/settings.json')).default },
+    { locale: 'uk', key: 'weather', routes: ['/', '/weather', '/settings/weather'], loader: async () => (await import('./uk/weather.json')).default }
   ]
 }
 
