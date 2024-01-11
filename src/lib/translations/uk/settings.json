@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "background": "Фон",
+    "weather": "Погода",
+    "dashboard": "Панель",
+    "system": "Система",
+    "admin": "Адміністрування"
+  },
+  "bg": {
+    "image": "Зображення",
+    "image-static": "статичне зображення",
+    "image-random": "випадове зображення",
+    "particleslist": {
+      "": "відсутні",
+      "bubbles": "бульбашки",
+      "circles": "кола",
+      "drizzle": "краплі",
+      "leaves": "листочки",
+      "rain": "дощ",
+      "snow": "сніг",
+      "squares": "квадрати",
+      "stars": "зірочки",
+      "triangles": "трикутники"
+    },
+    "particles": "Часточки",
+    "no-blur": "без розмиття",
+    "dark-blur": "темне розмиття",
+    "light-blur": "світле розмиття",
+    "effects": "Еффекти",
+    "dot-matrix": "сіточка"
+  },
+  "dashboard": {
+    "layout": "Макет",
+    "layout-center": "Відцентрувати плиточки на екрані",
+    "layout-wide": "Заповнити екран плиточками",
+    "position": "Розташування",
+    "position-top": "Плиточки зверху",
+    "position-bottom": "Плиточки знизу",
+    "features": "Функції"
+  },
+  "weather": {
+    "from-zip-code": "за допомогою поштового індексу",
+    "from-geolocation": "за допомогою геолокації",
+    "zip-code": "поштовий індекс",
+    "country-code": "код країни (двох літерний код, наприклад UA)",
+    "detect-geolocation": "Визначити поточне розташування",
+    "no-geolocation": "Ваш браузер не підтримує геолокацію.",
+    "geolocation-lonlat": "Налаштоване розташування",
+    "geolocation-map": "Показати на мапі",
+    "geolocation-not-configured": "Розташування не налаштоване."
+  },
+  "admin": {
+    "reload-app": "Перезавантажити застосунок",
+    "auth-data": "Ваші дані автенифікації",
+    "about-app": "Про застосунок"
+  },
+  "msg": {
+    "saved": "Налаштування збережено"
+  }
+}
