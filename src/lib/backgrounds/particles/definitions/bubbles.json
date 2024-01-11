@@ -10,7 +10,7 @@
       "y": 100
     },
     "rate": {
-      "delay": 0.1,
+      "delay": 0.5,
       "quantity": 2
     }
   },
@@ -51,7 +51,10 @@
       "speed": 5,
       "direction": "none",
       "random": false,
-      "straight": false
+      "straight": false,
+      "outModes": {
+        "default": "destroy"
+      }
     }
   },
   "interactivity": {

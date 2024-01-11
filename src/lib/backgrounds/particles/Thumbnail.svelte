@@ -12,6 +12,10 @@
   {#await import('./thumbnails/circles.png') then thumbnail}
     <img src={thumbnail.default} alt="Particles thumbnail" />
   {/await}
+{:else if particlesName === 'drizzle'}
+  {#await import('./thumbnails/drizzle.png') then thumbnail}
+    <img src={thumbnail.default} alt="Particles thumbnail" />
+  {/await}
 {:else if particlesName === 'leaves'}
   {#await import('./thumbnails/leaves.png') then thumbnail}
     <img src={thumbnail.default} alt="Particles thumbnail" />

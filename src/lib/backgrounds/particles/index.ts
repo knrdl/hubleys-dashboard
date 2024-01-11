@@ -3,6 +3,7 @@ import type { ParticlesName } from './types'
 export const particles: Record<ParticlesName, any> = {
   bubbles: async () => (await import('./definitions/bubbles.json')).default,
   circles: async () => (await import('./definitions/circles.json')).default,
+  drizzle: async () => (await import('./definitions/drizzle.json')).default,
   leaves: async () => (await import('./definitions/leaves.json')).default,
   rain: async () => (await import('./definitions/rain.json')).default,
   snow: async () => (await import('./definitions/snow.json')).default,
