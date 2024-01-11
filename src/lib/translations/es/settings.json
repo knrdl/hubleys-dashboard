@@ -2,6 +2,31 @@
   "nav": {
     "background": "fondo",
     "weather": "clima",
-    "dashboard": "panel"
+    "dashboard": "panel",
+    "system": "sistema",
+    "admin": "administración"
+  },
+  "bg": {
+    "image": "Imagen",
+    "image-static": "Imagen estática",
+    "image-random": "Imagen aleatoria",
+    "particleslist": {
+      "": "sin",
+      "bubbles": "burbujas",
+      "circles": "círculos",
+      "drizzle": "llovizna",
+      "leaves": "hojas",
+      "rain": "lluvia",
+      "snow": "nieve",
+      "squares": "cuadrícula",
+      "stars": "estrellas",
+      "triangles": "triangulos"
+    },
+    "particles": "partículas",
+    "no-blur": "sin desenfoque",
+    "dark-blur": "desenfoque oscuro",
+    "light-blur": "desenfoque de luz",
+    "effects": "efectos",
+    "dot-matrix": "punteada"
   }
 }
