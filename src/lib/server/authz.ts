@@ -78,7 +78,7 @@ export async function getUserSections(user: RequestUserInfo): Promise<Section[]>
       structuredClone(sysConfig.sections)
         .filter(section => isUserAllowed(section.allow, section.deny, user))
         .map(async section => {
-          section.tiles = await Promise.all(transformTiles(structuredClone(section.tiles || []), user))
+          section.tiles = await Promise.all(transformTiles(structuredClone(section.tiles || []), user, 1))
           delete section.allow
           delete section.deny
           return section
