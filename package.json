@@ -16,7 +16,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@sveltejs/adapter-node": "^3.0.0",
-    "@sveltejs/kit": "^2.3.2",
+    "@sveltejs/kit": "^2.4.1",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@tsparticles/svelte": "^3.0.0",
     "@types/cookie": "^0.6.0",
