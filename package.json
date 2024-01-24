@@ -15,7 +15,7 @@
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "@sveltejs/adapter-node": "^4.0.0",
+    "@sveltejs/adapter-node": "^4.0.1",
     "@sveltejs/kit": "^2.4.1",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@tsparticles/svelte": "^3.0.0",
