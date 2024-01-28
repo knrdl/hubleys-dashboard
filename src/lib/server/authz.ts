@@ -1,5 +1,5 @@
 import { sysConfig } from './sysconfig'
-import type { AccessRule, Calendar, Message, SearchEngine, Section, SysconfigTile } from './sysconfig/types'
+import type { AccessRule, Calendar, Message, SearchEngine, SysconfigTile } from './sysconfig/types'
 import type { RequestUserInfo } from './types'
 
 function isUserAllowed(allowRule: AccessRule | undefined, denyRule: AccessRule | undefined, user: RequestUserInfo) {
@@ -33,27 +33,11 @@ function isUserAllowed(allowRule: AccessRule | undefined, denyRule: AccessRule |
     return false
   }
 
-  return (allowRule === true || matchesRuleList(allowRule)) && (!denyRule || !matchesRuleList(denyRule))
+  return (allowRule === true || matchesRuleList(allowRule)) && (denyRule === false || !matchesRuleList(denyRule))
 }
 
-function transformTiles(tiles: SysconfigTile[], user: RequestUserInfo, level = 0) {
-  return (tiles || [])
-    .filter(tile => isUserAllowed(tile.allow ?? level > 0, tile.deny, user))
-    .map(async tile => {
-      if (tile.menu && tile.menu.tiles && tile.menu.tiles.length > 0) {
-        if (isUserAllowed(tile.menu.allow ?? tile.allow ?? level > 0, tile.menu.deny, user))
-          tile.menu.tiles = await Promise.all(transformTiles(tile.menu.tiles, user, level + 1))
-        else tile.menu.tiles = []
-      }
-      if (!tile.menu || !tile.menu.tiles || tile.menu.tiles.length === 0) delete tile.menu
-      delete tile.allow
-      delete tile.deny
-      return tile
-    })
-}
-
-export async function getUserCalendars(user: RequestUserInfo) {
-  return structuredClone(sysConfig.calendars || [])
+export function getUserCalendars(user: RequestUserInfo) {
+  return structuredClone(sysConfig.calendars)
     .filter(cal => isUserAllowed(cal.allow, cal.deny, user))
     .map(cal => {
       delete cal.allow
@@ -62,8 +46,8 @@ export async function getUserCalendars(user: RequestUserInfo) {
     }) as Calendar[]
 }
 
-export async function getUserSearchEngines(user: RequestUserInfo) {
-  return structuredClone(sysConfig.search_engines || [])
+export function getUserSearchEngines(user: RequestUserInfo) {
+  return structuredClone(sysConfig.search_engines)
     .filter(engine => isUserAllowed(engine.allow, engine.deny, user))
     .map(engine => {
       delete engine.allow
@@ -72,27 +56,40 @@ export async function getUserSearchEngines(user: RequestUserInfo) {
     }) as SearchEngine[]
 }
 
-export async function getUserSections(user: RequestUserInfo): Promise<Section[]> {
-  return (
-    await Promise.all(
-      structuredClone(sysConfig.sections)
-        .filter(section => isUserAllowed(section.allow, section.deny, user))
-        .map(async section => {
-          section.tiles = await Promise.all(transformTiles(structuredClone(section.tiles || []), user))
-          delete section.allow
-          delete section.deny
-          return section
-        })
-    )
-  ).filter(section => section.tiles.length > 0)
-}
-
-export async function getUserMessages(user: RequestUserInfo): Promise<Message[]> {
-  return structuredClone(sysConfig.messages || [])
+export function getUserMessages(user: RequestUserInfo) {
+  return structuredClone(sysConfig.messages)
     .filter(msg => isUserAllowed(msg.allow, msg.deny, user))
     .map(msg => {
       delete msg.allow
       delete msg.deny
       return msg
     }) as Message[]
+}
+
+export function getUserSections(user: RequestUserInfo) {
+  function transformTiles(tiles: SysconfigTile[], user: RequestUserInfo) {
+    return tiles
+      .filter(tile => isUserAllowed(tile.allow, tile.deny, user))
+      .map(tile => {
+        if (tile.menu && tile.menu.tiles && tile.menu.tiles.length > 0) {
+          if (isUserAllowed(tile.menu.allow, tile.menu.deny, user)) tile.menu.tiles = transformTiles(tile.menu.tiles, user)
+          else tile.menu.tiles = []
+        }
+        if (!tile.menu || !tile.menu.tiles || tile.menu.tiles.length === 0) delete tile.menu
+        delete tile.allow
+        delete tile.deny
+        return tile
+      })
+      .filter(tile => tile.menu || tile.url)
+  }
+
+  return structuredClone(sysConfig.sections)
+    .filter(section => isUserAllowed(section.allow, section.deny, user))
+    .map(section => {
+      section.tiles = transformTiles(structuredClone(section.tiles), user)
+      delete section.allow
+      delete section.deny
+      return section
+    })
+    .filter(section => section.tiles.length > 0)
 }

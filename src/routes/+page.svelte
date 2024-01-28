@@ -42,7 +42,7 @@
     {#each data.sections as section}
       <section class="flex flex-col justify-center">
         {#if section.title || section.subtitle}
-          <div class="mt-6 flex flex-col items-center justify-center">
+          <div class="mt-4 flex flex-col items-center justify-center">
             {#if section.title}
               <h2 class="text-3xl text-slate-200">{section.title}</h2>
             {/if}
@@ -65,9 +65,13 @@
   h2,
   h3 {
     text-shadow:
-      -1px -1px 0 #8886,
-      1px -1px 0 #8886,
-      -1px 1px 0 #8886,
-      1px 1px 0 #8886;
+      -1px -1px 0px #6666,
+      0px -1px 0px #6666,
+      1px -1px 0px #6666,
+      -1px 0px 0px #6666,
+      1px 0px 0px #6666,
+      -1px 1px 0px #6666,
+      0px 1px 0px #6666,
+      1px 1px 0px #6666;
   }
 </style>

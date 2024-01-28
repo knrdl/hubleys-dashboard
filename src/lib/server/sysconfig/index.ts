@@ -3,41 +3,80 @@ import { env } from '$env/dynamic/private'
 import { PUBLIC_BUILD_DATE, PUBLIC_VERSION } from '$env/static/public'
 import { isFile } from '$lib/server/fs'
 import fs from 'fs'
-import type { FileSysconfig, Sysconfig, SysconfigTile } from './types'
+import type { FileSysconfig, Sysconfig, SysconfigSection, SysconfigTile } from './types'
 
 export let sysConfig: Sysconfig
 
-function sanatizeFileConfig(config: FileSysconfig) {
-  function sanatizeTileRules(tile: SysconfigTile) {
-    if (typeof tile.allow === 'string') tile.allow = [tile.allow]
-    if (typeof tile.deny === 'string') tile.deny = [tile.deny]
-  }
-  function sanatizeTileMenu(tile: SysconfigTile) {
-    sanatizeTileRules(tile)
+function sanitizeFileConfig(config: FileSysconfig) {
+  function sanitizeTileMenu(tile: SysconfigTile) {
     if (tile.menu) {
       if (Array.isArray(tile.menu)) {
         tile.menu = { tiles: tile.menu, title: '' }
       }
       tile.menu.title = tile.menu.title || tile.title
       tile.menu.subtitle = tile.menu.subtitle || (tile.menu.title ? undefined : tile.subtitle)
-      tile.menu.tiles.forEach(t => sanatizeTileMenu(t))
-      sanatizeTileRules(tile.menu)
+      tile.menu.tiles.forEach(t => sanitizeTileMenu(t))
     }
   }
-  config.sections = config.sections || []
+
+  function sanitizeAccessRules(entry: SysconfigSection | SysconfigTile) {
+    if (typeof entry.allow === 'string') entry.allow = [entry.allow]
+    else if (typeof entry.allow === 'undefined') entry.allow = true
+    if (typeof entry.deny === 'string') entry.deny = [entry.deny]
+    else if (typeof entry.deny === 'undefined') entry.deny = false
+
+    const ruleRegex = /^(user|username|email|mail|group):.+$/
+    if (Array.isArray(entry.allow)) entry.allow.filter(e => !e.match(ruleRegex)).forEach(v => console.error(`invalid allow rule value: "${v}"`))
+    if (Array.isArray(entry.deny)) entry.deny.filter(e => !e.match(ruleRegex)).forEach(v => console.error(`invalid deny rule value: "${v}"`))
+
+    // tiles menu
+    if ('menu' in entry && entry.menu) {
+      sanitizeAccessRules(entry.menu)
+      entry.menu.tiles.forEach(tile => sanitizeAccessRules(tile))
+    }
+    // section tiles
+    if ('tiles' in entry && entry.tiles) entry.tiles.forEach(tile => sanitizeAccessRules(tile))
+  }
+
+  const kinds: (keyof FileSysconfig)[] = ['search_engines', 'calendars', 'messages']
+  kinds.forEach(kind => {
+    config[kind] ||= []
+    config[kind]?.forEach(entry => {
+      if (typeof entry.allow === 'undefined') {
+        console.warn(`Config entry ${JSON.stringify(entry)} in "${kind}" has no "allow" attribute. It will never show up!`)
+        entry.allow = false
+      }
+    })
+  })
+
+  config.sections ||= []
+  // tiles as top level config entry exists for backwards compatibility
   if (config.tiles) {
+    config.tiles.forEach(tile => {
+      if (typeof tile.allow === 'undefined') {
+        console.warn(`Tile "${tile.title}" has no "allow" attribute. It will never show up!`)
+        tile.allow = false
+      }
+    })
     config.sections.unshift({ allow: true, tiles: config.tiles })
     delete config.tiles
   }
 
-  config.sections.forEach(section => section.tiles.forEach(tile => sanatizeTileMenu(tile)))
-
-  const kinds: (keyof FileSysconfig)[] = ['search_engines', 'calendars', 'messages', 'sections']
-  kinds.forEach(kind => {
-    ;(config[kind] || []).forEach(entry => {
-      if (typeof entry.allow === 'undefined') console.warn('Config entry', entry, 'has no "allow" attribute. It will never show up!')
-    })
+  // either the section must have a `allow` rule OR each direct `tile` child
+  config.sections.forEach(section => {
+    section.tiles = section.tiles || []
+    if (typeof section.allow === 'undefined') {
+      section.allow = true
+      section.tiles.forEach(tile => {
+        if (typeof tile.allow === 'undefined') {
+          tile.allow = false
+          console.warn(`Tile "${tile.title}" has no "allow" attribute. It will never show up! Add the "allow" attribute to the tile or its section.`)
+        }
+      })
+    }
   })
+  config.sections.forEach(section => section.tiles.forEach(tile => sanitizeTileMenu(tile)))
+  config.sections.forEach(section => sanitizeAccessRules(section))
 }
 
 async function loadConfig(): Promise<Sysconfig> {
@@ -50,7 +89,7 @@ async function loadConfig(): Promise<Sysconfig> {
 
   const configFile = await fs.promises.readFile(configpath, { encoding: 'utf8' })
   const config = yaml.load(configFile) as FileSysconfig
-  sanatizeFileConfig(config)
+  sanitizeFileConfig(config)
 
   return {
     ...config,

@@ -39,7 +39,7 @@ async function calFetch({ url, failfast }: { url: string; failfast: boolean }) {
 }
 
 export async function queryCalendar({ user, failfast }: { user: RequestUserInfo; failfast: boolean }) {
-  const calendars = await getUserCalendars(user)
+  const calendars = getUserCalendars(user)
 
   if (calendars?.length > 0) {
     const calData = await Promise.allSettled(

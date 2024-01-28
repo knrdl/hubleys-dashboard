@@ -10,7 +10,7 @@ function getConfiguredUserLang(ev: RequestEvent) {
   else return ev.locals.userConfig.language
 }
 
-function sanatizeHeader(ev: RequestEvent, header: string | undefined) {
+function sanitizeHeader(ev: RequestEvent, header: string | undefined) {
   if (header) {
     const val = ev.request.headers.get(header) || ''
     return val.split('\n', 1).shift()?.trim() || ''
@@ -32,14 +32,14 @@ export async function handle({ event, resolve }) {
     event.locals.sysConfig = sysConfig
     return resolve(event)
   } else {
-    const userid = sanatizeHeader(event, sysConfig.userHttpHeaders.userid)
+    const userid = sanitizeHeader(event, sysConfig.userHttpHeaders.userid)
     if (userid && userid.length > 0) {
       event.locals.userConfig = await getUserConfig(userid)
       event.locals.user = {
         userid,
-        email: sanatizeHeader(event, sysConfig.userHttpHeaders.email) || null,
-        username: sanatizeHeader(event, sysConfig.userHttpHeaders.username) || null,
-        groups: (sanatizeHeader(event, sysConfig.userHttpHeaders.groups) || '')
+        email: sanitizeHeader(event, sysConfig.userHttpHeaders.email) || null,
+        username: sanitizeHeader(event, sysConfig.userHttpHeaders.username) || null,
+        groups: (sanitizeHeader(event, sysConfig.userHttpHeaders.groups) || '')
           .split(sysConfig.userHttpHeaders.groups_separator || /\s*[,;:|]\s*/)
           .map(group => group.trim())
           .filter(group => !!group),

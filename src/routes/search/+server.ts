@@ -8,7 +8,7 @@ export async function GET({ url, locals }) {
     error(422)
   }
 
-  const userSearchEngines = await getUserSearchEngines(locals.user)
+  const userSearchEngines = getUserSearchEngines(locals.user)
   if (!userSearchEngines.some(engine => engine.autocomplete_url && engine.autocomplete_url === autocompleteUrl)) {
     error(403, 'user not allowed to use specified search engine') // prevent SSRF
   }

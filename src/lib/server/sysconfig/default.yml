@@ -1,8 +1,16 @@
+# This is the default Hubleys configuration
+# the examples below show all possible options
+
+# access to each config entry can be controlled with `allow` and `deny`,
+# e.g. accessible to admins but not to user1 (even if user1 is an admin):
+#   allow: [group:admins]
+#   deny:  [user:user1]
+
 search_engines:
   - title: DuckDuckGo
     search_url: https://duckduckgo.com/
     autocomplete_url: https://duckduckgo.com/ac/
-    allow: true
+    allow: true # shown to everybody
   - title: Startpage
     search_url: https://www.startpage.com/sp/search
     allow: true
@@ -29,45 +37,12 @@ messages:
       </footer>
     allow: true # show to everyone
 
-tiles: # backwards compatibility. Will create a default section
-  - title: Logout
-    url: https://example.org/logout/
-    logo: authelia # a tile can have a `logo` (image) and an `emoji` (text). Logos have precedence. At least a `logo` or an `emoji` should be present for a tile
-    allow: true # show to everybody
-
-  - title: Animals
-    allow: true
-    menu: # tiles can have nested menus
-      - title: Cats
-        deny: [group:dog-lovers]
-        menu:
-          - title: Cat1
-            emoji: 🐈
-            url: https://http.cat/
-          - title: Cat2
-            emoji: 🐈
-            url: https://http.cat/
-      - title: Dogs
-        deny: [group:cat-lovers]
-        menu:
-          - title: Dog1
-            emoji: 🐶
-            url: https://httpstatusdogs.com/
-          - title: Dog2
-            emoji: 🐶
-            url: https://httpstatusdogs.com/
-
-  - title: Sverdle
-    url: /sverdle/
-    allow: true
-
-sections: # divides your tiles into sections
+sections: # divides your tiles into sections (optional)
   - allow: true # show this section to anyone
     tiles:
       - title: Logout
         url: https://example.org/logout/
         logo: authelia # a tile can have a `logo` (image) and an `emoji` (text). Logos have precedence. At least a `logo` or an `emoji` should be present for a tile
-        #allow: true # Is true by default
 
       - title: Hidden
         url: https://example.org
@@ -75,16 +50,22 @@ sections: # divides your tiles into sections
         allow: false # always hidden
 
       - title: Animals
-        allow: true
+        # allow: [user:example-user1, group:example-group1, email:demo1@example.org] # user must fulfill at least on condition to see tile
         menu: # tiles can have nested menus
           - title: Cats
             deny: [group:dog-lovers]
             menu:
-              - title: Cat1
+              - title: Tiger
                 emoji: 🐈
                 url: https://http.cat/
-              - title: Cat2
-                emoji: 🐈
+              - title: Blacky
+                emoji: 🐈‍⬛
+                url: https://http.cat/
+              - title: Svelty
+                emoji: 🐱
+                url: https://http.cat/
+              - title: Kitty
+                emoji: 😺
                 url: https://http.cat/
           - title: Dogs
             deny: [group:cat-lovers]
@@ -93,27 +74,55 @@ sections: # divides your tiles into sections
                 emoji: 🐶
                 url: https://httpstatusdogs.com/
               - title: Dog2
-                emoji: 🐶
+                emoji: 🐕
                 url: https://httpstatusdogs.com/
+          - title: Fishs
+            menu:
+              title: Aquarium
+              tiles:
+                - title: Fish 1
+                  emoji: 🐟
+                  only_icon: true # hide `title` and `subtitle`
+                  url: https://github.com/cmatsuoka/asciiquarium
+                - title: Fish 2
+                  emoji: 🐠
+                  only_icon: true
+                  url: https://github.com/cmatsuoka/asciiquarium
 
       - title: Sverdle
         url: /sverdle/
-        allow: true
 
-  - title: Admin # section can have titles
-    allow: [user:defaultuser, group:example-group1, email:demo1@example.org] # user must fulfill at least on condition to see tile
+  - title: Admin # sections can have titles
+    allow: true # allow: [group:admins]
     tiles:
-      - title: PiHole
-        url: https://example.org/pihole/
-        logo: pihole
-      - title: Portainer
-        url: https://example.org/portainer/
-        logo: portainer
+      - title: DB
+        emoji: ⛁
+        menu:
+          titles: DB Tools
+          tiles:
+            - title: Chronograf
+              subtitle: InfluxDB
+              url: https://www.influxdata.com/
+              logo: influxdb
+            - title: PgAdmin
+              subtitle: Postgres
+              url: https://www.pgadmin.org/
+              logo: postgres
+      - title: DNS
+        menu:
+          - title: Adguard
+            url: https://adguard.com
+            logo: adguard
+          - title: PiHole
+            url: https://pi-hole.net/
+            logo: pihole
+      - title: Gotify
+        logo: gotify
+        url: https://gotify.net/
       - title: Grafana
         subtitle: Monitoring
         logo: grafana # or: https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/grafana.png
         url: https://grafana.com/
-        deny: [username:notdefaultuser] # username should be `defaultuser`
         menu:
           title: Grafana Dashboards
           tiles:
@@ -129,7 +138,110 @@ sections: # divides your tiles into sections
             - title: Dashboard 4
               emoji: 💹
               url: https://example.org/dashboard4/
-      - title: Speedtest
-        url: https://example.org/speedtest/
+      - title: LibreSpeed
+        subtitle: SpeedTest
+        url: https://librespeed.org/
         logo: librespeed
-        allow: [group:example-group1] # access to section items can also be restricted
+      - title: Portainer
+        url: https://www.portainer.io/
+        logo: portainer
+      - title: Traefik
+        subtitle: Reverse Proxy
+        url: https://doc.traefik.io/traefik/
+        logo: traefik
+        menu:
+          title: Proxy Tools
+          tiles:
+            - title: GoAccess
+              subtitle: Log Analyzer
+              url: https://goaccess.io/
+              logo: goaccess
+
+  - title: Dev
+    allow: true
+    tiles:
+      - title: Gitea
+        logo: gitea
+        url: https://about.gitea.com/
+        menu:
+          - title: Drone
+            logo: drone
+            url: https://www.drone.io/
+          - title: Docker Images
+            logo: docker-registry
+            url: https://hub.docker.com/_/registry
+      - title: Gitlab
+        logo: gitlab
+        url: https://about.gitlab.com/install/
+      - title: JuiceShop
+        logo: juiceshop
+        url: https://owasp.org/www-project-juice-shop/
+      - title: VS Code
+        logo: vscode
+        url: https://docs.linuxserver.io/images/docker-code-server/
+  - title: Work
+    allow: true
+    tiles:
+      - title: Draw.io
+        logo: drawio
+        url: https://app.diagrams.net/
+      - title: HedgeDoc
+        logo: hedgedoc
+        url: https://hedgedoc.org/
+      - title: LanguageTool
+        logo: languagetool
+        url: https://languagetool.org
+      - title: NextCloud
+        logo: nextcloud
+        url: https://nextcloud.com
+      - title: StirlingPDF
+        logo: stirlingpdf
+        url: https://github.com/Stirling-Tools/Stirling-PDF
+      - title: File Transfer
+        menu:
+          - title: PSI Transfer
+            logo: psitransfer
+            url: https://github.com/psi-4ward/psitransfer
+          - title: SnapDrop
+            logo: snapdrop
+            url: https://snapdrop.net/
+      - title: Media
+        menu:
+          - title: Jellyfin
+            logo: jellyfin
+            url: https://jellyfin.org/
+          - title: Navidrome
+            logo: navidrome
+            url: https://www.navidrome.org/
+      - title: News
+        emoji: 📰
+        menu:
+          - title: Invidious
+            subtitle: YouTube
+            logo: invidious
+            url: https://invidious.io/
+          - title: Miniflux
+            logo: miniflux
+            url: https://miniflux.app/
+            menu:
+              title: News Tools
+              tiles:
+                - title: RSS Bridge
+                  logo: rssbridge
+                  url: https://github.com/RSS-Bridge/rss-bridge
+          - title: Nitter
+            subtitle: Twitter
+            logo: nitter
+            url: https://github.com/zedeus/nitter
+          - title: Libreddit
+            subtitle: Reddit
+            emoji: /r/
+            url: https://github.com/libreddit/libreddit
+      - title: Recipes
+        menu:
+          - title: Mealie
+            logo: mealie
+            url: https://mealie.io/
+          - title: Tandoor
+            logo: tandoor
+            url: https://docs.tandoor.dev/
