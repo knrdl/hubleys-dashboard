@@ -2,5 +2,11 @@
   "msg": {
     "missing-calendars": "Einige Kalender fehlen",
     "no-events": "Keine anstehenden Termine"
-  }
+  },
+  "yesterday": "gestern",
+  "today": "heute",
+  "tomorrow": "morgen",
+  "from": "von",
+  "to": "bis",
+  "relevant-today": "heute relevant"
 }

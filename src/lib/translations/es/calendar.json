@@ -1,1 +1,12 @@
-{}
+{
+  "msg": {
+    "missing-calendars": "Algunos calendarios falta",
+    "no-events": "No hay eventos próximos"
+  },
+  "yesterday": "ayer",
+  "today": "hoy",
+  "tomorrow": "mañana",
+  "from": "desde",
+  "to": "hasta",
+  "relevant-today": "relevante hoy"
+}
