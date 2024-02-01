@@ -18,6 +18,10 @@ search_engines:
     search_url: https://wikipedia.org/w/index.php
     search_parameter: search # the url parameter which holds the query term (default: "q")
     allow: true
+  - title: Wolfram Alpha  # calculator
+    search_url: https://www.wolframalpha.com/input
+    search_parameter: i
+    allow: true
 
 # calendars:
 #   - url: https://onlinekalender.info/feiertage/deutschland/berlin.ics
