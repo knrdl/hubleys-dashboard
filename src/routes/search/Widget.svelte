@@ -9,6 +9,7 @@
   export let engines: SearchEngine[]
 
   let selectedEngine = engines[0]
+  let inputElement: HTMLInputElement
 
   let autocompleteResults: string[] = []
 
@@ -34,13 +35,25 @@
     ;(e.target as HTMLFormElement).submit()
     tick().then(() => (query = ''))
   }
+
+  let wheelBlocked: boolean = false
+  function wheel(e: WheelEvent) {
+    if (!wheelBlocked) {
+      wheelBlocked = true
+      const idx = engines.indexOf(selectedEngine)
+      if (e.deltaY > 0 && idx < engines.length - 1) selectedEngine = engines[idx + 1]
+      if (e.deltaY < 0 && idx > 0) selectedEngine = engines[idx - 1]
+      setTimeout(() => (wheelBlocked = false), 333)
+    }
+  }
 </script>
 
-<form method="get" target="_blank" rel="noopener noreferrer" action={selectedEngine.search_url} on:submit|preventDefault={submit} class="max-w-md grow">
-  <div class="group relative z-[10] flex">
+<form method="get" target="_blank" rel="noopener noreferrer" action={selectedEngine.search_url} on:submit|preventDefault={submit} class="max-w-lg grow">
+  <div class="group relative z-[10] flex" on:wheel={wheel}>
     {#if engines?.length > 1}
       <select
         bind:value={selectedEngine}
+        on:change={() => inputElement.focus()}
         class="cursor-pointer rounded-l-lg border border-r-0 border-gray-300 bg-gray-100/70 pl-2 text-center text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/80 dark:text-white dark:focus:ring-gray-700 dark:group-hover:bg-gray-700"
       >
         {#each engines as engine}
@@ -64,6 +77,7 @@
         required
         list="searchboxAutocomplete"
         bind:value={query}
+        bind:this={inputElement}
         on:input={handleInput}
         class:rounded-l-lg={engines?.length === 1}
         class:border-l-0={engines?.length > 1}
