@@ -112,6 +112,10 @@ sections: # divides your tiles into sections (optional)
               subtitle: Postgres
               url: https://www.pgadmin.org/
               logo: postgres
+            - title: PhpMyAdmin
+              subtitle: MariaDB
+              url: https://www.phpmyadmin.net/
+              logo: phpmyadmin
       - title: DNS
         menu:
           - title: Adguard
