@@ -2,7 +2,7 @@
   import Fa from 'svelte-fa'
   import { faSearch } from '@fortawesome/free-solid-svg-icons'
   import debounce from 'lodash.debounce'
-  import { tick } from 'svelte'
+  import { onMount, tick } from 'svelte'
   import { t } from '$lib/translations'
   import type { SearchEngine } from '$lib/server/sysconfig/types'
 
@@ -31,6 +31,11 @@
     }
   }, 300)
 
+  onMount(() => {
+    const searchUrl = localStorage.getItem('hubleys:search:selected-engine')
+    if (searchUrl) selectedEngine = engines.find(eng => eng.search_url === searchUrl) || selectedEngine
+  })
+
   function submit(e: SubmitEvent) {
     ;(e.target as HTMLFormElement).submit()
     tick().then(() => (query = ''))
@@ -46,6 +51,11 @@
       setTimeout(() => (wheelBlocked = false), 333)
     }
   }
+
+  function onSelectedEngineChange() {
+    inputElement.focus()
+    localStorage.setItem('hubleys:search:selected-engine', selectedEngine.search_url)
+  }
 </script>
 
 <form method="get" target="_blank" rel="noopener noreferrer" action={selectedEngine.search_url} on:submit|preventDefault={submit} class="max-w-lg grow">
@@ -53,15 +63,15 @@
     {#if engines?.length > 1}
       <select
         bind:value={selectedEngine}
-        on:change={() => inputElement.focus()}
-        class="cursor-pointer rounded-l-lg border border-r-0 border-gray-300 bg-gray-100/70 pl-2 text-center text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/80 dark:text-white dark:focus:ring-gray-700 dark:group-hover:bg-gray-700"
+        on:change={onSelectedEngineChange}
+        class="cursor-pointer rounded-l-full border border-r-0 border-gray-300 bg-gray-100/70 pl-2 text-center text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/80 dark:text-white dark:focus:ring-gray-700 dark:group-hover:bg-gray-700"
       >
         {#each engines as engine}
           <option value={engine}>{engine.title}</option>
         {/each}
       </select>
     {/if}
-    <div class="relative w-full" class:rounded-l-lg={engines?.length === 1}>
+    <div class="relative w-full" class:rounded-l-full={engines?.length === 1}>
       <datalist id="searchboxAutocomplete">
         {#each autocompleteResults as result}
           <option value={result} />
@@ -79,13 +89,13 @@
         bind:value={query}
         bind:this={inputElement}
         on:input={handleInput}
-        class:rounded-l-lg={engines?.length === 1}
+        class:rounded-l-full={engines?.length === 1}
         class:border-l-0={engines?.length > 1}
-        class="block w-full rounded-none rounded-r-lg border border-gray-300 bg-gray-100/70 p-2.5 text-sm text-gray-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/75 dark:text-white dark:placeholder-gray-400 dark:focus:ring-gray-700 dark:group-hover:bg-gray-700"
+        class="block w-full rounded-none rounded-r-full border border-gray-300 bg-gray-100/70 p-2.5 text-sm text-gray-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/75 dark:text-white dark:placeholder-gray-400 dark:focus:ring-gray-700 dark:group-hover:bg-gray-700"
       />
       <button
         type="submit"
-        class="absolute right-0 top-0 flex h-full w-10 items-center justify-center rounded-r-lg border border-gray-300 bg-gray-100/10 text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/75 dark:text-gray-100 dark:focus:ring-blue-800 dark:group-hover:bg-gray-700"
+        class="absolute right-0 top-0 flex h-full w-10 items-center justify-center rounded-r-full border border-gray-300 bg-gray-100/10 text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/75 dark:text-gray-100 dark:focus:ring-blue-800 dark:group-hover:bg-gray-700"
       >
         <Fa icon={faSearch} />
         <span class="sr-only">search</span>
