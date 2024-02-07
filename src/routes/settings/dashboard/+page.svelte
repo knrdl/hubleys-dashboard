@@ -58,6 +58,12 @@
       <div class="mt-1">{$t('settings.dashboard.position-bottom')}</div>
       <TilesVisualizer mode="bottom" active={data.userConfig.tiles.position === 'bottom'} />
     </label>
+
+    <label class="flex flex-col items-center">
+      <input type="radio" value="split" bind:group={data.userConfig.tiles.position} />
+      <div class="mt-1">{$t('settings.dashboard.position-split')}</div>
+      <TilesVisualizer mode="bottom" active={data.userConfig.tiles.position === 'split'} />
+    </label>
   </section>
 
   <header class="mb-2 text-lg font-bold text-gray-900 dark:text-gray-300">{$t('settings.dashboard.features')}</header>

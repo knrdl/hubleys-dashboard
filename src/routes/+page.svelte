@@ -6,17 +6,24 @@
   import { fly } from 'svelte/transition'
   import type { PageData } from './$types'
   import { t } from '$lib/translations'
+  import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
+  import Fa from 'svelte-fa'
 
   export let data: PageData
+  let container: HTMLElement
 </script>
 
 <svelte:head>
   <title>{$t('common.dashboard')}</title>
 </svelte:head>
 
-<main class="flex w-full grow flex-col p-3" class:max-w-screen-lg={data.userConfig.tiles.layout === 'center'}>
+<main
+  bind:this={container}
+  class="flex w-full grow flex-col items-center p-3 {data.userConfig.tiles.position === 'split' ? 'relative overflow-y-scroll pt-[15vh]' : ''}"
+  class:max-w-screen-lg={data.userConfig.tiles.layout === 'center'}
+>
   {#if data.userConfig.searchbar.show && data.searchEngines?.length > 0}
-    <section class="flex justify-center">
+    <section class="flex w-full justify-center">
       <Searchbar engines={data.searchEngines} />
     </section>
   {/if}
@@ -38,7 +45,26 @@
     </section>
   {/if}
 
-  <div class="mt-6 flex flex-col place-content-end" class:grow={data.userConfig.tiles.position === 'bottom'}>
+  {#if data.userConfig.tiles.position === 'split'}
+    <section class="flex grow items-center justify-center">
+      <button type="button" on:click={() => container.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
+        <Fa icon={faAngleDown} class="text-gray-100/50 hover:scale-105 hover:text-white" size="3x" />
+      </button>
+    </section>
+  {/if}
+
+  <div
+    class="flex flex-col place-content-end {data.userConfig.tiles.position === 'split' ? 'absolute top-[100vh] pb-6' : 'mt-6'}"
+    class:grow={data.userConfig.tiles.position === 'bottom'}
+  >
+    {#if data.userConfig.tiles.position === 'split'}
+      <section class="flex grow justify-center">
+        <button type="button" on:click={() => container.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <Fa icon={faAngleUp} class="text-gray-100/50 hover:scale-105 hover:text-white" size="3x" />
+        </button>
+      </section>
+    {/if}
+
     {#each data.sections as section}
       <section class="flex flex-col justify-center">
         {#if section.title || section.subtitle}

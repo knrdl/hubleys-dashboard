@@ -91,7 +91,7 @@
         on:input={handleInput}
         class:rounded-l-full={engines?.length === 1}
         class:border-l-0={engines?.length > 1}
-        class="block w-full rounded-none rounded-r-full border border-gray-300 bg-gray-100/70 p-2.5 text-sm text-gray-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/75 dark:text-white dark:placeholder-gray-400 dark:focus:ring-gray-700 dark:group-hover:bg-gray-700"
+        class="block w-full rounded-none rounded-r-full border border-gray-300 bg-gray-100/70 p-2.5 text-gray-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/75 dark:text-white dark:placeholder-gray-400 dark:focus:ring-gray-700 dark:group-hover:bg-gray-700"
       />
       <button
         type="submit"
