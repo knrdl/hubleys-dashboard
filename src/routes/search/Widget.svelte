@@ -43,6 +43,7 @@
 
   let wheelBlocked: boolean = false
   function wheel(e: WheelEvent) {
+    e.preventDefault()
     if (!wheelBlocked) {
       wheelBlocked = true
       const idx = engines.indexOf(selectedEngine)
