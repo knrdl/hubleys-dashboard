@@ -85,12 +85,12 @@ client[Browser]
 proxy[Reverse Proxy]
 idp[Auth Provider]
 app[Hubleys]
-client --<1>--> proxy
-proxy --<2>--> idp
-idp --<3>--> proxy
-proxy --<4>--> app
-app --<5>--> proxy
-proxy --<6>--> client
+client --1--> proxy
+proxy --2--> idp
+idp --3--> proxy
+proxy --4--> app
+app --5--> proxy
+proxy --6--> client
 ```
 
 1. the browser sends a request to your server
