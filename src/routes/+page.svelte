@@ -100,4 +100,8 @@
       0px 1px 0px #6666,
       1px 1px 0px #6666;
   }
+
+  main {
+    scrollbar-width: thin;
+  }
 </style>
