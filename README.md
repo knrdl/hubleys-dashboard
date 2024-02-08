@@ -40,7 +40,7 @@ services:
     environment:
       OPENWEATHERMAP_API_KEY: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  # get a free api key: https://home.openweathermap.org/api_keys
       UNSPLASH_API_KEY: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  # get a free api key (Access Key): https://unsplash.com/oauth/applications
-      ADMIN_USERIDS: user1, user2
+      ADMINS: user:user1, user:user2, group:admins
     volumes:
       - ./data:/data  # run `chown -R 1000:1000 ./data` on the host to fix folder permissions
     networks:

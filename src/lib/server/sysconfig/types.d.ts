@@ -60,7 +60,7 @@ export interface FileSysconfig extends BaseSysconfig {
 }
 
 export interface Sysconfig extends BaseSysconfig {
-  admin_userids: string[]
+  admins: string[]
   unsplash_api_key: string | null
   openweathermap_api_key: string | null
   userHttpHeaders: {

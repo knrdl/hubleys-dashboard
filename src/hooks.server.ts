@@ -34,16 +34,17 @@ export async function handle({ event, resolve }) {
   } else {
     const userid = sanitizeHeader(event, sysConfig.userHttpHeaders.userid)
     if (userid && userid.length > 0) {
+      const groups = (sanitizeHeader(event, sysConfig.userHttpHeaders.groups) || '')
+        .split(sysConfig.userHttpHeaders.groups_separator || /\s*[,;:|]\s*/)
+        .map(group => group.trim())
+        .filter(group => !!group)
       event.locals.userConfig = await getUserConfig(userid)
       event.locals.user = {
         userid,
         email: sanitizeHeader(event, sysConfig.userHttpHeaders.email) || null,
         username: sanitizeHeader(event, sysConfig.userHttpHeaders.username) || null,
-        groups: (sanitizeHeader(event, sysConfig.userHttpHeaders.groups) || '')
-          .split(sysConfig.userHttpHeaders.groups_separator || /\s*[,;:|]\s*/)
-          .map(group => group.trim())
-          .filter(group => !!group),
-        isAdmin: sysConfig.admin_userids.includes(userid),
+        groups,
+        isAdmin: sysConfig.admins.includes('user:' + userid) || groups.some(group => sysConfig.admins.includes('group:' + group)),
         lang: getConfiguredUserLang(event)
       } as RequestUserInfo
       event.locals.sysConfig = sysConfig

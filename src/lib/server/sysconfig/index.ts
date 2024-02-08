@@ -91,13 +91,20 @@ async function loadConfig(): Promise<Sysconfig> {
   const config = yaml.load(configFile) as FileSysconfig
   sanitizeFileConfig(config)
 
+  const adminUserIds = (env.ADMIN_USERIDS || '')
+    .split(/\s*[,;:|]\s*/)
+    .map(userid => userid.trim())
+    .filter(userid => !!userid)
+    .map(userid => 'user:' + userid)
+  const admins = (env.ADMINS || '').split(/\s*[,;|]\s*/).filter(adm => !!adm)
+  admins.forEach(adm => {
+    if (!/^(user|group):/.test(adm)) console.error('invalid admin identifier:', adm)
+  })
+
   return {
     ...config,
     single_user_mode: ['1', 'true', 'yes'].includes((env.SINGLE_USER_MODE || '').toLowerCase().trim()),
-    admin_userids: (env.ADMIN_USERIDS || '')
-      .split(/\s*[,;:|]\s*/)
-      .map(userid => userid.trim())
-      .filter(userid => !!userid),
+    admins: [...adminUserIds, ...admins],
     unsplash_api_key: env.UNSPLASH_API_KEY || null,
     openweathermap_api_key: env.OPENWEATHERMAP_API_KEY || null,
     server_request_timeout: {
