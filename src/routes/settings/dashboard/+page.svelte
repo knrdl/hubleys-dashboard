@@ -62,7 +62,7 @@
     <label class="flex flex-col items-center">
       <input type="radio" value="split" bind:group={data.userConfig.tiles.position} />
       <div class="mt-1">{$t('settings.dashboard.position-split')}</div>
-      <TilesVisualizer mode="bottom" active={data.userConfig.tiles.position === 'split'} />
+      <TilesVisualizer mode="split" active={data.userConfig.tiles.position === 'split'} />
     </label>
   </section>
 

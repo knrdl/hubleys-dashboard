@@ -36,6 +36,7 @@
     "position": "Position",
     "position-top": "Tiles on top",
     "position-bottom": "Tiles on bottom",
+    "position-split": "Tiles on extra page",
     "features": "Features"
   },
   "weather": {
