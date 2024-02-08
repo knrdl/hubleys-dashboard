@@ -20,7 +20,6 @@
 <main
   bind:this={container}
   class="flex w-full grow flex-col items-center p-3 {data.userConfig.tiles.position === 'split' ? 'relative overflow-y-scroll pt-[15vh]' : ''}"
-  class:max-w-screen-lg={data.userConfig.tiles.layout === 'center'}
 >
   {#if data.userConfig.searchbar.show && data.searchEngines?.length > 0}
     <section class="flex w-full justify-center">
@@ -66,7 +65,7 @@
     {/if}
 
     {#each data.sections as section}
-      <section class="flex flex-col justify-center">
+      <section class="flex flex-col justify-center" class:max-w-screen-lg={data.userConfig.tiles.layout === 'center'}>
         {#if section.title || section.subtitle}
           <div class="mt-4 flex flex-col items-center justify-center">
             {#if section.title}
