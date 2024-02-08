@@ -20,7 +20,7 @@
   >
     {#if mode === 'split'}
       <div class="mt-4 h-4 w-8 rounded border-2 border-slate-600 shadow-inner"></div>
-      <div class="w-full border border-slate-600 my-3" />
+      <div class="my-3 w-full border border-slate-600" />
     {/if}
     <div class="mx-2 mb-4 flex w-20 flex-wrap items-center justify-center gap-2" class:mt-6={mode === 'top'}>
       <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
