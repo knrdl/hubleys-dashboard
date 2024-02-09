@@ -24,14 +24,14 @@
     {/if}
   {/if}
   {#if $page.url.pathname === '/'}
-    <a href="/settings" class="flex items-center gap-1 rounded-b-md px-2 py-1">
+    <a href="/settings" class="flex items-center gap-1 rounded-b-md px-2 py-1" title={$t('common.settings')}>
       <Fa icon={faCog} />
       {#if data.userConfig.dashboard.show_settings_text}
         {$t('common.settings')}
       {/if}
     </a>
   {:else}
-    <a href="/" class="flex items-center gap-1 rounded-b-md px-2 pb-2 pt-1">
+    <a href="/" class="flex items-center gap-1 rounded-b-md px-2 pb-2 pt-1" title={$t('common.home')}>
       <Fa icon={faHome} />
       {#if data.userConfig.dashboard.show_settings_text}
         {$t('common.home')}

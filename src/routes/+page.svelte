@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-  <title>{$t('common.dashboard')}</title>
+  <title>{$t('common.home')}</title>
 </svelte:head>
 
 <main
