@@ -190,9 +190,14 @@ sections: # divides your tiles into sections (optional)
   - title: Work
     allow: true
     tiles:
-      - title: Draw.io
-        logo: drawio
-        url: https://app.diagrams.net/
+      - title: Drawing
+        menu:
+        - title: Draw.io
+          logo: drawio
+          url: https://app.diagrams.net/
+        - title: Excalidraw
+          logo: excalidraw
+          url: https://excalidraw.com/
       - title: HedgeDoc
         logo: hedgedoc
         url: https://hedgedoc.org/
