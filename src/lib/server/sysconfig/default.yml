@@ -192,12 +192,12 @@ sections: # divides your tiles into sections (optional)
     tiles:
       - title: Drawing
         menu:
-        - title: Draw.io
-          logo: drawio
-          url: https://app.diagrams.net/
-        - title: Excalidraw
-          logo: excalidraw
-          url: https://excalidraw.com/
+          - title: Draw.io
+            logo: drawio
+            url: https://app.diagrams.net/
+          - title: Excalidraw
+            logo: excalidraw
+            url: https://excalidraw.com/
       - title: HedgeDoc
         logo: hedgedoc
         url: https://hedgedoc.org/
@@ -239,6 +239,9 @@ sections: # divides your tiles into sections (optional)
             menu:
               title: News Tools
               tiles:
+                - title: Linkwarden
+                  logo: linkwarden
+                  url: https://linkwarden.app/
                 - title: RSS Bridge
                   logo: rssbridge
                   url: https://github.com/RSS-Bridge/rss-bridge
