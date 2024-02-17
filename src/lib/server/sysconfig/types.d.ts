@@ -1,7 +1,7 @@
 export interface Tile {
   title: string
   subtitle?: string
-  url?: string
+  url?: string | { value: string; tab?: 'new' | 'same' }
   logo?: string
   emoji?: string
   only_icon?: boolean
@@ -23,6 +23,7 @@ export interface SearchEngine {
   search_url: string
   search_parameter?: string
   autocomplete_url?: string
+  tab?: 'same' | 'new'
 }
 
 export interface Calendar {

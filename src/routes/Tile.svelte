@@ -38,8 +38,8 @@
 {/if}
 
 <a
-  href={url || '#'}
-  target="_blank"
+  href={(typeof url === 'object' ? url.value : url) || '#'}
+  target={typeof url === 'object' && url.tab === 'same' ? '_self' : '_blank'}
   rel="noopener noreferrer"
   class="card
 group relative

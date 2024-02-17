@@ -22,6 +22,8 @@ search_engines:
     search_url: https://www.wolframalpha.com/input
     search_parameter: i
     allow: true
+    # tab: 'new'  # the default, will open search results in a new tab
+    # tab: 'same'  # will replace the hubleys tab with the search results
 
 # calendars:
 #   - url: https://onlinekalender.info/feiertage/deutschland/berlin.ics
@@ -91,7 +93,10 @@ sections: # divides your tiles into sections (optional)
                 - title: Fish 2
                   emoji: 🐠
                   only_icon: true
-                  url: https://github.com/cmatsuoka/asciiquarium
+                  url:
+                    value: https://github.com/cmatsuoka/asciiquarium
+                    # tab: 'new'  # the default, will open the link in a new tab
+                    tab: 'same' # will open the link in the current tab
 
       - title: Sverdle
         url: /sverdle/

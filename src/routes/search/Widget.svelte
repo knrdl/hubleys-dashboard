@@ -59,7 +59,14 @@
   }
 </script>
 
-<form method="get" target="_blank" rel="noopener noreferrer" action={selectedEngine.search_url} on:submit|preventDefault={submit} class="max-w-lg grow">
+<form
+  method="get"
+  target={selectedEngine.tab === 'same' ? '_self' : '_blank'}
+  rel="noopener noreferrer"
+  action={selectedEngine.search_url}
+  on:submit|preventDefault={submit}
+  class="max-w-lg grow"
+>
   <div class="group relative z-[10] flex" on:wheel={wheel}>
     {#if engines?.length > 1}
       <select
