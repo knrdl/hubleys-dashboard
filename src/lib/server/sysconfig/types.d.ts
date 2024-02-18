@@ -23,7 +23,7 @@ export interface SearchEngine {
   search_url: string
   search_parameter?: string
   autocomplete_url?: string
-  target?: 'same-tab' | 'new-tab'
+  target?: 'same-tab' | 'new-tab' | '_self' | '_blank' | '_parent' | '_top'
 }
 
 export interface Calendar {
