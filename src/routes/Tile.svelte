@@ -39,7 +39,7 @@
 
 <a
   href={(typeof url === 'object' ? url.value : url) || '#'}
-  target={typeof url === 'object' && url.tab === 'same' ? '_self' : '_blank'}
+  target={((typeof url === 'object' ? url.target : undefined) || 'new-tab').replace('new-tab', '_blank').replace('same-tab', '_self')}
   rel="noopener noreferrer"
   class="card
 group relative

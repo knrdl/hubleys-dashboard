@@ -61,7 +61,7 @@
 
 <form
   method="get"
-  target={selectedEngine.tab === 'same' ? '_self' : '_blank'}
+  target={(selectedEngine.target || 'new-tab').replace('new-tab', '_blank').replace('same-tab', '_self')}
   rel="noopener noreferrer"
   action={selectedEngine.search_url}
   on:submit|preventDefault={submit}
