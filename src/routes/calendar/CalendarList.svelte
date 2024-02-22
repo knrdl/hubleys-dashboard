@@ -25,7 +25,8 @@
   }
 
   function fmtDate(dt: string) {
-    if (dt.includes('T'))
+    if (!dt) return ''
+    else if (dt.includes('T'))
       return new Date(dt).toLocaleDateString(userLang, {
         weekday: 'short',
         day: '2-digit',
@@ -60,7 +61,7 @@
         <time
           class="mb-1 text-sm font-normal leading-none text-gray-500 dark:text-gray-500"
           datetime={entry.dtstart || entry.dtend}
-          title="{$t('calendar.from')} {fmtDate(entry.dtstart)} {$t('calendar.to')} {fmtDate(entry.dtend)}"
+          title="{$t('calendar.from')} {fmtDate(entry.dtstart)} {$t('calendar.to')} {fmtDate(entry.dtend || entry.dtstart)}"
         >
           {#if isSingleDayEvent(entry)}
             {@const date = (entry.dtstart || entry.dtend).split('T')[0]}
