@@ -7,7 +7,7 @@ export interface BackgroundConfig {
     web_url: string
   }
   random_image: {
-    provider: 'unsplash' | 'reddit'
+    provider: 'unsplash' | 'reddit' | 'local'
     unsplash_query: ''
     subreddits: ''
     duration: 0

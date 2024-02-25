@@ -1,7 +1,7 @@
 import { epoch } from '$lib/utils'
 import type { Cookies } from '@sveltejs/kit'
 import type { BackgroundConfig, UserConfig } from './userconfig/types'
-import { queryBgImgUrlReddit, queryBgImgUrlUnsplash } from '$lib/backgrounds/random'
+import { queryBgImgUrlLocal, queryBgImgUrlReddit, queryBgImgUrlUnsplash } from '$lib/backgrounds/random'
 
 export async function generateCurrentBgConfig({
   currentBgImgUrl,
@@ -22,6 +22,7 @@ export async function generateCurrentBgConfig({
       try {
         if (bgCfg.random_image.provider === 'unsplash') bgImgUrlJob = queryBgImgUrlUnsplash({ searchTerm: bgCfg.random_image.unsplash_query, failfast })
         else if (bgCfg.random_image.provider === 'reddit') bgImgUrlJob = queryBgImgUrlReddit({ subreddits: bgCfg.random_image.subreddits, failfast })
+        else if (bgCfg.random_image.provider === 'local') bgImgUrlJob = queryBgImgUrlLocal({ failfast })
         else console.warn('unknown background image provider:', bgCfg.random_image.provider)
       } catch (e) {
         console.error(e)

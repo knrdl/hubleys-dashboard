@@ -3,6 +3,7 @@ import { fetchTimeout } from '$lib/server/fetch'
 import path from 'path'
 import cache from '$lib/server/httpcache'
 import { chooseRandom } from '$lib/server/random'
+import { readdir } from 'node:fs/promises'
 
 export async function queryBgImgUrlReddit({ subreddits, failfast }: { subreddits: string; failfast: boolean }) {
   const fetchPosts = async (subreddits: string[]) => {
@@ -44,4 +45,10 @@ export async function queryBgImgUrlUnsplash({ searchTerm, failfast }: { searchTe
   } else {
     throw new Error('unsplash error: ' + (await res.text()))
   }
+}
+
+export async function queryBgImgUrlLocal({ failfast }: { failfast: boolean }) {
+  const entries = await readdir('/data/wallpaper/', { recursive: true, withFileTypes: true })
+  const files = entries.filter(e => e.isFile()).map(e => path.join(e.path, e.name).replace(/^\/data\/wallpaper\//, ''))
+  return '/background/wallpaper/' + chooseRandom(files)
 }
