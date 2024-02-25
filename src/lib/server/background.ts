@@ -22,7 +22,7 @@ export async function generateCurrentBgConfig({
       try {
         if (bgCfg.random_image.provider === 'unsplash') bgImgUrlJob = queryBgImgUrlUnsplash({ searchTerm: bgCfg.random_image.unsplash_query, failfast })
         else if (bgCfg.random_image.provider === 'reddit') bgImgUrlJob = queryBgImgUrlReddit({ subreddits: bgCfg.random_image.subreddits, failfast })
-        else if (bgCfg.random_image.provider === 'local') bgImgUrlJob = queryBgImgUrlLocal({ failfast })
+        else if (bgCfg.random_image.provider === 'local') bgImgUrlJob = queryBgImgUrlLocal()
         else console.warn('unknown background image provider:', bgCfg.random_image.provider)
       } catch (e) {
         console.error(e)
