@@ -55,6 +55,7 @@ Persistent files reside under `/data`. The file structure is auto-generated on s
 | `/data/`                   | 📂   | holds all persistent data                                                                                                 |
 | `/data/config.yml`         | 🗎    | system config file                                                                                      |
 | `/data/logos/`             | 📂   | additional image files to reference in `config.yml`.<br/>hubleys also ships some [default icons](./static/fallback-logos) |
+| `/data/wallpaper/`             | 📂   | if this folder contains photos, "wallpaper collection" is available as background image setting  |
 | `/data/users/backgrounds/` | 📂   | where user uploaded images are persisted                                                                                  |
 | `/data/users/config/`      | 📂   | where user settings are persisted                                                                                         |
 | `/data/users/default-config.json` | 🗎  | the user settings template. edit to predefine settings for new users                                                                                         |

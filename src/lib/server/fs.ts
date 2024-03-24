@@ -15,3 +15,11 @@ export async function isFile(filepath: string) {
     return false
   }
 }
+
+export async function isDir(filepath: string) {
+  try {
+    return (await stat(filepath)).isDirectory()
+  } catch (e) {
+    return false
+  }
+}

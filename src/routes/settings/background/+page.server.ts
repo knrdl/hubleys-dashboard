@@ -1,10 +1,12 @@
 import type { Actions, PageServerLoad } from './$types'
 import { saveUserConfig } from '../utils'
 import { getParticlesList } from '$lib/backgrounds/particles'
+import { hasLocalBgImgs } from '$lib/backgrounds/random'
 
 export const load: PageServerLoad = async () => {
   return {
-    particleList: getParticlesList()
+    particleList: getParticlesList(),
+    hasLocalBgImgs: await hasLocalBgImgs()
   }
 }
 

@@ -78,7 +78,6 @@ async function onServerStartup() {
   }
   await Promise.all([
     fs.promises.mkdir('/data/logos', { recursive: true }),
-    fs.promises.mkdir('/data/wallpaper', { recursive: true }),
     fs.promises.mkdir('/data/users/backgrounds', { recursive: true }),
     fs.promises.mkdir('/data/users/config', { recursive: true }),
     (async () => {

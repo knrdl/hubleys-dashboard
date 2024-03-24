@@ -101,10 +101,12 @@
                 <input type="radio" class="mr-1" value="reddit" bind:group={bg.random_image.provider} />
                 Reddit posts
               </label>
-              <label>
-                <input type="radio" class="mr-1" value="local" bind:group={bg.random_image.provider} />
-                Wallpaper collection
-              </label>
+              {#if data.hasLocalBgImgs}
+                <label>
+                  <input type="radio" class="mr-1" value="local" bind:group={bg.random_image.provider} />
+                  Wallpaper collection
+                </label>
+              {/if}
             </div>
           {/if}
         </div>

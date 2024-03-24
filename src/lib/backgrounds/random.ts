@@ -4,6 +4,7 @@ import path from 'path'
 import cache from '$lib/server/httpcache'
 import { chooseRandom } from '$lib/server/random'
 import { readdir } from 'node:fs/promises'
+import { isDir } from '$lib/server/fs'
 
 export async function queryBgImgUrlReddit({ subreddits, failfast }: { subreddits: string; failfast: boolean }) {
   const fetchPosts = async (subreddits: string[]) => {
@@ -48,7 +49,14 @@ export async function queryBgImgUrlUnsplash({ searchTerm, failfast }: { searchTe
 }
 
 export async function queryBgImgUrlLocal() {
-  const entries = await readdir('/data/wallpaper/', { recursive: true, withFileTypes: true })
-  const files = entries.filter(e => e.isFile()).map(e => path.join(e.path, e.name).replace(/^\/data\/wallpaper\//, ''))
-  return '/background/wallpaper/' + chooseRandom(files)
+  if (await isDir('/data/wallpaper/')) {
+    const entries = await readdir('/data/wallpaper/', { recursive: true, withFileTypes: true })
+    const files = entries.filter(e => e.isFile()).map(e => path.join(e.path, e.name).replace(/^\/data\/wallpaper\//, ''))
+    if (files.length > 0) return '/background/wallpaper/' + chooseRandom(files)
+  }
+  return null
+}
+
+export async function hasLocalBgImgs() {
+  return (await isDir('/data/wallpaper/')) && (await readdir('/data/wallpaper/', { recursive: true, withFileTypes: true })).some(e => e.isFile())
 }
