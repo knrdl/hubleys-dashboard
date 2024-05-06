@@ -13,7 +13,7 @@
     "format:fix": "prettier --write src"
   },
   "devDependencies": {
-    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@sveltejs/adapter-node": "^5.0.1",
     "@sveltejs/kit": "^2.5.7",
