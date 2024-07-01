@@ -22,7 +22,7 @@
     "@types/cookie": "^0.6.0",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash.debounce": "^4.0.9",
-    "@types/node": "^20.14.0",
+    "@types/node": "^20.14.9",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.15.0",
     "autoprefixer": "^10.4.18",
