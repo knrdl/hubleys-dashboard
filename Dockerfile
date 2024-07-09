@@ -1,4 +1,4 @@
-FROM node:22.4-alpine3.19 as build
+FROM node:22.4.0-alpine3.20 as build
 
 COPY . /app/
 WORKDIR /app
@@ -25,7 +25,7 @@ RUN NODE_ENV=production npm install --omit=dev
 
 
 
-FROM node:22.4-alpine3.19
+FROM node:22.4.0-alpine3.20
 
 RUN apk add --no-cache curl
 ENV NODE_ENV=production
