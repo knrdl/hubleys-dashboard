@@ -31,7 +31,7 @@
     "eslint-plugin-svelte": "^2.42.0",
     "lodash.debounce": "^4.0.8",
     "mrmime": "^2.0.0",
-    "prettier": "^3.3.2",
+    "prettier": "^3.3.3",
     "prettier-plugin-svelte": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "svelte": "^4.2.18",
