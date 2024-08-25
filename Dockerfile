@@ -1,4 +1,4 @@
-FROM node:22.6.0-alpine3.20 as build
+FROM node:22.6.0-alpine3.20 AS build
 
 COPY . /app/
 WORKDIR /app
@@ -16,7 +16,7 @@ RUN PUBLIC_BUILD_DATE="$(date -Iseconds)" && \
 
 
 
-FROM node:22.6.0-alpine3.20 as deps
+FROM node:22.6.0-alpine3.20 AS deps
 
 COPY package.json package-lock.json .npmrc /app/
 WORKDIR /app
@@ -29,6 +29,7 @@ FROM node:22.6.0-alpine3.20
 
 RUN apk add --no-cache curl
 ENV NODE_ENV=production
+ARG NODE_OPTIONS=""
 ENV NODE_OPTIONS="$NODE_OPTIONS --unhandled-rejections=strict"
 
 COPY --from=build --chown=node:node /app/build /app
