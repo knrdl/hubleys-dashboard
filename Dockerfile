@@ -1,4 +1,4 @@
-FROM node:22.6.0-alpine3.20 AS build
+FROM node:22.7.0-alpine3.20 AS build
 
 COPY . /app/
 WORKDIR /app
@@ -16,7 +16,7 @@ RUN PUBLIC_BUILD_DATE="$(date -Iseconds)" && \
 
 
 
-FROM node:22.6.0-alpine3.20 AS deps
+FROM node:22.7.0-alpine3.20 AS deps
 
 COPY package.json package-lock.json .npmrc /app/
 WORKDIR /app
@@ -25,7 +25,7 @@ RUN NODE_ENV=production npm install --omit=dev
 
 
 
-FROM node:22.6.0-alpine3.20
+FROM node:22.7.0-alpine3.20
 
 RUN apk add --no-cache curl
 ENV NODE_ENV=production
