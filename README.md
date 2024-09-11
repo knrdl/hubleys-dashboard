@@ -152,6 +152,7 @@ location / {
 
 Please have a look here:
 
+- https://selfh.st/icons/
 - https://github.com/walkxcode/dashboard-icons
 - https://github.com/Templarian/MaterialDesign
 - https://simpleicons.org/
