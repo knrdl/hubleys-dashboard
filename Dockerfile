@@ -7,7 +7,7 @@ ARG PUBLIC_VERSION
 RUN PUBLIC_BUILD_DATE="$(date -Iseconds)" && \
     export PUBLIC_BUILD_DATE && \
     npm install && \
-    npm audit && \
+    npm audit --audit-level=high && \
     yarn licenses generate-disclaimer > static/3rdpartylicenses.txt && \
     npm run check && \
     npm run lint:check && \
