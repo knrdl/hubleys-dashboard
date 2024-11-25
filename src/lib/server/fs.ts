@@ -11,7 +11,7 @@ export async function writeJsonFile(filepath: string, data: unknown) {
 export async function isFile(filepath: string) {
   try {
     return (await stat(filepath)).isFile()
-  } catch (e) {
+  } catch (_) {
     return false
   }
 }
@@ -19,7 +19,7 @@ export async function isFile(filepath: string) {
 export async function isDir(filepath: string) {
   try {
     return (await stat(filepath)).isDirectory()
-  } catch (e) {
+  } catch (_) {
     return false
   }
 }

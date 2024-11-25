@@ -72,7 +72,7 @@ function applyLogLevels() {
 async function onServerStartup() {
   try {
     await fs.promises.access('/data', fs.constants.W_OK)
-  } catch (e) {
+  } catch (_) {
     console.log('Missing write permission to the /data volume. The folder must be writable by the user with uid=1000.')
     process.exit(1)
   }

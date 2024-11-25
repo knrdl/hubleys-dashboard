@@ -23,10 +23,10 @@
     "@types/js-yaml": "^4.0.9",
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^22.9.0",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8.56.0",
+    "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.46.0",
     "lodash.debounce": "^4.0.8",
@@ -47,7 +47,7 @@
     "@victorioberra/trianglify-browser": "^4.1.1",
     "ical.js": "^2.0.1",
     "js-yaml": "^4.1.0",
-    "tsparticles": "3.5.0"
+    "tsparticles": "^3.5.0"
   },
   "type": "module"
 }

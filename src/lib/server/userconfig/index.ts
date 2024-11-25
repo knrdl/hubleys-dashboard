@@ -56,7 +56,7 @@ export async function runUserConfigMigrations() {
   const newest_migration_version = 2
   for await (const e of await opendir('/data/users/config/')) {
     if (e.isFile() && e.name.endsWith('.json')) {
-      const p = path.join(e.path, e.name)
+      const p = path.join(e.parentPath, e.name)
       const profile = await readJsonFile<UserConfig>(p)
       if (profile.version < newest_migration_version) {
         console.debug('migrating profile: ', p)

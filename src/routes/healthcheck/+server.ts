@@ -5,7 +5,7 @@ import fs from 'fs'
 export const GET: RequestHandler = async () => {
   try {
     await access('/data', fs.constants.W_OK)
-  } catch (e) {
+  } catch (_) {
     error(500, 'data directory is not writable')
   }
 
