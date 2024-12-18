@@ -9,10 +9,10 @@ RUN PUBLIC_BUILD_DATE="$(date -Iseconds)" && \
     npm install && \
     npm audit --audit-level=high && \
     yarn licenses generate-disclaimer > static/3rdpartylicenses.txt && \
-    npm run check && \
+    NODE_ENV=development npm run check && \
     npm run lint:check && \
     npm run format:check && \
-    npm run build
+    NODE_ENV=production npm run build
 
 
 
@@ -27,7 +27,8 @@ RUN NODE_ENV=production npm install --omit=dev
 
 FROM node:23.4.0-alpine3.20
 
-RUN apk add --no-cache curl
+RUN apk update --no-cache && \
+    apk add --no-cache curl
 ENV NODE_ENV=production
 ARG NODE_OPTIONS=""
 ENV NODE_OPTIONS="$NODE_OPTIONS --unhandled-rejections=strict"
@@ -49,8 +50,6 @@ HEALTHCHECK --interval=30s --timeout=1s --retries=2 \
     CMD curl --fail --silent --output /dev/null --header "$HTTP_HEADER_USERID: healthcheck" "http://localhost:3000/healthcheck"
 
 CMD ["node", "/app/entrypoint.js"]
-
-
 
 
 

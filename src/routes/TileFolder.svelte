@@ -39,7 +39,7 @@
   on:keydown={keydown}
 >
   <div
-    class="fixed rounded-lg border border-gray-200 bg-gray-100/75 p-3 shadow-xl dark:border-gray-700 dark:bg-gray-900/95"
+    class="fixed max-h-screen overflow-auto rounded-lg border border-gray-200 bg-gray-100/75 p-3 shadow-xl dark:border-gray-700 dark:bg-gray-900/95"
     bind:clientWidth={dialogWidth}
     bind:clientHeight={dialogHeight}
     style="left: {leftPos}px; top: {topPos}px"
@@ -55,11 +55,9 @@
         </h6>
       {/if}
     </div>
-    <div class="inline-grid gap-1" class:grid-cols-2={(menu?.tiles.length || 0) > 1} class:grid-rows-2={(menu?.tiles.length || 0) > 2}>
-      {#each menu?.tiles || [] as menuTile, idx}
-        <div class:col-span-2={idx === (menu?.tiles.length || 0) - 1 && idx % 2 === 0} class="flex justify-center">
-          <TileComponent {...menuTile} />
-        </div>
+    <div class="inline-flex max-w-96 flex-wrap justify-center gap-1" class:sm:max-w-xl={(menu?.tiles.length || 0) > 6}>
+      {#each menu?.tiles || [] as menuTile}
+        <TileComponent {...menuTile} />
       {/each}
     </div>
   </div>
