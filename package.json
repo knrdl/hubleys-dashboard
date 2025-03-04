@@ -24,7 +24,7 @@
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^22.10.10",
     "@typescript-eslint/eslint-plugin": "^8.24.1",
-    "@typescript-eslint/parser": "^8.19.1",
+    "@typescript-eslint/parser": "^8.25.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
