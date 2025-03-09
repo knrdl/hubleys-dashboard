@@ -25,7 +25,7 @@
         type="button"
         on:click={() => (hiddenMsgs = [...hiddenMsgs, msg.html])}
         title={$t('common.close')}
-        class="absolute -right-2 -top-2 flex w-4 items-center justify-center rounded-full bg-gray-800 hover:scale-125 hover:bg-red-800"
+        class="absolute -top-2 -right-2 flex w-4 items-center justify-center rounded-full bg-gray-800 hover:scale-125 hover:bg-red-800"
       >
         <Fa icon={faXmark} class="text-white" />
       </button>

@@ -65,9 +65,9 @@
       />
     </div>
   </div>
-  <div class="my-3 rounded-lg bg-slate-300/90 p-1 drop-shadow dark:bg-slate-900/90" in:fly={{ y: -20 }}>
+  <div class="my-3 rounded-lg bg-slate-300/90 p-1 drop-shadow-sm dark:bg-slate-900/90" in:fly={{ y: -20 }}>
     <table class="w-full border-b-8 border-gray-100 text-left text-gray-500 dark:border-gray-700 dark:text-gray-400">
-      <thead class="sticky top-0 bg-gray-400 text-xs uppercase text-gray-700 dark:bg-black/90 dark:text-gray-400">
+      <thead class="sticky top-0 bg-gray-400 text-xs text-gray-700 uppercase dark:bg-black/90 dark:text-gray-400">
         <tr>
           <th colspan="3" scope="col" class="px-4 py-3">
             <div class="flex justify-between">
@@ -114,7 +114,7 @@
             class:border-t-8={isNewDay(itm.timestamp, data.weatherForecast[idx - 1]?.timestamp)}
             on:mouseenter={() => (selectedIdx = idx)}
           >
-            <td class="whitespace-nowrap py-4 pl-6 pr-2 font-medium text-gray-900 dark:text-white">
+            <td class="py-4 pr-2 pl-6 font-medium whitespace-nowrap text-gray-900 dark:text-white">
               <div class="text-center text-slate-500">
                 {dt.toLocaleDateString(data.userLang, {
                   year: '2-digit',
@@ -129,9 +129,9 @@
                 })}
               </div>
             </td>
-            <td class="flex flex-wrap items-center py-4 pl-0 pr-3 max-sm:text-red-500">
+            <td class="flex flex-wrap items-center py-4 pr-3 pl-0 max-sm:text-red-500">
               <img src={itm.weather_icon_url} alt={itm.weather_text} />
-              <div class="dark:text-white max-sm:max-w-min">
+              <div class="max-sm:max-w-min dark:text-white">
                 <div>
                   {itm.weather_text}
                 </div>
@@ -148,7 +148,7 @@
                 </div>
               </div>
             </td>
-            <td class="py-4 pl-1 pr-6 text-right">
+            <td class="py-4 pr-6 pl-1 text-right">
               <div>
                 {itm.temp}&thinsp;<span class="font-thin tracking-tighter">{tempUnit}</span>
               </div>

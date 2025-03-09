@@ -53,24 +53,24 @@
   class="
 absolute z-[-100] flex
 min-h-screen flex-col items-center
-bg-gradient-to-b
+bg-linear-to-b
 from-slate-200 via-blue-100 to-sky-100
 dark:from-gray-700 dark:via-zinc-700 dark:to-stone-700
 "
 >
   {#if data.background.image?.url}
-    <div class="fixed bottom-0 left-0 right-0 top-0 z-[-90] bg-cover bg-fixed bg-center" style="background-image: url('{data.background.image.url}')"></div>
+    <div class="fixed top-0 right-0 bottom-0 left-0 z-[-90] bg-cover bg-fixed bg-center" style="background-image: url('{data.background.image.url}')"></div>
   {/if}
   {#if data.background.triangles}
     <Trianglify />
   {/if}
   {#if data.background.blur === 'dark'}
-    <div class="fixed bottom-0 left-0 right-0 top-0 z-[-70]" style="background: {blurDark}"></div>
+    <div class="fixed top-0 right-0 bottom-0 left-0 z-[-70]" style="background: {blurDark}"></div>
   {:else if data.background.blur === 'light'}
-    <div class="fixed bottom-0 left-0 right-0 top-0 z-[-70]" style="background: {blurLight}"></div>
+    <div class="fixed top-0 right-0 bottom-0 left-0 z-[-70]" style="background: {blurLight}"></div>
   {/if}
   {#if data.background.dots}
-    <div class="fixed bottom-0 left-0 right-0 top-0 z-[-60] opacity-20" style="background: {dotMatrix} repeat;"></div>
+    <div class="fixed top-0 right-0 bottom-0 left-0 z-[-60] opacity-20" style="background: {dotMatrix} repeat;"></div>
   {/if}
   {#if data.background.particles}
     <ParticlesBackground particlesName={data.background.particles} />

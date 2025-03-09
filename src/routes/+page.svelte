@@ -31,7 +31,7 @@
     <section class="mt-3 flex justify-center">
       <a
         href="/calendar"
-        class="group z-[10] select-none rounded-md bg-gray-100/80 pb-1 pl-3 pr-2 pt-1 text-gray-900 hover:bg-gray-200 dark:bg-gray-700/90 dark:text-gray-100 dark:hover:bg-gray-700"
+        class="group z-10 rounded-md bg-gray-100/80 pt-1 pr-2 pb-1 pl-3 text-gray-900 select-none hover:bg-gray-200 dark:bg-gray-700/90 dark:text-gray-100 dark:hover:bg-gray-700"
       >
         <CalendarWidget calendarEvents={data.calendarEvents} userLang={data.userLang} />
       </a>

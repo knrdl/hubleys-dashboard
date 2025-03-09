@@ -83,6 +83,8 @@
 </form>
 
 <style lang="postcss">
+  @reference "tailwindcss";
+
   label {
     @apply cursor-pointer text-gray-900 dark:text-gray-300;
   }

@@ -51,7 +51,7 @@
 <div class="flex flex-col items-center">
   <ClockFace text={formatTime(lapse || 0)} {isRunning} {fraction} mode="satellite" />
 
-  <div class="inline-flex rounded-md shadow-sm" role="group">
+  <div class="inline-flex rounded-md shadow-xs" role="group">
     {#if !isRunning}
       <button
         type="button"
@@ -83,7 +83,7 @@
       type="button"
       on:click={captureRound}
       disabled={!isRunning || isPaused}
-      class="border-b border-t bg-sky-300 enabled:hover:bg-sky-400 dark:bg-sky-500 dark:enabled:hover:bg-sky-600"
+      class="border-t border-b bg-sky-300 enabled:hover:bg-sky-400 dark:bg-sky-500 dark:enabled:hover:bg-sky-600"
     >
       <Fa icon={faCircleNotch} class="mr-2" />
       {$t('clock.round')}
@@ -108,7 +108,7 @@
           class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
           in:fly={{ y: -20, duration: 300, delay: 50 }}
         >
-          <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
+          <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-gray-900 dark:text-white">
             {formatTime(round)}
           </th>
           <td class="px-6 py-4">
@@ -123,6 +123,8 @@
 </div>
 
 <style lang="postcss">
+  @reference "tailwindcss";
+
   div[role='group'] button {
     @apply inline-flex items-center border-gray-200 px-4 py-2 text-sm font-medium text-gray-900 disabled:bg-gray-300 dark:border-gray-600 dark:text-slate-800 dark:enabled:hover:text-slate-100;
   }

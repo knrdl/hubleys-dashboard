@@ -38,6 +38,6 @@
 
 <style lang="postcss">
   ul li a[aria-current='page'] {
-    @apply border-blue-600 text-blue-600 dark:border-blue-500 dark:text-blue-500;
+    @reference border-blue-600 text-blue-600 "dark:border-blue-500" "dark:text-blue-500";
   }
 </style>

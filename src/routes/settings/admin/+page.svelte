@@ -16,14 +16,14 @@
     <Fa icon={faRotate} size="lg" />
     {$t('settings.admin.reload-app')}
   </button>
-  <ul class="ml-5 mt-1 list-inside list-disc text-gray-900 dark:text-gray-300">
+  <ul class="mt-1 ml-5 list-inside list-disc text-gray-900 dark:text-gray-300">
     <li>Reloads system configuration in <span class="font-mono font-semibold">config.yml</span></li>
     <li>Reloads user configurations</li>
     <li>Clears HTTP caches</li>
   </ul>
 </form>
 
-<div class="mt-5 rounded border border-gray-200 p-5 font-light dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
+<div class="mt-5 rounded-sm border border-gray-200 p-5 font-light dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
   <header class="text-lg font-bold">{$t('settings.admin.auth-data')}</header>
   <section class="ml-5">
     <ul>
@@ -44,7 +44,9 @@
 </div>
 
 <style lang="postcss">
+  @reference "tailwindcss";
+
   form button {
-    @apply flex grow gap-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium uppercase text-white hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700;
+    @apply flex grow gap-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white uppercase hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700;
   }
 </style>

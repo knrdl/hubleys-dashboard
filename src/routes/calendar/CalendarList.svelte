@@ -59,7 +59,7 @@
           title={containsToday ? $t('calendar.relevant-today') : undefined}
         ></div>
         <time
-          class="mb-1 text-sm font-normal leading-none text-gray-500 dark:text-gray-500"
+          class="mb-1 text-sm leading-none font-normal text-gray-500 dark:text-gray-500"
           datetime={entry.dtstart || entry.dtend}
           title="{$t('calendar.from')} {fmtDate(entry.dtstart)} {$t('calendar.to')} {fmtDate(entry.dtend || entry.dtstart)}"
         >

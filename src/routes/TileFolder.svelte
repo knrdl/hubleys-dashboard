@@ -34,7 +34,7 @@
 
 <button
   type="button"
-  class="fixed bottom-0 left-0 right-0 top-0 z-[1000] block h-screen w-screen cursor-default"
+  class="fixed top-0 right-0 bottom-0 left-0 z-1000 block h-screen w-screen cursor-default"
   on:click|stopPropagation={() => dispatch('close')}
   on:keydown={keydown}
 >
@@ -46,11 +46,11 @@
     transition:scale={{ duration: 200 }}
   >
     <div class="mb-2">
-      <h5 class="select-none text-center text-2xl text-gray-900 dark:text-gray-100">
+      <h5 class="text-center text-2xl text-gray-900 select-none dark:text-gray-100">
         {menu?.title || ''}
       </h5>
       {#if menu?.subtitle}
-        <h6 class="select-none text-center text-lg text-gray-900 dark:text-gray-100">
+        <h6 class="text-center text-lg text-gray-900 select-none dark:text-gray-100">
           {menu?.subtitle || ''}
         </h6>
       {/if}

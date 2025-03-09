@@ -47,7 +47,7 @@
 <form method="POST" on:submit|preventDefault={handleSubmit} action="?/save">
   <header class="text-lg font-bold text-gray-900 dark:text-gray-300">{$t('settings.bg.image')}</header>
   <section class="mb-6">
-    <div class="mr-10 mt-1 divide-y divide-gray-500/50 rounded border border-gray-500/50">
+    <div class="mt-1 mr-10 divide-y divide-gray-500/50 rounded-sm border border-gray-500/50">
       <fieldset class="flex flex-wrap items-start justify-around">
         <label
           class="flex h-10 grow items-center justify-center gap-2 border-b-2 p-1 transition-colors {bg.background === 'triangles'
@@ -69,7 +69,7 @@
             {$t('settings.bg.image-static')}
           </label>
           {#if bg.background === 'static'}
-            <div class="mb-3 mt-2 flex flex-col gap-2 pl-6" in:fade>
+            <div class="mt-2 mb-3 flex flex-col gap-2 pl-6" in:fade>
               <label>
                 <input type="radio" class="mr-1" value="upload" bind:group={bg.static_image.source} />
                 from upload
@@ -92,7 +92,7 @@
             {$t('settings.bg.image-random')}
           </label>
           {#if bg.background === 'random'}
-            <div class="mb-3 mt-2 flex flex-col gap-2 pl-6" in:fade>
+            <div class="mt-2 mb-3 flex flex-col gap-2 pl-6" in:fade>
               <label>
                 <input type="radio" class="mr-1" value="unsplash" bind:group={bg.random_image.provider} />
                 Unsplash photo library
@@ -175,34 +175,34 @@
   <section class="mb-6">
     <div class="flex flex-wrap justify-around gap-3">
       <fieldset class="flex flex-wrap items-center justify-center gap-4">
-        <label class="flex flex-col items-center gap-1 rounded p-2 transition-colors {bg.blur === false ? 'bg-slate-500/50 shadow-inner' : ''}">
+        <label class="flex flex-col items-center gap-1 rounded-sm p-2 transition-colors {bg.blur === false ? 'bg-slate-500/50 shadow-inner' : ''}">
           <div>
             <input type="radio" class="mr-1" value={false} bind:group={bg.blur} />
             {$t('settings.bg.no-blur')}
           </div>
-          <div class="h-12 w-24 rounded bg-white shadow shadow-slate-300 dark:bg-slate-800 dark:shadow-slate-700"></div>
+          <div class="h-12 w-24 rounded-sm bg-white shadow-sm shadow-slate-300 dark:bg-slate-800 dark:shadow-slate-700"></div>
         </label>
-        <label class="flex flex-col items-center gap-1 rounded p-2 transition-colors {bg.blur === 'dark' ? 'bg-slate-500/50 shadow-inner' : ''}">
+        <label class="flex flex-col items-center gap-1 rounded-sm p-2 transition-colors {bg.blur === 'dark' ? 'bg-slate-500/50 shadow-inner' : ''}">
           <div>
             <input type="radio" class="mr-1" value="dark" bind:group={bg.blur} />
             {$t('settings.bg.dark-blur')}
           </div>
-          <div class="h-12 w-24 rounded shadow shadow-slate-300 dark:shadow-slate-700" style="background: {blurDark}"></div>
+          <div class="h-12 w-24 rounded-sm shadow-sm shadow-slate-300 dark:shadow-slate-700" style="background: {blurDark}"></div>
         </label>
-        <label class="flex flex-col items-center gap-1 rounded p-2 transition-colors {bg.blur === 'light' ? 'bg-slate-500/50 shadow-inner' : ''}">
+        <label class="flex flex-col items-center gap-1 rounded-sm p-2 transition-colors {bg.blur === 'light' ? 'bg-slate-500/50 shadow-inner' : ''}">
           <div>
             <input type="radio" class="mr-1" value="light" bind:group={bg.blur} />
             {$t('settings.bg.light-blur')}
           </div>
-          <div class="h-12 w-24 rounded shadow shadow-slate-300 dark:shadow-slate-700" style="background: {blurLight}"></div>
+          <div class="h-12 w-24 rounded-sm shadow-sm shadow-slate-300 dark:shadow-slate-700" style="background: {blurLight}"></div>
         </label>
       </fieldset>
-      <label class="rounded p-2 transition-colors {bg.dots ? 'bg-slate-500/50 shadow-inner' : ''}">
+      <label class="rounded-sm p-2 transition-colors {bg.dots ? 'bg-slate-500/50 shadow-inner' : ''}">
         <div>
           <input type="checkbox" class="mr-1" bind:checked={bg.dots} />
           {$t('settings.bg.dot-matrix')}
         </div>
-        <div class="mt-1 h-12 w-24 rounded-sm border border-slate-100/80 opacity-25 invert dark:invert-0" style="background: {dotMatrix} repeat"></div>
+        <div class="mt-1 h-12 w-24 rounded-xs border border-slate-100/80 opacity-25 invert dark:invert-0" style="background: {dotMatrix} repeat"></div>
       </label>
     </div>
   </section>
@@ -211,10 +211,10 @@
     <fieldset class="flex flex-wrap items-center justify-center">
       {#each [false, ...data.particleList] as particlesName}
         <label
-          class="mx-3 mb-3 flex flex-col items-center rounded p-2 transition-colors {bg.particles === particlesName ? 'bg-slate-500/50 shadow-inner' : ''}"
+          class="mx-3 mb-3 flex flex-col items-center rounded-sm p-2 transition-colors {bg.particles === particlesName ? 'bg-slate-500/50 shadow-inner' : ''}"
         >
           <input type="radio" hidden value={particlesName} bind:group={bg.particles} />
-          <div class="mask h-24 w-24 {particlesName ? 'bg-blue-600' : 'bg-blue-600/50'} shadow-inner drop-shadow">
+          <div class="mask h-24 w-24 {particlesName ? 'bg-blue-600' : 'bg-blue-600/50'} shadow-inner drop-shadow-sm">
             {#if typeof particlesName !== 'boolean'}
               <ParticlesThumbnail {particlesName} />
             {/if}
@@ -231,6 +231,8 @@
 </form>
 
 <style lang="postcss">
+  @reference "tailwindcss";
+
   section {
     @apply ml-6;
   }

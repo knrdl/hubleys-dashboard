@@ -46,9 +46,9 @@
 
 <h3 class="mb-1 font-bold text-gray-900 dark:text-white">Language</h3>
 <ul
-  class="w-full items-start rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white sm:flex"
+  class="w-full items-start rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-900 sm:flex dark:border-gray-600 dark:bg-gray-700 dark:text-white"
 >
-  <li class="w-full border-b border-gray-200 dark:border-gray-600 sm:border-b-0 sm:border-r">
+  <li class="w-full border-b border-gray-200 sm:border-r sm:border-b-0 dark:border-gray-600">
     <div class="flex items-center pl-3">
       <label class="ml-2 w-full py-3 text-sm font-medium text-gray-900 dark:text-gray-300">
         <input
@@ -91,12 +91,12 @@
     </div>
   </li>
 </ul>
-<p class="ml-1 mt-1 text-gray-900 dark:text-white">
+<p class="mt-1 ml-1 text-gray-900 dark:text-white">
   Current language:
-  <span class="mr-2 rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">{data.userLang}</span>
+  <span class="mr-2 rounded-sm bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">{data.userLang}</span>
 </p>
 
-<p class="ml-1 mt-3">
+<p class="mt-3 ml-1">
   <a href="/3rdpartylicenses.txt" class="flex items-center gap-2 text-blue-600" target="_blank">
     <Fa icon={faSection} />
     Open Source Licenses</a

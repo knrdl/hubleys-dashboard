@@ -67,12 +67,12 @@
   on:submit|preventDefault={submit}
   class="max-w-lg grow"
 >
-  <div class="group relative z-[10] flex" on:wheel={wheel}>
+  <div class="group relative z-10 flex" on:wheel={wheel}>
     {#if engines?.length > 1}
       <select
         bind:value={selectedEngine}
         on:change={onSelectedEngineChange}
-        class="cursor-pointer rounded-l-full border border-r-0 border-gray-300 bg-gray-100/70 pl-2 text-center text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/80 dark:text-white dark:focus:ring-gray-700 dark:group-hover:bg-gray-700"
+        class="cursor-pointer rounded-l-full border border-r-0 border-gray-300 bg-gray-100/70 pl-2 text-center text-sm font-medium text-gray-700 group-hover:bg-gray-200 focus:ring-2 focus:ring-gray-100 focus:outline-hidden dark:border-gray-600 dark:bg-gray-700/80 dark:text-white dark:group-hover:bg-gray-700 dark:focus:ring-gray-700"
       >
         {#each engines as engine}
           <option value={engine}>{engine.title}</option>
@@ -99,11 +99,11 @@
         on:input={handleInput}
         class:rounded-l-full={engines?.length === 1}
         class:border-l-0={engines?.length > 1}
-        class="block w-full rounded-none rounded-r-full border border-gray-300 bg-gray-100/70 p-2.5 text-gray-900 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/75 dark:text-white dark:placeholder-gray-400 dark:focus:ring-gray-700 dark:group-hover:bg-gray-700"
+        class="block w-full rounded-none rounded-r-full border border-gray-300 bg-gray-100/70 p-2.5 text-gray-900 placeholder-gray-600 group-hover:bg-gray-200 focus:ring-2 focus:ring-gray-100 focus:outline-hidden dark:border-gray-600 dark:bg-gray-700/75 dark:text-white dark:placeholder-gray-400 dark:group-hover:bg-gray-700 dark:focus:ring-gray-700"
       />
       <button
         type="submit"
-        class="absolute right-0 top-0 flex h-full w-10 items-center justify-center rounded-r-full border border-gray-300 bg-gray-100/10 text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-100 group-hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700/75 dark:text-gray-100 dark:focus:ring-blue-800 dark:group-hover:bg-gray-700"
+        class="absolute top-0 right-0 flex h-full w-10 items-center justify-center rounded-r-full border border-gray-300 bg-gray-100/10 text-sm font-medium text-gray-900 group-hover:bg-gray-200 focus:ring-2 focus:ring-gray-100 focus:outline-hidden dark:border-gray-600 dark:bg-gray-700/75 dark:text-gray-100 dark:group-hover:bg-gray-700 dark:focus:ring-blue-800"
       >
         <Fa icon={faSearch} />
         <span class="sr-only">search</span>

@@ -44,9 +44,9 @@
   class="card
 group relative
 m-2 flex flex-col
-justify-center rounded-md bg-gradient-to-br from-gray-700/90 via-slate-600/90
+justify-center rounded-md bg-linear-to-br from-gray-700/90 via-slate-600/90
 to-zinc-700/90 p-1 no-underline shadow-md
-transition-transform ease-in-out hover:scale-110 hover:bg-gradient-to-tr
+transition-transform ease-in-out hover:scale-110 hover:bg-linear-to-tr
 hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
 "
   on:click={onTileClick}
@@ -57,12 +57,12 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
         title={$t('dashboard.menu')}
         on:click|preventDefault|stopPropagation={onMoreClick}
         class="
-                    absolute -right-1 -top-1 inline-flex h-8
+                    absolute -top-1 -right-1 inline-flex h-8
                     w-8 items-center justify-center
                     rounded-lg text-xs font-bold
                     text-slate-100
-                    transition-transform ease-in-out hover:bg-slate-900/80 group-hover:scale-110
-                    group-hover:text-white
+                    transition-transform ease-in-out group-hover:scale-110 group-hover:text-white
+                    hover:bg-slate-900/80
                         "
       >
         <Fa icon={faEllipsisV} />
@@ -71,7 +71,7 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
       <div
         title={$t('dashboard.show-more')}
         class="
-                absolute -right-1 -top-1 inline-flex h-8
+                absolute -top-1 -right-1 inline-flex h-8
                 w-8 items-center justify-center
                 text-xs font-bold text-slate-400 group-hover:text-slate-200
             "
