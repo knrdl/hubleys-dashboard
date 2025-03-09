@@ -51,7 +51,7 @@ export async function queryBgImgUrlUnsplash({ searchTerm, failfast }: { searchTe
 export async function queryBgImgUrlLocal() {
   if (await isDir('/data/wallpaper/')) {
     const entries = await readdir('/data/wallpaper/', { recursive: true, withFileTypes: true })
-    const files = entries.filter(e => e.isFile()).map(e => path.join(e.path, e.name).replace(/^\/data\/wallpaper\//, ''))
+    const files = entries.filter(e => e.isFile()).map(e => path.join(e.parentPath, e.name).replace(/^\/data\/wallpaper\//, ''))
     if (files.length > 0) return '/background/wallpaper/' + chooseRandom(files)
   }
   return null
