@@ -1,23 +1,24 @@
 import { env } from '$env/dynamic/private'
 import path from 'node:path'
 
-// Default to /data if DATA_DIR is not set
+// Base data directory configuration
 export const DATA_DIR = env.DATA_DIR || '/data'
 
-// Helper functions to get paths within the data directory
-export function getDataPath(...parts: string[]): string {
-  return path.join(DATA_DIR, ...parts)
-}
+// Individual directory configurations
+// If not set, they will be subdirectories under DATA_DIR
+export const USERS_DIR = env.USERS_DIR || path.join(DATA_DIR, 'users')
+export const LOGOS_DIR = env.LOGOS_DIR || path.join(DATA_DIR, 'logos')
+export const WALLPAPER_DIR = env.WALLPAPER_DIR || path.join(DATA_DIR, 'wallpaper')
 
 // Common paths used throughout the application
 export const PATHS = {
-  CONFIG: getDataPath('config.yml'),
-  LOGOS: getDataPath('logos'),
-  WALLPAPER: getDataPath('wallpaper'),
+  CONFIG: path.join(DATA_DIR, 'config.yml'),
+  LOGOS: LOGOS_DIR,
+  WALLPAPER: WALLPAPER_DIR,
   USERS: {
-    BACKGROUNDS: getDataPath('users', 'backgrounds'),
-    CONFIG: getDataPath('users', 'config'),
-    DEFAULT_CONFIG: getDataPath('users', 'default-config.json')
+    BACKGROUNDS: path.join(USERS_DIR, 'backgrounds'),
+    CONFIG: path.join(USERS_DIR, 'config'),
+    DEFAULT_CONFIG: path.join(USERS_DIR, 'default-config.json')
   },
-  FAVICON: getDataPath('favicon.png')
+  FAVICON: path.join(DATA_DIR, 'favicon.png')
 }
