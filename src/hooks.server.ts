@@ -1,10 +1,11 @@
 import { sysConfig, reloadSysConfig } from '$lib/server/sysconfig'
 import { error, type RequestEvent } from '@sveltejs/kit'
 import { getUserConfig, initDefaultUserConfig, runUserConfigMigrations } from '$lib/server/userconfig'
-import fs from 'fs'
-import { isFile } from '$lib/server/fs'
+import { canWrite, isDir, isFile } from '$lib/server/fs'
 import type { RequestUserInfo } from '$lib/server/types'
-import { DATA_DIR, PATHS } from '$lib/server/config'
+import { env } from '$env/dynamic/private'
+import path from 'node:path'
+import { copyFile, mkdir } from 'node:fs/promises'
 
 function getConfiguredUserLang(ev: RequestEvent) {
   if (ev.locals.userConfig.language === null) return (ev.request.headers.get('accept-language') || 'en').split(/[,;]/)[0]
@@ -71,18 +72,31 @@ function applyLogLevels() {
 }
 
 async function onServerStartup() {
-  try {
-    await fs.promises.access(DATA_DIR, fs.constants.W_OK)
-  } catch (_) {
-    console.log(`Missing write permission to the ${DATA_DIR} volume. The folder must be writable by the user with uid=1000.`)
-    process.exit(1)
+  async function ensureDirExists(dirpath: string) {
+    if (await isDir(dirpath)) {
+      const writable = await canWrite(dirpath)
+      if (!writable) {
+        console.error(`Missing write permission for folder "${dirpath}". The folder must be writable by the user with uid=1000.`)
+        process.exit(1)
+      }
+    } else {
+      try {
+        await mkdir(dirpath, { recursive: true })
+      } catch (e) {
+        console.error(`Error creating folder "${dirpath}":`)
+        console.error(e)
+        console.error('The parent folder must be writable by the user with uid=1000 or create the folder manually.')
+        process.exit(1)
+      }
+    }
   }
+
   await Promise.all([
-    fs.promises.mkdir(PATHS.LOGOS, { recursive: true }),
-    fs.promises.mkdir(PATHS.USERS.BACKGROUNDS, { recursive: true }),
-    fs.promises.mkdir(PATHS.USERS.CONFIG, { recursive: true }),
+    ensureDirExists(path.join(env.USERS_DIR!, 'backgrounds')),
+    ensureDirExists(path.join(env.USERS_DIR!, 'config')),
+    ensureDirExists(env.LOGOS_DIR!),
     (async () => {
-      if (await isFile(PATHS.FAVICON)) await fs.promises.copyFile(PATHS.FAVICON, '/app/client/favicon.png')
+      if (await isFile(env.FAVICON_FILE!)) await copyFile(env.FAVICON_FILE!, '/app/client/favicon.png')
     })()
   ])
 

@@ -60,13 +60,12 @@ CMD ["node", "/app/entrypoint.js"]
 # one of debug, info, warn, error
 ENV LOG_LEVEL="info"
 
-# data directory path, defaults to /data if not set
-#ENV DATA_DIR="/data"
-
-# Optional: override specific config directories
-#ENV USERS_DIR=""
-#ENV LOGOS_DIR=""
-#ENV WALLPAPER_DIR=""
+# paths for app & user config
+ENV APP_CONFIG_FILE="/data/config.yml"
+ENV FAVICON_FILE="/data/favicon.png"
+ENV USERS_DIR="/data/users"
+ENV LOGOS_DIR="/data/logos"
+ENV WALLPAPER_DIR="/data/wallpaper"
 
 # userinfo headers set by the reverse proxy
 ENV HTTP_HEADER_USERID="Remote-User"

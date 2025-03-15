@@ -2,7 +2,7 @@ import { isFile, readJsonFile, writeJsonFile } from '$lib/server/fs'
 import path from 'node:path'
 import type { UserConfig } from './types'
 import { opendir } from 'node:fs/promises'
-import { PATHS } from '$lib/server/config'
+import { env } from '$env/dynamic/private'
 
 let defaultConfig: UserConfig = (await import('./default.json')).default as UserConfig
 
@@ -12,7 +12,7 @@ let _cache: Record<UserId, UserConfig> = {}
 
 function userConfigFilePath(userid: UserId) {
   const encUserid = encodeURIComponent(userid)
-  return path.join(PATHS.USERS.CONFIG, encUserid + '.json')
+  return path.join(env.USERS_DIR!, 'config', encUserid + '.json')
 }
 
 async function readUserConfig(userid: UserId) {
@@ -44,17 +44,18 @@ export async function reloadAllUsersConfig() {
 }
 
 export function userBackgroundImgFilePath(imgId: string) {
-  return path.join(PATHS.USERS.BACKGROUNDS, path.basename(imgId))
+  return path.join(env.USERS_DIR!, 'backgrounds', path.basename(imgId))
 }
 
 export async function initDefaultUserConfig() {
-  if (await isFile(PATHS.USERS.DEFAULT_CONFIG)) defaultConfig = await readJsonFile(PATHS.USERS.DEFAULT_CONFIG)
-  else await writeJsonFile(PATHS.USERS.DEFAULT_CONFIG, defaultConfig)
+  const filepath = path.join(env.USERS_DIR!, 'default-config.json')
+  if (await isFile(filepath)) defaultConfig = await readJsonFile(filepath)
+  else await writeJsonFile(filepath, defaultConfig)
 }
 
 export async function runUserConfigMigrations() {
   const newest_migration_version = 2
-  for await (const e of await opendir(PATHS.USERS.CONFIG)) {
+  for await (const e of await opendir(path.join(env.USERS_DIR!, 'config'))) {
     if (e.isFile() && e.name.endsWith('.json')) {
       const p = path.join(e.parentPath, e.name)
       const profile = await readJsonFile<UserConfig>(p)

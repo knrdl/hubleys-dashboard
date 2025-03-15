@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit'
 import { setUserConfig, userBackgroundImgFilePath } from '$lib/server/userconfig'
 import { genRandomId } from '$lib/server/random'
 import type { UserConfig } from '$lib/server/userconfig/types'
-import path from 'path'
+import path from 'node:path'
 import { writeFile, unlink } from 'node:fs/promises'
 import { t } from '$lib/translations'
 

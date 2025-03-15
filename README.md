@@ -25,7 +25,9 @@ docker run -it --rm -e SINGLE_USER_MODE=1 -e ORIGIN=http://localhost:3000 -p127.
 
 ![Screenshot](./docs/screenshot.png)
 
+
 # Setup
+
 
 ## 1. Setup Docker Compose
 
@@ -61,27 +63,15 @@ Persistent files reside under `/data`. The file structure is auto-generated on s
 | `/data/users/default-config.json` | 🗎  | the user settings template. edit to predefine settings for new users                                                                                         |
 | `/data/favicon.png`        | 🗎  | provide a custom favicon                  |
 
+> You can customize these paths via environment variables defined [here](./Dockerfile#L63). This might be necessary if you for example want to track the `config.yml` separately in a git repository.
+
+
 ## 2. Configure Hubleys
 
 Edit the contents of `./data/config.yml`. The default example can be found [here](./src/lib/server/sysconfig/default.yml). After a config change restart the application *OR* go to Settings → Admin → Reload application.
 
-Fine-tuning is done via env vars defined [here](./Dockerfile#L60).
+Fine-tuning is done via environment variables defined [here](./Dockerfile#L60).
 
-### Directory Configuration
-
-The following environment variables can be used to configure the directories Hubleys stores content:
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `DATA_DIR` | `/data` | Base directory for all data |
-| `USERS_DIR` | `$DATA_DIR/users` | Directory for user-specific data |
-| `LOGOS_DIR` | `$DATA_DIR/logos` | Directory for logo files |
-| `WALLPAPER_DIR` | `$DATA_DIR/wallpaper` | Directory for wallpaper files |
-
-If the specific directory variables (`USERS_DIR`, `LOGOS_DIR`, `WALLPAPER_DIR`) are not set, they will default to subdirectories under `DATA_DIR`. This allows you to:
-- Keep everything under one base directory (default behavior)
-- Mount specific directories in different locations
-- Use different volumes for different types of data
 
 ## 3. Configure reverse proxy + auth provider
 

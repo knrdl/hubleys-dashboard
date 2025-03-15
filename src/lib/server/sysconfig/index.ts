@@ -2,9 +2,8 @@ import yaml from 'js-yaml'
 import { env } from '$env/dynamic/private'
 import { PUBLIC_BUILD_DATE, PUBLIC_VERSION } from '$env/static/public'
 import { isFile } from '$lib/server/fs'
-import fs from 'fs'
 import type { FileSysconfig, Sysconfig, SysconfigSection, SysconfigTile } from './types'
-import { PATHS } from '$lib/server/config'
+import { readFile, writeFile } from 'node:fs/promises'
 
 export let sysConfig: Sysconfig
 
@@ -81,12 +80,12 @@ function sanitizeFileConfig(config: FileSysconfig) {
 }
 
 async function loadConfig(): Promise<Sysconfig> {
-  if (!(await isFile(PATHS.CONFIG))) {
+  if (!(await isFile(env.APP_CONFIG_FILE!))) {
     const body = (await import('./default.yml?raw')).default
-    await fs.promises.writeFile(PATHS.CONFIG, body, { encoding: 'utf8' })
+    await writeFile(env.APP_CONFIG_FILE!, body, { encoding: 'utf8' })
   }
 
-  const configFile = await fs.promises.readFile(PATHS.CONFIG, { encoding: 'utf8' })
+  const configFile = await readFile(env.APP_CONFIG_FILE!, { encoding: 'utf8' })
   const config = yaml.load(configFile) as FileSysconfig
   sanitizeFileConfig(config)
 
