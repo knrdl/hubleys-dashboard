@@ -1,6 +1,7 @@
 function shutdownGracefully() {
   console.debug('Server shutdown')
   app.server.close()
+  process.exit(130)
 }
 
 process.on('SIGINT', shutdownGracefully)
