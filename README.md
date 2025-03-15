@@ -67,6 +67,22 @@ Edit the contents of `./data/config.yml`. The default example can be found [here
 
 Fine-tuning is done via env vars defined [here](./Dockerfile#L60).
 
+### Directory Configuration
+
+The following environment variables can be used to configure the directories Hubleys stores content:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `DATA_DIR` | `/data` | Base directory for all data |
+| `USERS_DIR` | `$DATA_DIR/users` | Directory for user-specific data |
+| `LOGOS_DIR` | `$DATA_DIR/logos` | Directory for logo files |
+| `WALLPAPER_DIR` | `$DATA_DIR/wallpaper` | Directory for wallpaper files |
+
+If the specific directory variables (`USERS_DIR`, `LOGOS_DIR`, `WALLPAPER_DIR`) are not set, they will default to subdirectories under `DATA_DIR`. This allows you to:
+- Keep everything under one base directory (default behavior)
+- Mount specific directories in different locations
+- Use different volumes for different types of data
+
 ## 3. Configure reverse proxy + auth provider
 
 Hubleys uses forward auth (also known as webproxy auth) to get all relevant user info via http header:

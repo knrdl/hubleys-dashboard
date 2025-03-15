@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import { opendir } from 'node:fs/promises'
 import path from 'node:path'
 import { lookup } from 'mrmime'
+import { PATHS } from '$lib/server/config'
 
 async function getFilename({ fspath, filename, uapath }: { fspath: string; filename: string; uapath?: string }) {
   try {
@@ -19,7 +20,7 @@ async function getFilename({ fspath, filename, uapath }: { fspath: string; filen
 export async function GET({ params }) {
   const filename = path.basename(params.slug)
 
-  const job1 = getFilename({ fspath: '/data/logos/', filename })
+  const job1 = getFilename({ fspath: PATHS.LOGOS, filename })
   const job2 = getFilename({ fspath: dev ? 'static/fallback-logos' : 'client/fallback-logos', uapath: '/fallback-logos', filename })
 
   const path1 = await job1
