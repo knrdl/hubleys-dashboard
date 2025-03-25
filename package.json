@@ -39,7 +39,7 @@
     "svelte-check": "^4.1.4",
     "svelte-fa": "^4.0.3",
     "sveltekit-i18n": "^2.4.2",
-    "tailwindcss": "^4.0.12",
+    "tailwindcss": "^4.0.15",
     "tslib": "^2.7.0",
     "typescript": "^5.7.3",
     "vite": "^5.4.14"
