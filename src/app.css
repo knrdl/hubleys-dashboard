@@ -20,6 +20,13 @@
   }
 }
 
+/* Prevent horizontal scrollbar caused by vertical scrollbar offset */
+@layer base {
+  html, body {
+    overflow-x: hidden;
+  }
+}
+
 :root {
   font-family:
     Arial,
