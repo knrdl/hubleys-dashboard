@@ -18,11 +18,10 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
-}
 
-/* Prevent horizontal scrollbar caused by vertical scrollbar offset */
-@layer base {
-  html, body {
+  /* Prevent horizontal scrollbar caused by vertical scrollbar offset */
+  html,
+  body {
     overflow-x: hidden;
   }
 }
