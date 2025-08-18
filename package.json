@@ -16,7 +16,7 @@
     "@fortawesome/free-brands-svg-icons": "^7.0.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@sveltejs/adapter-node": "^5.2.12",
-    "@sveltejs/kit": "^2.22.5",
+    "@sveltejs/kit": "^2.31.1",
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/vite": "^4.1.11",
