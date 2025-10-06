@@ -18,7 +18,7 @@
     "@sveltejs/adapter-node": "^5.2.12",
     "@sveltejs/kit": "^2.31.1",
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
-    "@tailwindcss/postcss": "^4.1.13",
+    "@tailwindcss/postcss": "^4.1.14",
     "@tailwindcss/vite": "^4.1.11",
     "@tsparticles/svelte": "^3.1.1",
     "@types/cookie": "^0.6.0",
