@@ -33,6 +33,8 @@ export async function GET({ url, locals }) {
     return json(resbody.map(res => res.phrase))
   } else if (Array.isArray(resbody) && resbody.every(item => typeof item === 'string')) {
     return json(resbody)
+  } else if (Array.isArray(resbody) && resbody.length === 4 && Array.isArray(resbody[1]) && resbody[1].every(item => typeof item === 'string'))
+    return json(resbody[1])
   } else {
     error(500, 'search provider response format not implemented')
   }
