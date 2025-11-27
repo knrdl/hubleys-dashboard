@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: hadolint/hadolint-action@v3.3.0
         with:
           dockerfile: Dockerfile
@@ -25,7 +25,7 @@ jobs:
     name: njsscan code scanning
     steps:
     - name: Checkout the code
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     - name: nodejsscan scan
       id: njsscan
       uses: ajinabraham/njsscan-action@master
