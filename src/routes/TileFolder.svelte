@@ -4,7 +4,7 @@
   import TileComponent from './Tile.svelte'
   import type { Tile } from '$lib/server/sysconfig/types'
 
-  const dispatch = createEventDispatcher()
+  const dispatch = createEventDispatcher<{ close: void }>()
   export let clickX: number = 0
   export let clickY: number = 0
 

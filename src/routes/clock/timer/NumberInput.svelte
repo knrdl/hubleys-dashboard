@@ -3,7 +3,7 @@
   import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
   import { createEventDispatcher } from 'svelte'
 
-  const dispatch = createEventDispatcher()
+  const dispatch = createEventDispatcher<{ overflow: void; underflow: void }>()
 
   export let value: number
 
