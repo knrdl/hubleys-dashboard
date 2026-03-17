@@ -56,6 +56,7 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
       <button
         title={$t('dashboard.menu')}
         on:click|preventDefault|stopPropagation={onMoreClick}
+        style="cursor: pointer;"
         class="
                     absolute -top-1 -right-1 inline-flex h-8
                     w-8 items-center justify-center
@@ -110,7 +111,9 @@ hover:from-teal-600/90 hover:via-sky-700/90 hover:to-indigo-700/90
     {/if}
   </div>
   {#if !only_icon || (!logo && !emoji)}
-    <h3 class="mt-1 overflow-hidden text-center leading-5 text-slate-300">{title || '???'}</h3>
+    {#if title}
+      <h3 class="mt-1 overflow-hidden text-center leading-5 text-slate-300">{title}</h3>
+    {/if}
     {#if subtitle}
       <h4 class="overflow-hidden text-center text-xs text-slate-300">{subtitle}</h4>
     {/if}
