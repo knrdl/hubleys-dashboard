@@ -30,7 +30,7 @@
     "@typescript-eslint/parser": "^8.58.1",
     "eslint": "^10.2.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-svelte": "^3.16.0",
+    "eslint-plugin-svelte": "^3.17.1",
     "lodash.debounce": "^4.0.8",
     "mrmime": "^2.0.0",
     "prettier": "^3.6.2",
