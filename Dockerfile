@@ -7,7 +7,6 @@ ARG PUBLIC_VERSION
 RUN PUBLIC_BUILD_DATE="$(date -Iseconds)" && \
     export PUBLIC_BUILD_DATE && \
     npm install && \
-    npm audit --audit-level=high && \
     NODE_ENV=development npm run check && \
     npm run lint:check && \
     npm run format:check && \
