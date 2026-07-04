@@ -66,6 +66,8 @@ ENV FAVICON_FILE="/data/favicon.png"
 ENV USERS_DIR="/data/users"
 ENV LOGOS_DIR="/data/logos"
 ENV WALLPAPER_DIR="/data/wallpaper"
+# max size in MB of user uploaded background images
+ENV BACKGROUND_IMG_MAX_UPLOAD_MB="10"
 
 # userinfo headers set by the reverse proxy
 ENV HTTP_HEADER_USERID="Remote-User"

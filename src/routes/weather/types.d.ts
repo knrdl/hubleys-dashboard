@@ -1,19 +1,5 @@
 export type WeatherConditions =
-  | 'Thunderstorm'
-  | 'Drizzle'
-  | 'Rain'
-  | 'Snow'
-  | 'Mist'
-  | 'Smoke'
-  | 'Haze'
-  | 'Dust'
-  | 'Fog'
-  | 'Sand'
-  | 'Ash'
-  | 'Squall'
-  | 'Tornado'
-  | 'Clear'
-  | 'Clouds'
+  'Thunderstorm' | 'Drizzle' | 'Rain' | 'Snow' | 'Mist' | 'Smoke' | 'Haze' | 'Dust' | 'Fog' | 'Sand' | 'Ash' | 'Squall' | 'Tornado' | 'Clear' | 'Clouds'
 
 interface BaseWeather {
   weather_type: WeatherConditions

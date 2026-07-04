@@ -79,6 +79,7 @@ export interface Sysconfig extends BaseSysconfig {
   httpcache_ttl: number
 
   logLevel: 'debug' | 'info' | 'warn' | 'error'
+  backgroundImgMaxUploadSizeMb: number
 
   appInfo: {
     buildDate: string

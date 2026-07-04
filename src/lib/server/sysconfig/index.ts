@@ -99,12 +99,18 @@ async function loadConfig(): Promise<Sysconfig> {
     if (!/^(user|group):/.test(adm)) console.error('invalid admin identifier:', adm)
   })
 
+  const backgroundImgMaxUploadSizeMb = parseInt(env.BACKGROUND_IMG_MAX_UPLOAD_MB!)
+  if (isNaN(backgroundImgMaxUploadSizeMb) || backgroundImgMaxUploadSizeMb <= 0) {
+    console.error('invalid BACKGROUND_IMG_MAX_UPLOAD_MB value:', env.BACKGROUND_IMG_MAX_UPLOAD_MB)
+  }
+
   return {
     ...config,
     single_user_mode: ['1', 'true', 'yes'].includes((env.SINGLE_USER_MODE || '').toLowerCase().trim()),
     admins: [...adminUserIds, ...admins],
     unsplash_api_key: env.UNSPLASH_API_KEY || null,
     openweathermap_api_key: env.OPENWEATHERMAP_API_KEY || null,
+    backgroundImgMaxUploadSizeMb: backgroundImgMaxUploadSizeMb,
     server_request_timeout: {
       failfast: parseInt(env.SERVER_REQUEST_FAILFAST_TIMEOUT as string),
       max: parseInt(env.SERVER_REQUEST_MAX_TIMEOUT as string)
