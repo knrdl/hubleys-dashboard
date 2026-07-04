@@ -14,7 +14,10 @@ export async function GET({ params, locals }) {
       if (await isFile(p)) {
         if (isExtensionValidImage(path.extname(p)))
           return new Response(fs.createReadStream(p) as unknown as ReadableStream, {
-            headers: { 'Content-Type': lookup(params.wallpaper) || 'application/octet-stream' }
+            headers: {
+              'Content-Type': lookup(params.wallpaper) || 'application/octet-stream',
+              'X-Content-Type-Options': 'nosniff'
+            }
           })
         else error(500, 'invalid image file')
       } else error(404, 'file not found')
