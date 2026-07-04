@@ -8,7 +8,6 @@ RUN PUBLIC_BUILD_DATE="$(date -Iseconds)" && \
     export PUBLIC_BUILD_DATE && \
     npm install && \
     npm audit --audit-level=high && \
-    yarn licenses generate-disclaimer > static/3rdpartylicenses.txt && \
     NODE_ENV=development npm run check && \
     npm run lint:check && \
     npm run format:check && \

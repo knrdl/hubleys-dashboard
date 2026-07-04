@@ -96,13 +96,6 @@
   <span class="mr-2 rounded-sm bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">{data.userLang}</span>
 </p>
 
-<p class="mt-3 ml-1">
-  <a href="/3rdpartylicenses.txt" class="flex items-center gap-2 text-blue-600" target="_blank">
-    <Fa icon={faSection} />
-    Open Source Licenses</a
-  >
-</p>
-
 <form method="POST" on:submit|preventDefault={handleSubmit} action="?/save" class="mt-4 flex justify-end">
   <SaveButton />
 </form>
