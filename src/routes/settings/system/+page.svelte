@@ -4,8 +4,6 @@
   import { invalidateAll } from '$app/navigation'
   import Message from '../Message.svelte'
   import type { PageData, ActionData } from './$types'
-  import { faSection } from '@fortawesome/free-solid-svg-icons'
-  import Fa from 'svelte-fa'
 
   export let data: PageData
   export let form: ActionData
