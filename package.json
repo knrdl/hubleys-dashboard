@@ -34,7 +34,7 @@
     "lodash.debounce": "^4.0.8",
     "mrmime": "^2.0.0",
     "prettier": "^3.6.2",
-    "prettier-plugin-svelte": "^3.4.0",
+    "prettier-plugin-svelte": "^4.1.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "svelte": "^4.2.20",
     "svelte-check": "^4.4.6",
