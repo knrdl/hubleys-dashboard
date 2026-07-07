@@ -42,7 +42,7 @@
     "sveltekit-i18n": "^2.4.2",
     "tailwindcss": "^4.1.17",
     "tslib": "^2.7.0",
-    "typescript": "^5.8.3",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.57.1",
     "vite": "^5.4.21"
   },
