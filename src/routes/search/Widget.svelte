@@ -15,6 +15,11 @@
 
   let query: string = ''
 
+  export let dashboardFilter: string = ''
+  $: {
+    dashboardFilter = selectedEngine?.filter_on_search ? query.trim().toLowerCase() : ''
+  }
+
   const handleInput = debounce(() => {
     if (selectedEngine.autocomplete_url) {
       if (query.length > 2) {
@@ -37,8 +42,10 @@
   })
 
   function submit(e: SubmitEvent) {
-    ;(e.target as HTMLFormElement).submit()
-    tick().then(() => (query = ''))
+    if (selectedEngine?.search_url) {
+      ;(e.target as HTMLFormElement).submit()
+      tick().then(() => (query = ''))
+    }
   }
 
   let wheelBlocked: boolean = false
@@ -85,9 +92,11 @@
           <option value={result} />
         {/each}
       </datalist>
-      {#each new URL(selectedEngine.search_url).searchParams as [k, v]}
-        <input type="hidden" name={k} value={v} />
-      {/each}
+      {#if selectedEngine.search_url}
+        {#each new URL(selectedEngine.search_url).searchParams as [k, v]}
+          <input type="hidden" name={k} value={v} />
+        {/each}
+      {/if}
       <input
         type="search"
         name={selectedEngine.search_parameter || 'q'}
@@ -101,13 +110,15 @@
         class:border-l-0={engines?.length > 1}
         class="block w-full rounded-none rounded-r-full border border-gray-300 bg-gray-100/70 p-2.5 text-gray-900 placeholder-gray-600 group-hover:bg-gray-200 focus:ring-2 focus:ring-gray-100 focus:outline-hidden dark:border-gray-600 dark:bg-gray-700/75 dark:text-white dark:placeholder-gray-400 dark:group-hover:bg-gray-700 dark:focus:ring-gray-700"
       />
-      <button
-        type="submit"
-        class="absolute top-0 right-0 flex h-full w-10 items-center justify-center rounded-r-full border border-gray-300 bg-gray-100/10 text-sm font-medium text-gray-900 group-hover:bg-gray-200 focus:ring-2 focus:ring-gray-100 focus:outline-hidden dark:border-gray-600 dark:bg-gray-700/75 dark:text-gray-100 dark:group-hover:bg-gray-700 dark:focus:ring-blue-800"
-      >
-        <Fa icon={faSearch} />
-        <span class="sr-only">search</span>
-      </button>
+      {#if selectedEngine.search_url}
+        <button
+          type="submit"
+          class="absolute top-0 right-0 flex h-full w-10 items-center justify-center rounded-r-full border border-gray-300 bg-gray-100/10 text-sm font-medium text-gray-900 group-hover:bg-gray-200 focus:ring-2 focus:ring-gray-100 focus:outline-hidden dark:border-gray-600 dark:bg-gray-700/75 dark:text-gray-100 dark:group-hover:bg-gray-700 dark:focus:ring-blue-800"
+        >
+          <Fa icon={faSearch} />
+          <span class="sr-only">search</span>
+        </button>
+      {/if}
     </div>
   </div>
 </form>

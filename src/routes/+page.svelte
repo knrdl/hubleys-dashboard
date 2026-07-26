@@ -8,9 +8,32 @@
   import { t } from '$lib/translations'
   import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
   import Fa from 'svelte-fa'
+  import type { SysconfigTile } from '$lib/server/sysconfig/types'
 
   export let data: PageData
   let container: HTMLElement
+
+  let dashboardFilter: string = ''
+  let filteredSections: typeof data.sections = []
+  $: {
+    function filterTile(tile: SysconfigTile): SysconfigTile | undefined {
+      const menuTiles = tile.menu ? tile.menu.tiles.map(t => filterTile(t)).filter(e => !!e) : []
+      const outputTile = { ...tile, menu: tile.menu ? { ...tile.menu, tiles: menuTiles } : undefined }
+      if (menuTiles.length > 0) return outputTile
+      if (tile.title?.toLowerCase().includes(dashboardFilter)) return tile
+      if (tile.subtitle?.toLowerCase().includes(dashboardFilter)) return tile
+    }
+
+    filteredSections =
+      dashboardFilter.length > 0
+        ? data.sections
+            .map(section => {
+              const tiles = section.tiles.map(tile => filterTile(tile)).filter(e => !!e)
+              return tiles.length > 0 ? { ...section, tiles } : undefined
+            })
+            .filter(e => !!e)
+        : data.sections
+  }
 </script>
 
 <svelte:head>
@@ -23,7 +46,7 @@
 >
   {#if data.userConfig.searchbar.show && data.searchEngines?.length > 0}
     <section class="flex w-full justify-center">
-      <Searchbar engines={data.searchEngines} />
+      <Searchbar engines={data.searchEngines} bind:dashboardFilter />
     </section>
   {/if}
 
@@ -64,7 +87,7 @@
       </section>
     {/if}
 
-    {#each data.sections as section}
+    {#each filteredSections as section}
       <section class="flex flex-col justify-center" class:max-w-screen-lg={data.userConfig.tiles.layout === 'center'}>
         {#if section.title || section.subtitle}
           <div class="mt-4 flex flex-col items-center justify-center">

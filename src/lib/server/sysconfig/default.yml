@@ -7,6 +7,9 @@
 #   deny:  [user:user1]
 
 search_engines:
+  - title: Dashboard
+    filter_on_search: true # the search term will be used to filter the dashboard tiles
+    allow: true # shown to everybody
   - title: DuckDuckGo
     search_url: https://duckduckgo.com/
     autocomplete_url: https://duckduckgo.com/ac/
