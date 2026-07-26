@@ -17,7 +17,7 @@
 
   export let dashboardFilter: string = ''
   $: {
-    dashboardFilter = selectedEngine?.filter_on_search ? query.trim().toLowerCase() : ''
+    dashboardFilter = selectedEngine?.filter_dashboard ? query.trim().toLowerCase() : ''
   }
 
   const handleInput = debounce(() => {
