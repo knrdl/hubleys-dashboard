@@ -1,0 +1,24 @@
+services:
+  app:
+    build: ..
+    hostname: app
+    networks:
+      - ingress
+    volumes:
+      - $PWD/data:/data
+      - $PWD/../:/app
+    environment:
+      ADMINS: group:admin
+    command: "npm run dev"
+
+  proxy:
+    image: caddy:alpine
+    networks:
+      - ingress
+    volumes:
+      - $PWD/Caddyfile.dev:/etc/caddy/Caddyfile:ro
+    ports:
+      - "8080:8080"
+
+networks:
+  ingress:
