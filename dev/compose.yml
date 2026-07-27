@@ -6,10 +6,13 @@ services:
       - ingress
     volumes:
       - $PWD/data:/data
-      - $PWD/../:/app
+      - $PWD/../:/app-dev
+    working_dir: /app-dev
+    user: '1000:1000'
     environment:
       ADMINS: group:admin
-    command: "npm run dev"
+      NODE_ENV: ''
+    command: "sh -c 'npm install && npm run dev'"
 
   proxy:
     image: caddy:alpine
