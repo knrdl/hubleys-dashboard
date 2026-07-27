@@ -7,7 +7,7 @@
   onMount(async () => {
     const pattern = trianglify({ width: window.innerWidth, height: window.innerHeight })
     pattern.toCanvas(triangleCanvas)
-    // trianglify sets CSS width/height on large screens which prevents resizes 
+    // trianglify sets CSS width/height on large screens which prevents resizes
     triangleCanvas.style.width = ''
     triangleCanvas.style.height = ''
   })
