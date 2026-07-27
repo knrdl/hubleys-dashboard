@@ -1,0 +1,13 @@
+{
+	"name": "Node.js & TypeScript",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:4-24-trixie",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"svelte.svelte-vscode",
+				"bradlc.vscode-tailwindcss"
+			]
+		}
+	},
+	"postCreateCommand": "npm install"
+}
