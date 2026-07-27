@@ -7,6 +7,9 @@
 				"svelte.svelte-vscode",
 				"bradlc.vscode-tailwindcss"
 			]
+		},
+		"settings": {
+			"editor.formatOnSave": true
 		}
 	},
 	"postCreateCommand": "npm install"
