@@ -26,7 +26,7 @@ export async function GET({ url, locals }) {
   if (!response.ok || response.status === 204) error(504, 'search provider error: ' + (await response.text()))
   const resbody: any = (await response.json()) as unknown
   if (resbody.suggestions) {
-    return json(resbody.suggestions.map((suggestion: { text: string }) => suggestion.text))
+    return json(resbody.suggestions.map((suggestion: { text: string } | string) => (typeof suggestion === 'string' ? suggestion : suggestion.text)))
   } else if (Array.isArray(resbody) && resbody.length === 2 && resbody[0] === searchTerm) {
     return json(resbody[1])
   } else if (Array.isArray(resbody) && resbody.length > 0 && resbody[0].phrase) {

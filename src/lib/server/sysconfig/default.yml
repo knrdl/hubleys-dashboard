@@ -21,6 +21,10 @@ search_engines:
     search_url: https://wikipedia.org/w/index.php
     search_parameter: search # the url parameter which holds the query term (default: "q")
     allow: true
+  - title: Ecosia
+    search_url: https://www.ecosia.org/search
+    autocomplete_url: https://ac.ecosia.org/
+    allow: true
   - title: Wolfram Alpha # calculator
     search_url: https://www.wolframalpha.com/input
     search_parameter: i
