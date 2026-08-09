@@ -31,19 +31,20 @@ ENV NODE_ENV=production
 ARG NODE_OPTIONS=""
 ENV NODE_OPTIONS="$NODE_OPTIONS --unhandled-rejections=strict"
 
-COPY --from=build --chown=node:node /app/build /app
+COPY --from=build --chown=1000:1000 /app/build /app
 COPY --from=deps --chown=0:0 /app/node_modules /app/node_modules
 COPY --chown=0:0 package.json package-lock.json entrypoint.js .npmrc /app/
 
 VOLUME /data
 RUN mkdir -p /data && \
-    chown -R node:node /data
+    chown -R 1000:1000 /data
 
-USER node
+USER 1000
 WORKDIR /app
 
 EXPOSE 3000/tcp
 
+# hadolint ignore=DL3025
 HEALTHCHECK --interval=30s --timeout=1s --retries=2 \
     CMD curl --fail --silent --output /dev/null --header "$HTTP_HEADER_USERID: healthcheck" "http://localhost:3000/healthcheck"
 
