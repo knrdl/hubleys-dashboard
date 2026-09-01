@@ -50,7 +50,7 @@
     "@victorioberra/trianglify-browser": "^4.1.1",
     "ical.js": "^2.2.1",
     "js-yaml": "^4.3.1",
-    "tsparticles": "^3.8.1"
+    "tsparticles": "^4.3.2"
   },
   "type": "module"
 }
